@@ -1,13 +1,16 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
+app.use(morgan('combined'))
 // Thiết lập các thư mục tĩnh
 app.use(express.static('public'));
+
 app.set('views', 'views');
 app.set('view engine', 'html');
 
 // Sử dụng các routes đã được định nghĩa
-const customerRoutes = require('./app/routes/Customer');
+const customerRoutes = require('../routes/Customer');
 app.use('/', customerRoutes);
 
 // Định nghĩa các routes cho admin ở đây
