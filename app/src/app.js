@@ -10,7 +10,7 @@ const app = express();
 app.use(morgan('combined'))
 
 // Thiết lập các thư mục tĩnh
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/cus', express.static(path.join(__dirname, '../public/cus')));
 
 //template engine
 app.engine('hbs',handlebars.engine({
@@ -21,16 +21,19 @@ app.set('view engine', 'hbs');
 
 
 
-// app.set('view engine', 'html');
-app.set('views', path.join(__dirname, '../views'));
 
-console.log(path.join(__dirname, '../public'));
+app.set('views', path.join(__dirname, '../views/Customer'));
+
+
 
 
 
 // Sử dụng các routes đã được định nghĩa
 const customerRoutes = require('../routes/Customer');
-app.use('/', customerRoutes);
+app.use('/cus', customerRoutes);
+
+const AdminRoutes = require('../routes/Admin');
+app.use('/admin', AdminRoutes);
 
 // Định nghĩa các routes cho admin ở đây
 

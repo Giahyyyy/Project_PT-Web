@@ -24,10 +24,8 @@ router.get('/register', customerController.renderRegisterPage);
 
 router.get('/home', customerController.renderHomePage);
 
-// router.get('/',(req,res) =>{
-//     res.render('about/index');
-// })  
 
-// // Định nghĩa các route khác cho admin ở đây
+
+
 
 module.exports = router;
