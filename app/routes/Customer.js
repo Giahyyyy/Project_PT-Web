@@ -10,7 +10,23 @@ const customerController = require('../controllers/Customer');
 //     return res.send('Hello World!');
 // });
 
-router.get('/', customerController.renderAboutPage);
+router.get('/about', customerController.renderAboutPage);
+
+router.get('/cart', customerController.renderCartPage);
+
+router.get('/checkout', customerController.renderCheckoutPage);
+
+router.get('/contact', customerController.renderContactPage);
+
+router.get('/login', customerController.renderLoginPage);
+
+router.get('/register', customerController.renderRegisterPage);
+
+router.get('/home', customerController.renderHomePage);
+
+// router.get('/',(req,res) =>{
+//     res.render('about/index');
+// })  
 
 // // Định nghĩa các route khác cho admin ở đây
 
