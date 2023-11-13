@@ -36,7 +36,7 @@ app.use('/cus', customerRoutes);
 const AdminRoutes = require('../routes/Admin');
 app.use('/admin', AdminRoutes);
 
-// Định nghĩa các routes cho admin ở đây
+
 
 // Khởi động máy chủ
 app.listen(3000, () => {
