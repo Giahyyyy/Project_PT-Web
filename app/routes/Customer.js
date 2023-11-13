@@ -12,6 +12,10 @@ const customerController = require('../controllers/Customer');
 
 router.get('/', customerController.renderAboutPage);
 
+// router.get('/',(req,res) =>{
+//     res.render('about/index');
+// })  
+
 // // Định nghĩa các route khác cho admin ở đây
 
 module.exports = router;

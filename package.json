@@ -5,6 +5,7 @@
   "main": "app/src/app.js",
   "scripts": {
     "start": "nodemon app/src/app.js",
+    "watch": "node-sass app/public/scss app/src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,7 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "express-handlebars": "^7.1.2",
+    "morgan": "^1.10.0",
+    "node-sass": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
