@@ -10,7 +10,7 @@ const app = express();
 app.use(morgan('combined'))
 
 // Thiết lập các thư mục tĩnh
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 
 //template engine
 app.engine('hbs',handlebars.engine({
@@ -24,7 +24,7 @@ app.set('view engine', 'hbs');
 // app.set('view engine', 'html');
 app.set('views', path.join(__dirname, '../views'));
 
-console.log(path.join(__dirname, '../views'));
+console.log(path.join(__dirname, '../public'));
 
 
 
