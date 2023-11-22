@@ -2,13 +2,17 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
+const collection = require("./config")
+
 const app = express();
+
 
 
 
 const homeRoutes = require('../components/site/SiteRoutes');
 const aboutRoutes = require('../components/site/SiteRoutes');
 const contactRoutes = require('../components/Contact/ContactRoutes');
+
 
 //HTTP logger
 app.use(morgan('combined'))
