@@ -2,7 +2,13 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
+const collection = require("./config")
+
 const app = express();
+
+
+
+
 
 
 
