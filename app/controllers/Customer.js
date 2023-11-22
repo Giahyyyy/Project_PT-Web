@@ -1,5 +1,7 @@
 // controllers/Customer.js
 
+
+const homeComponent = require('../components/home/HomeController')
  // Định nghĩa phương thức để xử lý yêu cầu cho trang khách hàng
  const renderHomePage = (req, res) => {
     res.render('home/index')
