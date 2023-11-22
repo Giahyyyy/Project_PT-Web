@@ -1,10 +1,10 @@
 const express = require('express');
-const homeController = require('./SiteController');
-const aboutController = require('./SiteController');
+const siteController = require('./SiteController');
+
 
 const router = express.Router();
 
-router.get('/', homeController.renderHomePage);
-router.get('/', homeController.renderAboutPage);
+router.get('/', siteController.renderHomePage);
+router.get('/', siteController.renderAboutPage);
 
 module.exports = router;

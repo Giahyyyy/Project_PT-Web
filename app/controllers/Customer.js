@@ -1,15 +1,8 @@
 // controllers/Customer.js
 
 
-const homeComponent = require('../components/home/HomeController')
- // Định nghĩa phương thức để xử lý yêu cầu cho trang khách hàng
- const renderHomePage = (req, res) => {
-    res.render('home/index')
-};
 
- const renderAboutPage = (req, res) => {
-    res.render('about/index')
-};
+ // Định nghĩa phương thức để xử lý yêu cầu cho trang khách hàng
 
 const renderCartPage = (req, res) => {
     res.render('cart/index')
@@ -17,10 +10,6 @@ const renderCartPage = (req, res) => {
 
 const renderCheckoutPage = (req, res) => {
     res.render('checkout/index')
-};
-
-const renderContactPage = (req, res) => {
-    res.render('contact/index')
 };
 
 const renderLoginPage = (req, res) => {
