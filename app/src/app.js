@@ -7,15 +7,9 @@ const collection = require("./config")
 const app = express();
 
 
+const routeCus = require('../routes/Customer')
 
 
-const homeRoutes = require('../components/site/SiteRoutes');
-const aboutRoutes = require('../components/site/SiteRoutes');
-const contactRoutes = require('../components/Contact/ContactRoutes');
-const checkoutRoutes = require('../components/Checkout/CheckoutRoutes');
-const cartRoutes = require('../components/Cart/CartRoutes');
-const loginRoutes = require('../components/Authentication/AuthenticationRoutes');
-const registerRoutes = require('../components/Authentication/AuthenticationRoutes');
 
 //HTTP logger
 app.use(morgan('combined'))
@@ -23,7 +17,9 @@ app.use(morgan('combined'))
 // Thiết lập các thư mục tĩnh
 app.use('/cus', express.static(path.join(__dirname, '../public/cus')));
 app.use('/admin', express.static(path.join(__dirname, '../public/admin')));
-// app.use(express.static(path.join(__dirname, '../public/cus')));
+app.use('/cus/authen',express.static(path.join(__dirname, '../public/cus')));
+app.use('/cus/site',express.static(path.join(__dirname, '../public/cus')));
+
 // console.log(path.join(__dirname, '../public'));
 
 //template engine
@@ -50,14 +46,13 @@ app.set('views', [path.join(__dirname, '../views/Customer'), path.join(__dirname
 const AdminRoutes = require('../routes/Admin');
 app.use('/admin', AdminRoutes);
 
-// Customer
-app.use('/cus/home',homeRoutes);
-app.use('/cus/about',aboutRoutes);
-app.use('/cus/contact',contactRoutes);
-app.use('/cus/checkout',checkoutRoutes);
-app.use('/cus/cart',cartRoutes);
-app.use('/cus/login',loginRoutes);
-app.use('/cus/register',registerRoutes);
+
+
+// Route
+routeCus(app);
+
+
+
 
  
 

@@ -3,7 +3,7 @@ const authenticationController = require('./AuthenticationController');
 
 const router = express.Router();
 
-router.get('/', authenticationController.renderLoginPage);
-router.get('/', authenticationController.renderRegisterPage);
+router.get('/login', authenticationController.renderLoginPage);
+router.get('/register', authenticationController.renderRegisterPage);
 
 module.exports = router;
