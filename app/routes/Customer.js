@@ -3,11 +3,11 @@
 const cusController =require("../controllers/Customer")
 
 function route (app) {
-    app.use('/cus/site',cusController.siteRoutes);
-    app.use('/cus/contact',cusController.contactRoutes);
-    app.use('/cus/checkout',cusController.checkoutRoutes);
-    app.use('/cus/cart',cusController.cartRoutes);
-    app.use('/cus/authen',cusController.authenticationRoutes);
+    app.use('/site',cusController.siteRoutes);
+    app.use('/contact',cusController.contactRoutes);
+    app.use('/checkout',cusController.checkoutRoutes);
+    app.use('/cart',cusController.cartRoutes);
+    app.use('/authen',cusController.authenticationRoutes);
    
 }
 

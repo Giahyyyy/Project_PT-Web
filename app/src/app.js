@@ -10,10 +10,10 @@ const app = express();
 app.use(morgan('combined'))
 
 // Thiết lập các thư mục tĩnh
-app.use('/cus', express.static(path.join(__dirname, '../public/cus')));
+app.use('/', express.static(path.join(__dirname, '../public/cus')));
 app.use('/admin', express.static(path.join(__dirname, '../public/admin')));
-app.use('/cus/authen',express.static(path.join(__dirname, '../public/cus')));
-app.use('/cus/site',express.static(path.join(__dirname, '../public/cus')));
+app.use('/authen',express.static(path.join(__dirname, '../public/cus')));
+app.use('/site',express.static(path.join(__dirname, '../public/cus')));
 
 // console.log(path.join(__dirname, '../public'));
 
