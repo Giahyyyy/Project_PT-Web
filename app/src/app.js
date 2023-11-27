@@ -6,11 +6,6 @@ const collection = require("./config")
 
 const app = express();
 
-
-const routeCus = require('../routes/Customer')
-
-
-
 //HTTP logger
 app.use(morgan('combined'))
 
@@ -29,34 +24,35 @@ app.engine('hbs',handlebars.engine({
 app.set('view engine', 'hbs');
 
 
-
-
-
 //app.set('views', path.join(__dirname, '../views/Customer'));
 // app.set('views', path.join(__dirname, '../views'));
 
 app.set('views', [path.join(__dirname, '../views/Customer'), path.join(__dirname, '../views/Admin')]);
 
-
-
 // Sử dụng các routes đã được định nghĩa
 // const customerRoutes = require('../routes/Customer');
 // app.use('/cus', customerRoutes);
+const routeCus = require('../routes/Customer')
 
 const AdminRoutes = require('../routes/Admin');
 app.use('/admin', AdminRoutes);
 
 
 
+
 // Route
 routeCus(app);
 
+//Kết nối tới db
+const db = require('./config');
+const User = require('../model/UserSchema');
 
 
 
- 
 
 // Khởi động máy chủ
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
+
+

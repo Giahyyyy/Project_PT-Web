@@ -5,5 +5,4 @@ const renderCartPage = (req, res) => {
 module.exports = {
 
     renderCartPage,
-
   };

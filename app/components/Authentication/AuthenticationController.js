@@ -7,7 +7,6 @@ const renderRegisterPage = (req, res) => {
 };
 
 module.exports = {
-
     renderLoginPage,
     renderRegisterPage,
 

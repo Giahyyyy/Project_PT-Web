@@ -1,24 +1,16 @@
+// db.js
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const connect = mongoose
-  .connect("mongodb://localhost:27017/food-shop")
-  .then(() => {
-    console.log("Connect mongo success");
-  })
-  .catch(() => console.log("Connect mongo false"));
+const db = mongoose.connection;
 
-const LoginSchema = new Schema({    
-  name: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+db.on('error', (err) => {
+  console.error('Lỗi kết nối MongoDB:', err);
 });
 
-const UserModel = mongoose.model("users", LoginSchema);
+db.on('open', () => {
+  console.log('Đã kết nối thành công với cơ sở dữ liệu MongoDB');
+});
 
-module.exports = UserModel;
+mongoose.connect('mongodb://localhost:27017/food-shop');
+
+module.exports = db;
