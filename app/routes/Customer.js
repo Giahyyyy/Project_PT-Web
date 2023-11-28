@@ -8,6 +8,7 @@ function route (app) {
     app.use('/checkout',cusController.checkoutRoutes);
     app.use('/cart',cusController.cartRoutes);
     app.use('/authen',cusController.authenticationRoutes);
+
    
 }
 

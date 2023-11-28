@@ -44,8 +44,6 @@ app.use('/admin', AdminRoutes);
 routeCus(app);
 
 //Kết nối tới db
-const db = require('./config');
-const User = require('../model/UserSchema');
 
 
 

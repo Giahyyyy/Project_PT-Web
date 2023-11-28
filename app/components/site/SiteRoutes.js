@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get('/home', siteController.renderHomePage);
 router.get('/about', siteController.renderAboutPage);
+router.get('/shop', siteController.renderShopPage);
 
 module.exports = router;

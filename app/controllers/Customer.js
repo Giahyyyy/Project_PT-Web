@@ -6,8 +6,9 @@ const cartRoutes = require('../components/Cart/CartRoutes');
 const authenticationRoutes = require('../components/Authentication/AuthenticationRoutes');
 
 
-module.exports = {
 
+
+module.exports = {
     siteRoutes,
     contactRoutes,
     checkoutRoutes,
