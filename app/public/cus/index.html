@@ -1,413 +1,606 @@
 <!DOCTYPE html>
-<html>
-    <title>Freshcery | Groceries Organic Store</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-        <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
-        <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
+<html lang="en">
 
-        <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap/bootstrap.css">
-        <link rel="stylesheet" type="text/css" media="all" href="assets/packages/o2system-ui/o2system-ui.css">
-        <link rel="stylesheet" type="text/css" media="all" href="assets/packages/owl-carousel/owl-carousel.css">
-        <link rel="stylesheet" type="text/css" media="all" href="assets/packages/cloudzoom/cloudzoom.css">
-        <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
-        <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
-        <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Presentation | Shopery</title>
+    <link rel="icon" type="image/png" href="src/images/favicon/favicon-16x16.png" />
+    <link rel="stylesheet" href="src/lib/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="src/lib/css/bvselect.css" />
+    <link rel="stylesheet" href="src/lib/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="src/css/style.css" />
+</head>
+<style>
+    .templatecookie-btn {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        z-index: 10000000000000000 !important;
+    }
+
+    .templatecookie-btn .purchase-btn {
+        box-shadow: 0px 0px 3px 0px white !important;
+        background-color: #171717 !important;
+        color: white !important;
+        width: max-content !important;
+        display: flex !important;
+        align-items: center !important;
+        padding: 0px 20px !important;
+        height: 50px !important;
+        border-radius: 30px !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        animation-name: wave-animation !important;
+        animation-duration: 2.5s !important;
+        animation-iteration-count: infinite !important;
+        transform-origin: 70% 70% !important;
+    }
+
+    .templatecookie-btn .purchase-btn span svg {
+        margin-left: 8px;
+        display: block;
+        width: 20px;
+        height: 18px;
+    }
+
+    .templatecookie-btn .purchase-btn span svg path {
+        stroke: white;
+    }
+
+    .templatecookie-btn .purchase-btn:hover {
+        animation-name: unset !important;
+    }
+
+    @keyframes wave-animation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        10% {
+            transform: rotate(14deg);
+        }
+
+        20% {
+            transform: rotate(-8deg);
+        }
+
+        30% {
+            transform: rotate(14deg);
+        }
+
+        40% {
+            transform: rotate(-4deg);
+        }
+
+        50% {
+            transform: rotate(10deg);
+        }
+
+        60% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+</style>
+
 <body>
-    <div class="page-header">
-        <!--=============== Navbar ===============-->
-        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
-            <div class="container">
-                <!-- Navbar Brand -->
-                <a href="/cus/site/home" class="navbar-brand">
-                    <img src="assets/img/logo/logo.png" alt="">
-                </a>
+    <div class="loader">
+        <div class="loader-icon">
+            <img src="src/images/loader.gif" alt="loader" />
+        </div>
+    </div>
 
-                <!-- Toggle Button -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <header class="section header--six">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="./index.html">
+                    <img src="src/images/logo-nl.png" alt="" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarcollapse">
-                    <!-- Navbar Menu -->
-                    <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="./shop.html" class="nav-link">Shop</a>
+                            <a class="nav-link" aria-current="page" href="#preview">Demos</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/cus/authen/register" class="nav-link">Register</a>
+                            <a class="nav-link" href="#feature">Feature</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/cus/authen/login" class="nav-link">Login</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> John Doe
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="transaction.html">Transactions History</a>
-                                <a class="dropdown-item" href="setting.html">Settings</a>
-                            </div>
-                          </li>
-                        <li class="nav-item dropdown">
-                            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
-                            </a>
-                            <div class="dropdown-menu shopping-cart">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Your Cart</div>
-                                    </li>
-                                    <li>
-                                        <div class="shopping-cart-list">
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="drop-title d-flex justify-content-between">
-                                            <span>Total:</span>
-                                            <span class="text-primary"><strong>Rp. 2000.000</strong></span>
-                                        </div>
-                                    </li>
-                                    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
-                                        <a href="/cus/cart" class="btn btn-secondary">View Cart</a>
-                                        <a href="/cus/checkout" class="btn btn-primary">Checkout</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <a class="nav-link" target="_blank" href="docs/index.html">Documentation</a>
                         </li>
                     </ul>
+                    <form action="#" class="">
+                        <a href="https://1.envato.market/kjkaBN" target="_blank" class="button button--lg text-white">
+                            Purchase Now
+                            <span>
+                                <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 7.50049H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9.95001 1.47559L16 7.49959L9.95001 13.5246" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </form>
                 </div>
-
             </div>
         </nav>
-    </div>
-    <div id="page-content" class="page-content">
-        <div class="banner">
-            <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">
-                <video width="100%" preload="auto" loop autoplay muted>
-                    <source src='assets/media/explore.mp4' type='video/mp4' />
-                    <source src='assets/media/explore.webm' type='video/webm' />
-                </video>
-                <div class="container">
-                    <h1 class="pt-5">
-                        Save time and leave the<br>
-                        groceries to us.
-                    </h1>
-                    <p class="lead">
-                        Always Fresh Everyday.
-                    </p>
+    </header>
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fa fa-shopping-basket"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Buy
-                                    </h4>
-                                    <p class="card-text">
-                                        Simply click-to-buy on the product you want and submit your order when you're done.
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fas fa-leaf"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Harvest
-                                    </h4>
-                                    <p class="card-text">
-                                        Our team ensures the produce quality is up to our standard and delivers to your door within 24 hours of harvest day.
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fa fa-truck"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Delivery
-                                    </h4>
-                                    <p class="card-text">
-                                        Farmers receive your orders two days in advance so they can prepare for harvest exactly as your orders – no wasted produce.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section id="why">
-            <h2 class="title">Why Freschery</h2>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card border-0 text-center gray-bg">
-                            <div class="card-icon">
-                                <div class="card-icon-i text-success">
-                                    <i class="fas fa-leaf"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    Straight from the Farm
-                                </h4>
-                                <p class="card-text">
-                                    Our farm-to-table concept emphasizes on getting the fresh produce directly from local farms to your tables within one day, hence you know you get the freshest produce straight from harvest.
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card border-0 text-center gray-bg">
-                            <div class="card-icon">
-                                <div class="card-icon-i text-success">
-                                    <i class="fa fa-question"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    Know Your Farmers
-                                </h4>
-                                <p class="card-text">
-                                    We want you to know exactly who is growing your food by having the farmers profile on each item and farmers page. You’re welcome to visit the farms and see the love they put into growing your food.
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card border-0 text-center gray-bg">
-                            <div class="card-icon">
-                                <div class="card-icon-i text-success">
-                                    <i class="fas fa-smile"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    Improving Farmers’ Livelihood
-                                </h4>
-                                <p class="card-text">
-                                    Slowly but sure, by cutting the complex supply chain and food system, we hope to improve the welfare of farmers by giving them the returns they deserve for their hard work.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mt-5 text-center">
-                        <a href="shop.html" class="btn btn-primary btn-lg">SHOP NOW</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="categories" class="pb-0 gray-bg">
-            <h2 class="title">Categories</h2>
-            <div class="landing-categories owl-carousel">
-                <div class="item">
-                    <div class="card rounded-0 border-0 text-center">
-                        <img src="assets/img/vegetables.jpg">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                            <!-- <h4 class="card-title">Vegetables</h4> -->
-                            <a href="shop.html" class="btn btn-primary btn-lg">Vegetables</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card rounded-0 border-0 text-center">
-                        <img src="assets/img/fruits.jpg">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                            <!-- <h4 class="card-title">Fruits</h4> -->
-                            <a href="shop.html" class="btn btn-primary btn-lg">Fruits</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card rounded-0 border-0 text-center">
-                        <img src="assets/img/meats.jpg">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                            <!-- <h4 class="card-title">Meats</h4> -->
-                            <a href="shop.html" class="btn btn-primary btn-lg">Meats</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card rounded-0 border-0 text-center">
-                        <img src="assets/img/fish.jpg">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                            <!-- <h4 class="card-title">Fishes</h4> -->
-                            <a href="shop.html" class="btn btn-primary btn-lg">Fishes</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card rounded-0 border-0 text-center">
-                        <img src="assets/img/frozen.jpg">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                            <!-- <h4 class="card-title">Frozen Foods</h4> -->
-                            <a href="shop.html" class="btn btn-primary btn-lg">Frozen Foods</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card rounded-0 border-0 text-center">
-                        <img src="assets/img/package.jpg">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                            <!-- <h4 class="card-title">Package</h4> -->
-                            <a href="shop.html" class="btn btn-primary btn-lg">Package</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <footer>
+    <section class="presentation presentation-banner section">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h5>About</h5>
-                    <p>Nisi esse dolor irure dolor eiusmod ex deserunt proident cillum eu qui enim occaecat sunt aliqua anim eiusmod qui ut voluptate.</p>
+            <div class="presentation__img-wrapper">
+                <span class="overlay-img">
+                    <img src="src/images/banner/presentation/leaf-2.png" alt="overlay-leaf" />
+                </span>
+                <img src="src/images/banner/presentation/pattern.png" alt="" class="img-fluid pattern" />
+                <div class="presentation__text-content text-center">
+                    <h2 class="font-title--xxl">
+                        Shopery - Organic eCommerce Figma Template
+                    </h2>
+                    <div class="project-details">
+                        <p class="font-body--lg-400">5 Homepage</p>
+                        <span class="dot"></span>
+                        <p class="font-body--lg-400">20+ inner pages</p>
+                        <span class="dot"></span>
+                        <p class="font-body--lg-400">3 Header & Footer Variation</p>
+                        <span class="dot"></span>
+                        <p class="font-body--lg-400">99+ UI Components</p>
+                    </div>
+                    <a href="#preview" class="button button--md button--outline">
+                        View Demo
+                        <span>
+                            <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.99945 16L6.99945 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M13 9.94998L7.0005 16L1 9.94998" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                    </a>
                 </div>
-                <div class="col-md-3">
-                    <h5>Links</h5>
-                    <ul>
-                        <li>
-                            <a href="/cus/site/about">About</a>
+                <div class="presentation__img-content">
+                    <ul class="bg-parallax">
+                        <li class="bg-parallax__item orange" data-speed="5">
+                            <img src="src/images/banner/presentation/orange.png" alt="paralax-item" />
                         </li>
-                        <li>
-                            <a href="/cus/site/contact">Contact Us</a>
+                        <li class="bg-parallax__item pc" data-speed="-4">
+                            <img src="src/images/banner/presentation/pc.png" alt="paralax-item" />
                         </li>
-                        <li>
-                            <a href="faq.html">FAQ</a>
+                        <li class="bg-parallax__item fruits" data-speed="-2">
+                            <img src="src/images/banner/presentation/fruits.png" alt="paralax-item" />
                         </li>
-                        <li>
-                            <a href="javascript:void(0)">How it Works</a>
-                        </li>
-                        <li>
-                            <a href="terms.html">Terms</a>
-                        </li>
-                        <li>
-                            <a href="privacy.html">Privacy Policy</a>
+                        <li class="bg-parallax__item leaf-1" data-speed="3">
+                            <img src="src/images/banner/presentation/leaf-1.png" alt="paralax-item" />
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                     <h5>Contact</h5>
-                     <ul>
-                         <li>
-                            <a href="tel:+620892738334"><i class="fa fa-phone"></i> 08272367238</a>
-                        </li>
-                        <li>
-                            <a href="mailto:hello@domain.com"><i class="fa fa-envelope"></i> hello@domain.com</a>
-                         </li>
-                     </ul>
+            </div>
+        </div>
+    </section>
 
-                     <h5>Follow Us</h5>
-                     <ul class="social">
-                         <li>
-                            <a href="javascript:void(0)" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                         </li>
-                         <li>
-                            <a href="javascript:void(0)" target="_blank"><i class="fab fa-instagram"></i></a>
-                         </li>
-                         <li>
-                            <a href="javascript:void(0)" target="_blank"><i class="fab fa-youtube"></i></a>
-                         </li>
-                     </ul>
+    <!-- pageView Section Start  -->
+    <section class="pageView section section--xxl section--green-9" id="preview">
+        <div class="container">
+            <div class="section__head section__head--four">
+                <h2 class="section--title-four font-title--xl" style="margin-bottom: 20px;">
+                    5 Awesomes Demo
+                </h2>
+
+                <ul class="pageView__menu nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="All-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">
+                            Home
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="vegetable-tab" data-bs-toggle="tab" data-bs-target="#vegetable" type="button" role="tab" aria-controls="vegetable" aria-selected="false">
+                            Shop page
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="fruit-tab" data-bs-toggle="tab" data-bs-target="#fruit" type="button" role="tab" aria-controls="fruit" aria-selected="false">
+                            Product Page
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="meat-tab" data-bs-toggle="tab" data-bs-target="#meat" type="button" role="tab" aria-controls="meat" aria-selected="false">
+                            Others
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pageView__content tab-content" id="myTabContent">
+                <!-- Home -->
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="All-tab">
+                    <div class="row pageView__content">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/index.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/home-01.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Home-01</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/home-02.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/home-02.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Home-02</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/home-03.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/home-03.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Home-03</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/home-04.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/home-04.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Home-04</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/home-05.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/home-05.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Home-05</h5>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                     <h5>Get Our App</h5>
-                     <ul class="mb-0">
-                         <li class="download-app">
-                             <a href="#"><img src="assets/img/playstore.png"></a>
-                         </li>
-                         <li style="height: 200px">
-                             <div class="mockup">
-                                 <img src="assets/img/mockup.png">
-                             </div>
-                         </li>
-                     </ul>
+                <!-- Shop Page  -->
+                <div class="tab-pane fade" id="vegetable" role="tabpanel" aria-labelledby="vegetable-tab">
+                    <div class="row pageView__content">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/shop-01.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/shop-01.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Shop-01</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/shop-02.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/shop-02.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">shop-02</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- product page  -->
+                <div class="tab-pane fade" id="fruit" role="tabpanel" aria-labelledby="fruit-tab">
+                    <div class="row pageView__content">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/product-details.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/product-details.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">product Details</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- others -->
+                <div class="tab-pane fade" id="meat" role="tabpanel" aria-labelledby="meat-tab">
+                    <div class="row pageView__content">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/wishlist.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/wishlist.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Wishlist</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="shopping-cart.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/shopping-cart.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Shoping Cart</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/checkout.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/checkout.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Checkout</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/blog-list.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/blog-list.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">blog list</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/single-blog.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/single-blog.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Single Blog</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/about.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/about.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">About</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/contact.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/contact.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Contact</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/sign-in.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/sign-in.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Sign in</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/create-account.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/create-account.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Create Account</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/user-dashboard.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/user-dashboard.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">user dashboard</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/order-history.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/order-history.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Order History</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/order-details.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/order-details.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Order Detailss</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/account-setting.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/account-settings.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">Account Settings</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/faq.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/faqs.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">faq</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="main/404.html" class="pageView__card" target="_blank">
+                                <div class="img-box">
+                                    <img src="src/images/pview/errpr.png" alt="tab-content" />
+                                </div>
+                                <h5 class="font-body--xxl-600">404 Error</h5>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <p class="copyright">&copy; 2018 Freshcery | Groceries Organic Store. All rights reserved.</p>
+    </section>
+    <!-- pageView Section end   -->
+
+    <!-- Template Section Start  -->
+    <section class="template-featured section section--green-0 section--xxl" id="feature">
+        <div class="container">
+            <div class="section__head section__head--four">
+                <h2 class="section--title-four font-title--xl" style="color: #002603;">
+                    Template Featured
+                </h2>
+            </div>
+            <div class="row template-featured__content">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M27.9987 12.249V43.749" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M10.4987 19.2488V12.2488H45.4987V19.2488" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M20.9987 43.749H34.9987" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-2">Google Font Used</h5>
+                        <p class="text-muted">
+                            We are using Google font for this project, which is free and 1000 more to chose from
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.2751 47.25H10.5C10.0359 47.25 9.59075 47.0656 9.26256 46.7374C8.93437 46.4092 8.75 45.9641 8.75 45.5V35.7249C8.75 35.495 8.79526 35.2675 8.88321 35.0552C8.97116 34.8428 9.10006 34.6499 9.26256 34.4874L35.5126 8.23742C35.8408 7.90923 36.2859 7.72485 36.75 7.72485C37.2141 7.72485 37.6592 7.90923 37.9874 8.23742L47.7626 18.0125C48.0908 18.3407 48.2751 18.7859 48.2751 19.25C48.2751 19.7141 48.0908 20.1592 47.7626 20.4874L21.5126 46.7374C21.3501 46.8999 21.1571 47.0288 20.9448 47.1168C20.7325 47.2047 20.5049 47.25 20.2751 47.25Z" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M29.75 14L42 26.25" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M35 42L43.75 33.25L42 26.25" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M8.86115 35.1113L20.8888 47.139" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-2">Easy to Customize</h5>
+                        <p class="text-muted">
+                            You can easily edit and customize all the feature of this template.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M39.2412 32.375C38.8691 34.7586 37.7493 36.9624 36.0434 38.6683C34.3375 40.3742 32.1337 41.494 29.7501 41.8662" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M15.7579 14.2969C12.3808 19.388 9.625 25.2033 9.625 30.625C9.625 35.4984 11.5609 40.1721 15.0069 43.6181C18.4529 47.0641 23.1266 49 28 49C32.8734 49 37.5471 47.0641 40.9931 43.6181C44.4391 40.1721 46.375 35.4984 46.375 30.625C46.375 19.25 38.5 10.5 32.1177 4.12817L32.1175 4.12835L24.5 20.125L15.7581 14.2971L15.7579 14.2969Z" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-2">Flat Icon Used</h5>
+                        <p class="text-muted">
+                            We are using flat icon created by top designers on Flat Icon
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 38.5L28 50.75L49 38.5" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M7 28L28 40.25L49 28" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M7 17.5L28 29.75L49 17.5L28 5.25L7 17.5Z" stroke="#00B307" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-2">Well Organized</h5>
+                        <p class="text-muted">
+                            All the files of this template are well organized and easy to locate
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="#00B307" viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none"></rect>
+                                <path d="M40,114.66667V56a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8v58.66667c0,84.01533-71.306,111.85016-85.5438,116.57058a7.54755,7.54755,0,0,1-4.9124,0C111.306,226.51683,40,198.682,40,114.66667Z" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></path>
+                                <polyline points="172 104 113.333 160 84 132" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></polyline>
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-3">W3c Validated Code</h5>
+                        <p>
+                            All the files of this template are well organized and easy to locate
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="#00B307" viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none"></rect>
+                                <line x1="104" y1="104" x2="104" y2="208" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></line>
+                                <line x1="32" y1="104" x2="224" y2="104" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></line>
+                                <rect x="32" y="48" width="192" height="160" rx="8" stroke-width="14" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" fill="none"></rect>
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-3">Based on Bootstrap 5</h5>
+                        <p>We used the most popular ui framework and advantages</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="#00B307" viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none"></rect>
+                                <line x1="112" y1="112" x2="176" y2="112" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></line>
+                                <line x1="112" y1="144" x2="176" y2="144" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></line>
+                                <rect x="40" y="40" width="176" height="176" rx="8" stroke-width="14" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" fill="none"></rect>
+                                <line x1="80" y1="40" x2="80" y2="216" fill="none" stroke="#00B307" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"></line>
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-3">Well Documented Code</h5>
+                        <p>
+                            We have prepared a roadmap for you, All the code portion is listed and well commented.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="template-card h-100">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" width="56" height="56" stroke="#00B307" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            </svg>
+                        </div>
+                        <h5 class="font-body--xxxl-500 mb-3">Life time free Updates</h5>
+                        <p>
+                            Once you buy this template, you will be able to get updates for lifetime
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Template Section End   -->
+
+    <!-- Call to action Start  -->
+    <section class="call-action section" style="background: url('src/images/banner/banner-lg-15.png') center center/cover no-repeat;">
+        <div class="call-action__text-content">
+            <h2 class="font-title--xl">Start to build your beautiful store now!</h2>
+
+            <div class="call-action__btn-group">
+                <a href="https://1.envato.market/kjkaBN" target="_blank" class="button button--md">
+                    Purchase Now
+                    <span>
+                        <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7.50049H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M9.95001 1.47559L16 7.49959L9.95001 13.5246" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                </a>
+                <a href="#preview" class="button button--md"> Live Demo</a>
+            </div>
+        </div>
+    </section>
+    <!-- Call to action end  -->
+
+    <footer class="section section--hard-primary section--md">
+        <div class="container">
+            <h2 class="font-body--md-400 text-center text-white">
+                Shopery eCommerce © 2021. All Rights Reserved
+            </h2>
+        </div>
     </footer>
 
-    <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/packages/o2system-ui/o2system-ui.js"></script>
-    <script type="text/javascript" src="assets/packages/owl-carousel/owl-carousel.js"></script>
-    <script type="text/javascript" src="assets/packages/cloudzoom/cloudzoom.js"></script>
-    <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
-    <script type="text/javascript" src="assets/js/theme.js"></script>
+    <script src="src/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/main.js"></script>
+    <!-- Purchase Button -->
+    <div class="templatecookie-btn">
+        <a href="https://1.envato.market/kjkaBN" target="_blank" class="purchase-btn">
+            Purchase Now
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+            </span>
+        </a>
+    </div>
 </body>
+
 </html>
