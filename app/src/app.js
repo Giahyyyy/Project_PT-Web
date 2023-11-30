@@ -3,11 +3,17 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const collection = require("./config");
+const bodyParser = require('body-parser');
 
 const app = express();
 
 // HTTP logger
 app.use(morgan('combined'));
+
+// Sử dụng body parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 // Thiết lập các thư mục tĩnh
 app.use('/', express.static(path.join(__dirname, '../public/cus/main')));

@@ -1,19 +1,23 @@
 const Product = require('../../model/ProductSchema')
 
 
-const renderHomePage =  (req, res) => {
+const renderHomePage =   (req, res) => {
 
     res.render('home/index');
+
+  
+
 };
 
-const renderAboutPage = (req, res) => {
+const renderAboutPage =  (req, res) => {
     res.render('about/index')
 };
-const renderShopPage = async (req, res) => {
-    try {
-      const products = await Product.find();
-      res.render('shop/index', { products });
-    } catch (error) {
+const renderShopPage =async  (req, res) => {
+    try{
+    const products = await Product.find();
+      res.render('shop/index' , {products});
+    }
+    catch(err){
       console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
       res.status(500).send('Lỗi Server');
     }
