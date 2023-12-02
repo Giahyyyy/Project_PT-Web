@@ -2,7 +2,7 @@
       <div class="container">
         <div class="form-wrapper">
           <h6 class="font-title--sm">create account</h6>
-          <form action="/authen/register" method="post">
+            <form action="/authen/register" method="post" >
             <div class="form-input">
             <input type="text" placeholder="first name" name="first_name"/>
             </div>
@@ -316,7 +316,7 @@
               </span>
             </div>
 
-           <div id="notification" style="display: none;"></div>
+<div id="notification" style="display: none;"></div>
 
             <div class="form-button">
               <button class="button button--md w-100">Create Account</button>
@@ -330,4 +330,51 @@
         </div>
       </div>
     </section>
-    <!-- create account-in Section end  -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const registrationForm = document.querySelector('form');
+
+    registrationForm.addEventListener('submit', async function (event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      const formData = new FormData(registrationForm);
+
+      try {
+        const response = await fetch('/authen/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', // Set the content type to JSON
+          },
+          body: JSON.stringify(Object.fromEntries(formData)), // Convert form data to JSON
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Registration successful
+          showNotification('success', data.message);
+        } else {
+          // Registration failed
+          showNotification('error', data.message);
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+        showNotification('error', 'Internal Server Error');
+      }
+    });
+
+    function showNotification(type, message) {
+      const notificationDiv = document.getElementById('notification');
+      notificationDiv.textContent = message;
+      notificationDiv.style.display = 'block';
+
+      // Add styling based on the notification type (success or error)
+      if (type === 'success') {
+        notificationDiv.style.color = '#00B307'; // Green color for success
+      } else {
+        notificationDiv.style.color = '#EA4B48'; // Red color for error
+      }
+    }
+  });
+</script>

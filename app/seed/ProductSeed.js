@@ -68,7 +68,7 @@ const seedDatabase = async () => {
       {
         product_name: 'Sản phẩm 5',
         description: 'Mô tả sản phẩm 5',
-        price: 75,
+        price: 7,
         discount: 8,
         img: 'url_hinh_anh_2',
         category: category._id,
@@ -78,7 +78,7 @@ const seedDatabase = async () => {
       {
         product_name: 'Sản phẩm 6',
         description: 'Mô tả sản phẩm 6',
-        price: 75,
+        price: 5,
         discount: 8,
         img: 'url_hinh_anh_2',
         category: category._id,
@@ -86,9 +86,9 @@ const seedDatabase = async () => {
         updated_at: new Date(),
       },
       {
-        product_name: 'Sản phẩm 7',
+        product_name: 'Sản phẩm 10',
         description: 'Mô tả sản phẩm 7',
-        price: 75,
+        price: 7135,
         discount: 8,
         img: 'url_hinh_anh_2',
         category: category._id,
@@ -98,7 +98,7 @@ const seedDatabase = async () => {
       {
         product_name: 'Sản phẩm 8',
         description: 'Mô tả sản phẩm 8',
-        price: 75,
+        price: 733,
         discount: 8,
         img: 'url_hinh_anh_2',
         category: category._id,
@@ -108,7 +108,7 @@ const seedDatabase = async () => {
       {
         product_name: 'Sản phẩm 9',
         description: 'Mô tả sản phẩm 9',
-        price: 75,
+        price: 54,
         discount: 8,
         img: 'url_hinh_anh_2',
         category: category._id,
