@@ -2,20 +2,24 @@ const Product = require('../../model/ProductSchema');
 const Category = require('../../model/CategorySchema');
 
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 
+mongoosePaginate.paginate.options = {
+  limit: 10, // Số sản phẩm trên mỗi trang
+};
 
 const renderHomePage =   (req, res) => {
 
     res.render('home/index');
-
-  
 
 };
 
 const renderAboutPage =  (req, res) => {
     res.render('about/index')
 };
+
+mongoose.plugin(mongoosePaginate);
 const renderShopPage = async (req, res) => {
   try {
     let products;
@@ -66,15 +70,33 @@ const renderShopPage = async (req, res) => {
       }
     }
 
+    // paging
+    const page = parseInt(req.query.page) || 1;
+  
+
+
 
     // Kết hợp cả ba tùy chọn: sort, category, và price
-    products = await Product.find(filterOptions).sort(sortOptions).populate('category');
+    const result = await Product.paginate(filterOptions, 
+      {
+        sort: sortOptions,
+        page: page,
+      });
+    // products = await Product.find(filterOptions).sort(sortOptions).populate('category');
+    products = result.docs;
     const categories = await Category.find();
     console.log('MongoDB Query:', filterOptions);
 
     console.log('MongoDB []:', products);
 
-    res.render('shop/index', { products, sortBy, selectedCategory, categories });
+    res.render('shop/index', { 
+      products: result.docs,
+      totalPages: result.totalPages,
+      currentPage: page,  
+      sortBy, 
+      selectedCategory, 
+      categories 
+    });
   } catch (error) {
     console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
     res.status(500).send('Lỗi Server');

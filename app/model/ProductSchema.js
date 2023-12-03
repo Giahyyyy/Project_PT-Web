@@ -1,4 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ProductSchema = new Schema({
   product_name: {
@@ -32,6 +33,6 @@ const ProductSchema = new Schema({
     ref: 'Category', // Tham chiếu đến mô hình Category
   },
 });
-
+ProductSchema.plugin(mongoosePaginate);
 const Product = model('Product', ProductSchema);
 module.exports = Product;

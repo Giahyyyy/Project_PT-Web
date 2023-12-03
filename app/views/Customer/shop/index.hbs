@@ -219,7 +219,8 @@
 
                 <nav aria-label="Page navigation pagination--one" class="pagination-wrapper section--xl"
                     style="padding-top: 20px;">
-                    <ul class="pagination justify-content-center">
+                    
+                    <ul id="pagination" class="pagination justify-content-center">
                         <li class="page-item pagination-item disabled">
                             <a class="page-link pagination-link" href="#" tabindex="-1">
                                 <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
@@ -260,6 +261,7 @@
                             </a>
                         </li>
                     </ul>
+                    
                 </nav>
             </div>
         </div>
@@ -288,6 +290,62 @@
     console.log('Selected Category view:', selectedCategory);
     window.location.href = currentUrl.toString();
   }
+// Function để tạo các nút phân trang
+    function createPagination(totalPages, currentPage) {
+        const paginationElement = document.getElementById("pagination");
 
+        // Xóa các nút phân trang cũ
+        paginationElement.innerHTML = "";
+
+        // Tạo nút "Trang trước"
+        createPageItem(currentPage - 1, "Trang trước", currentPage > 1);
+
+        // Tạo các nút phân trang từ 1 đến totalPages
+        for (let i = 1; i <= totalPages; i++) {
+            createPageItem(i, i.toString(), true, i === currentPage);
+        }
+
+        // Tạo nút "Trang sau"
+        createPageItem(currentPage + 1, "Trang sau", currentPage < totalPages);
+    }
+
+    // Function để tạo một nút phân trang
+    function createPageItem(page, text, clickable, isActive) {
+        const paginationElement = document.getElementById("pagination");
+
+        const li = document.createElement("li");
+        li.className = "page-item pagination-item";
+        if (isActive) {
+            li.classList.add("active");
+        }
+
+        const a = document.createElement("a");
+        a.className = "page-link pagination-link";
+
+        const currentPath = window.location.pathname;
+        const newHref = `${currentPath}?page=${page}`;
+        a.href = newHref; // Thay thế bằng đường dẫn thực tế khi bạn đã xử lý sự kiện nhấp vào nút.
+
+        if (clickable) {
+            a.addEventListener("click", () => handlePageClick(page));
+        } else {
+            a.tabIndex = -1;
+        }
+
+        a.innerText = text;
+
+        li.appendChild(a);
+        paginationElement.appendChild(li);
+    }
+
+    // Xử lý sự kiện khi người dùng nhấp vào một trang
+    function handlePageClick(page) {
+        // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
+        // Sau đó, gọi lại createPagination với dữ liệu mới.
+        console.log(`Đã chuyển đến trang ${page}`);
+    }
+
+    // Gọi createPagination với số trang và trang hiện tại (bạn có thể lấy từ dữ liệu từ server)
+    createPagination(10, 1);
 
 </script>
