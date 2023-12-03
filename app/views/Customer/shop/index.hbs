@@ -281,13 +281,24 @@
   window.location.href = currentUrl.toString();
 }
 
-  function applyCategoryFilter() {
-    const selectedCategory = document.getElementById('category').value;
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set('category', selectedCategory);
-    console.log('Selected Category view:', selectedCategory);
-    window.location.href = currentUrl.toString();
+function applyCategoryFilter() {
+  const selectedCategory = document.getElementById('category').value;
+  const currentUrl = new URL(window.location.href);
+
+  if (selectedCategory) {
+    try {
+      const objectIdCategory = new mongoose.Types.ObjectId(selectedCategory);
+      currentUrl.searchParams.set('category', objectIdCategory);
+    } catch (error) {
+      console.error('Error converting category to ObjectId:', error);
+      return;
+    }
+  } else {
+    currentUrl.searchParams.delete('category');
   }
 
+  console.log('Selected Category view:', selectedCategory);
+  window.location.href = currentUrl.toString();
+}
 
 </script>

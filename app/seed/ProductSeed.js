@@ -11,132 +11,68 @@ const seedDatabase = async () => {
   try {
     console.log('Đã kết nối với cơ sở dữ liệu');
 
-    // Kiểm tra sự tồn tại của danh mục để tham chiếu
-    let categories = await Category.find();
+    // Tạo danh sách danh mục
+    const categories = await Category.create([
+      { category_name: 'Electronics' },
+      { category_name: 'Clothing' },
+      { category_name: 'Books' },
+    ]);
 
-    // Nếu không có danh mục, tạo một danh mục mới và lưu
-    if (!categories || categories.length === 0) {
-      categories = [
-        { category_name: 'Vegetables' },
-        { category_name: 'Fruits' },
-        { category_name: 'Fish' },
+    console.log('Danh sách danh mục đã được tạo thành công:', categories);
 
-        // Thêm các danh mục khác nếu cần
-      ];
-
-      for (const categoryInfo of categories) {
-        const newCategory = new Category(categoryInfo);
-        await newCategory.save();
-        console.log(`Danh mục "${categoryInfo.category_name}" đã được tạo thành công`);
-      }
-    }
-
-    // Danh sách sản phẩm
-    const productList = [
+    // Tạo danh sách sản phẩm
+    const products = await Product.create([
       {
-        product_name: 'Sản phẩm 1',
-        description: 'Mô tả sản phẩm 1',
-        price: 50,
+        product_name: 'Smartphone',
+        description: 'High-end smartphone',
+        price: 1000,
+        discount: 10,
+        img: 'url_smartphone',
+        category: categories[0]._id,
+      },
+      {
+        product_name: 'Laptop',
+        description: 'Powerful laptop for gaming and work',
+        price: 1500,
+        discount: 15,
+        img: 'url_laptop',
+        category: categories[0]._id,
+      },
+      {
+        product_name: 'T-shirt',
+        description: 'Comfortable cotton T-shirt',
+        price: 20,
         discount: 5,
-        img: 'url_hinh_anh_1',
-        category: categories[0]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        product_name: 'Sản phẩm 2',
-        description: 'Mô tả sản phẩm 2',
-        price: 75,
-        discount: 8,
-        img: 'url_hinh_anh_2',
-        category: categories[0]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        product_name: 'Sản phẩm 3',
-        description: 'Mô tả sản phẩm 2',
-        price: 14,
-        discount: 8,
-        img: 'url_hinh_anh_2',
+        img: 'url_tshirt',
         category: categories[1]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
       },
       {
-        product_name: 'Sản phẩm 4',
-        description: 'Mô tả sản phẩm 2',
+        product_name: 'Jeans',
+        description: 'Classic blue jeans',
         price: 40,
         discount: 8,
-        img: 'url_hinh_anh_2',
+        img: 'url_jeans',
         category: categories[1]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
       },
       {
-        product_name: 'Sản phẩm 5',
-        description: 'Mô tả sản phẩm 2',
-        price: 30,
-        discount: 8,
-        img: 'url_hinh_anh_2',
-        category: categories[0]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        product_name: 'Sản phẩm 5',
-        description: 'Mô tả sản phẩm 2',
-        price: 20,
-        discount: 8,
-        img: 'url_hinh_anh_2',
+        product_name: 'Novel',
+        description: 'Best-selling novel',
+        price: 15,
+        discount: 3,
+        img: 'url_novel',
         category: categories[2]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
       },
       {
-        product_name: 'Sản phẩm 6',
-        description: 'Mô tả sản phẩm 2',
-        price: 17,
-        discount: 8,
-        img: 'url_hinh_anh_2',
+        product_name: 'Cookbook',
+        description: 'Cookbook with delicious recipes',
+        price: 25,
+        discount: 5,
+        img: 'url_cookbook',
         category: categories[2]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
       },
-      {
-        product_name: 'Sản phẩm 7',
-        description: 'Mô tả sản phẩm 2',
-        price: 6,
-        discount: 8,
-        img: 'url_hinh_anh_2',
-        category: categories[2]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        product_name: 'Sản phẩm 8',
-        description: 'Mô tả sản phẩm 2',
-        price: 53,
-        discount: 12,
-        img: 'url_hinh_anh_2',
-        category: categories[1]._id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      // Thêm sản phẩm khác nếu cần
-    ];
+    ]);
 
-    for (const productInfo of productList) {
-      const existingProduct = await Product.findOne({ product_name: productInfo.product_name });
-
-      if (!existingProduct) {
-        const newProduct = new Product(productInfo);
-        await newProduct.save();
-        console.log(`Sản phẩm "${productInfo.product_name}" đã được tạo thành công`);
-      } else {
-        console.log(`Sản phẩm "${productInfo.product_name}" đã tồn tại, không cần thêm mới`);
-      }
-    }
+    console.log('Danh sách sản phẩm đã được tạo thành công:', products);
 
     console.log('Hoàn thành tạo danh sách sản phẩm');
 

@@ -1,6 +1,8 @@
 const Product = require('../../model/ProductSchema');
 const Category = require('../../model/CategorySchema');
 
+const mongoose = require('mongoose');
+
 
 
 const renderHomePage =   (req, res) => {
@@ -14,15 +16,12 @@ const renderHomePage =   (req, res) => {
 const renderAboutPage =  (req, res) => {
     res.render('about/index')
 };
-
-  
-
 const renderShopPage = async (req, res) => {
   try {
     let products;
     let sortOptions = {};
     let filterOptions = {};
-
+ ///SORT
     const sortBy = req.query.sort;
     if (sortBy) {
       switch (sortBy) {
@@ -40,7 +39,7 @@ const renderShopPage = async (req, res) => {
           break;
       }
     }
-
+//filter giá
     const priceFilter = req.query.price;
     if (priceFilter) {
       switch (priceFilter) {
@@ -57,17 +56,23 @@ const renderShopPage = async (req, res) => {
           break;
       }
     }
-
+//filter category
     const selectedCategory = req.query.category;
     if (selectedCategory) {
-      filterOptions.category = selectedCategory;
+      if (!mongoose.Types.ObjectId.isValid(selectedCategory)) {
+        console.log('ObjectId không hợp lệ cho selectedCategory:', selectedCategory);
+      } else {
+        filterOptions.category = selectedCategory;
+      }
     }
 
-    products = await Product.find(filterOptions).sort(sortOptions);
+
+    // Kết hợp cả ba tùy chọn: sort, category, và price
+    products = await Product.find(filterOptions).sort(sortOptions).populate('category');
     const categories = await Category.find();
-    
-    console.log('Selected Category controller:', selectedCategory);
-    console.log('Categories:', categories);
+    console.log('MongoDB Query:', filterOptions);
+
+    console.log('MongoDB []:', products);
 
     res.render('shop/index', { products, sortBy, selectedCategory, categories });
   } catch (error) {
@@ -75,9 +80,6 @@ const renderShopPage = async (req, res) => {
     res.status(500).send('Lỗi Server');
   }
 };
-
-module.exports = renderShopPage;
-
 
 
 module.exports = {

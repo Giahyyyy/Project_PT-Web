@@ -1,7 +1,6 @@
-const { ObjectId } = require('mongoose').Schema.Types;
-const mongoose = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-const ProductSchema = new mongoose.Schema({
+const ProductSchema = new Schema({
   product_name: {
     type: String,
     required: true,
@@ -29,10 +28,10 @@ const ProductSchema = new mongoose.Schema({
     default: Date.now,
   },
   category: {
-    type: ObjectId,
+    type: Types.ObjectId,
     ref: 'Category', // Tham chiếu đến mô hình Category
   },
 });
 
-const Product = mongoose.model('Product', ProductSchema);
+const Product = model('Product', ProductSchema);
 module.exports = Product;
