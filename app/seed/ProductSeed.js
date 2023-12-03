@@ -1,4 +1,3 @@
-// productSeed.js
 const Product = require('../model/ProductSchema');
 const Category = require('../model/CategorySchema');
 const db = require('../src/config');
@@ -13,14 +12,23 @@ const seedDatabase = async () => {
     console.log('Đã kết nối với cơ sở dữ liệu');
 
     // Kiểm tra sự tồn tại của danh mục để tham chiếu
-    let category = await Category.findOne({});
+    let categories = await Category.find();
 
     // Nếu không có danh mục, tạo một danh mục mới và lưu
-    if (!category) {
-      category = new Category({
-        category_name: 'vegetable',
-      });
-      await category.save();
+    if (!categories || categories.length === 0) {
+      categories = [
+        { category_name: 'Vegetables' },
+        { category_name: 'Fruits' },
+        { category_name: 'Fish' },
+
+        // Thêm các danh mục khác nếu cần
+      ];
+
+      for (const categoryInfo of categories) {
+        const newCategory = new Category(categoryInfo);
+        await newCategory.save();
+        console.log(`Danh mục "${categoryInfo.category_name}" đã được tạo thành công`);
+      }
     }
 
     // Danh sách sản phẩm
@@ -31,7 +39,7 @@ const seedDatabase = async () => {
         price: 50,
         discount: 5,
         img: 'url_hinh_anh_1',
-        category: category._id,
+        category: categories[0]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -41,77 +49,77 @@ const seedDatabase = async () => {
         price: 75,
         discount: 8,
         img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[0]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         product_name: 'Sản phẩm 3',
-        description: 'Mô tả sản phẩm 3',
-        price: 75,
+        description: 'Mô tả sản phẩm 2',
+        price: 14,
         discount: 8,
         img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[1]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         product_name: 'Sản phẩm 4',
-        description: 'Mô tả sản phẩm 4',
-        price: 75,
+        description: 'Mô tả sản phẩm 2',
+        price: 40,
         discount: 8,
         img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[1]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         product_name: 'Sản phẩm 5',
-        description: 'Mô tả sản phẩm 5',
-        price: 7,
+        description: 'Mô tả sản phẩm 2',
+        price: 30,
         discount: 8,
         img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[0]._id,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        product_name: 'Sản phẩm 5',
+        description: 'Mô tả sản phẩm 2',
+        price: 20,
+        discount: 8,
+        img: 'url_hinh_anh_2',
+        category: categories[2]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         product_name: 'Sản phẩm 6',
-        description: 'Mô tả sản phẩm 6',
-        price: 5,
+        description: 'Mô tả sản phẩm 2',
+        price: 17,
         discount: 8,
         img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[2]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
-        product_name: 'Sản phẩm 10',
-        description: 'Mô tả sản phẩm 7',
-        price: 7135,
+        product_name: 'Sản phẩm 7',
+        description: 'Mô tả sản phẩm 2',
+        price: 6,
         discount: 8,
         img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[2]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         product_name: 'Sản phẩm 8',
-        description: 'Mô tả sản phẩm 8',
-        price: 733,
-        discount: 8,
+        description: 'Mô tả sản phẩm 2',
+        price: 53,
+        discount: 12,
         img: 'url_hinh_anh_2',
-        category: category._id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        product_name: 'Sản phẩm 9',
-        description: 'Mô tả sản phẩm 9',
-        price: 54,
-        discount: 8,
-        img: 'url_hinh_anh_2',
-        category: category._id,
+        category: categories[1]._id,
         created_at: new Date(),
         updated_at: new Date(),
       },

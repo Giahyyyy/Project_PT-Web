@@ -23,15 +23,30 @@ app.use('/site', express.static(path.join(__dirname, '../public/cus/main')));
 
 console.log(path.join(__dirname, '../public/cus'))
 
+
+
+
 // template engine
 app.engine('hbs', exphbs({
   extname: '.hbs',
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
     allowProtoMethodsByDefault: true,
+
   },
+  helpers: {
+    ifCond: function (v1, v2, options) {
+      if (v1 === v2) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    },}
+  
 }));
+
+
 app.set('view engine', 'hbs');
+
 
 app.set('views', [path.join(__dirname, '../views/Customer'), path.join(__dirname, '../views/Admin')]);
 
@@ -41,6 +56,8 @@ const AdminRoutes = require('../routes/Admin');
 
 app.use('/admin', AdminRoutes);
 routeCus(app);
+
+
 
 // Kết nối tới db
 

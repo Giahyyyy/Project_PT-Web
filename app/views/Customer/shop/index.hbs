@@ -71,27 +71,29 @@
         <div class="container">
             <div class="filter-box__top">
                 <div class="filter-box__top-left">
-                    <div class="select-box--item">
-                        <select id="category" class="filter__dropdown-menu">
-                            <option value="01">wing Chair</option>
-                            <option value="02">Vegetables</option>
-                            <option value="03">Health & Beatuties</option>
-                            <option value="04">Medicine</option>
-                        </select>
-                    </div>
-                    <div class="select-box--item">
-                        <select id="price" class="filter__dropdown-menu">
-                            <option value="01">Min $15 - max $300</option>
-                            <option value="02">Min $30 - max $600</option>
-                            <option value="02">Min $60 - max $1200</option>
-                        </select>
-                    </div>
+          <div class="select-box--item">
+  <select id="category" class="filter__dropdown-menu" onchange="applyCategoryFilter()">
+    <option value="">-- Chọn danh mục --</option>
+    {{#each categories}}
+      <option value="{{this._id}}">{{this.category_name}}</option>
+    {{/each}}
+  </select>
+</div>
+
+          <div class="select-box--item">
+  <select id="price" class="filter__dropdown-menu" onchange="applyFilter()">
+    <option value="1">Min $5 - max $10</option>
+    <option value="2">Min $10 - max $20</option>
+    <option value="3">Min $20 - max $100</option>
+  </select>
+</div>
+
 
                 </div>
-                <div class="filter-box__top-right">
-                    <!-- Thêm nút chọn để chọn cách sắp xếp -->
-                    <select id="sortSelector" onchange="changeSort()">
-                        <option value="default">Default</option>
+                <div class="filter-box__top-right ">
+                    <!-- Thêm nút chọn để chọn cácxh sắp xếp -->
+                    <select id="sortSelector"  onchange="changeSort()">
+                        <option value="default">Sort Option</option>
                         <option value="product_name">Name</option>
                         <option value="price">Price</option>
                         <option value="discount">discount</option>
@@ -102,44 +104,7 @@
                 </div>
             </div>
         </div>
-        <div class="filter-box__bottom">
-            <div class="container">
-                <div class="filter-box__bottom-content">
-                    <div class="active__filters">
-                        <h5>Active Filters:</h5>
-                        <div class="active__filters-item">
-                            <button class="filter-item">
-                                Wing Chair
-                                <span class="icon">
-                                    <svg width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2 2.5L6.00003 6.5M6.00003 6.5L10 2.5M6.00003 6.5L2 10.5M6.00003 6.5L10 10.5"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <button class="filter-item">
-                                Min $300 - Max $500
-                                <span class="icon">
-                                    <svg width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2 2.5L6.00003 6.5M6.00003 6.5L10 2.5M6.00003 6.5L2 10.5M6.00003 6.5L10 10.5"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="filter__result">
-                        <p><span class="number">2,547</span> Results found.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </div>
 <!-- Filter section End  -->
@@ -309,4 +274,21 @@
     currentUrl.searchParams.set('sort', selectedSort);
     window.location.href = currentUrl.toString();
   }
+  function applyFilter() {
+  const selectedPrice = document.getElementById('price').value;
+  const currentUrl = new URL(window.location.href);
+  currentUrl.searchParams.set('price', selectedPrice);
+  window.location.href = currentUrl.toString();
+}
+function applyCategoryFilter() {
+  const selectedCategory = document.getElementById('category').value;
+  const currentUrl = new URL(window.location.href);
+
+  currentUrl.searchParams.set('category', selectedCategory);
+  currentUrl.searchParams.delete('sort');  // Clear the sort parameter, assuming you want to reset it.
+
+  window.location.href = currentUrl.toString();
+}
+
+
 </script>
