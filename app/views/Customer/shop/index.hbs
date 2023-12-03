@@ -71,7 +71,7 @@
         <div class="container">
             <div class="filter-box__top">
                 <div class="filter-box__top-left">
-          <div class="select-box--item">
+<div class="select-box--item">
   <select id="category" class="filter__dropdown-menu" onchange="applyCategoryFilter()">
     <option value="">-- Chọn danh mục --</option>
     {{#each categories}}
@@ -280,15 +280,14 @@
   currentUrl.searchParams.set('price', selectedPrice);
   window.location.href = currentUrl.toString();
 }
-function applyCategoryFilter() {
-  const selectedCategory = document.getElementById('category').value;
-  const currentUrl = new URL(window.location.href);
 
-  currentUrl.searchParams.set('category', selectedCategory);
-  currentUrl.searchParams.delete('sort');  // Clear the sort parameter, assuming you want to reset it.
-
-  window.location.href = currentUrl.toString();
-}
+  function applyCategoryFilter() {
+    const selectedCategory = document.getElementById('category').value;
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('category', selectedCategory);
+    console.log('Selected Category view:', selectedCategory);
+    window.location.href = currentUrl.toString();
+  }
 
 
 </script>
