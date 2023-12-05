@@ -278,21 +278,19 @@
         a.innerText = text;
         li.dataset.page = page;
 
-
-
         li.appendChild(a);
         paginationElement.appendChild(li);
 
         if (!isActive && clickable) {
-        li.addEventListener("mouseenter", () => li.classList.add("hovered"));
-        li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
+            li.addEventListener("mouseenter", () => li.classList.add("hovered"));
+            li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
         }
 
         if (isActive) {
             li.classList.add("active");
         }
     
-    }z 
+    }
     // Function để tạo các nút phân trang
     function createPagination(totalPages, currentPage) {
         const paginationElement = document.getElementById("pagination");
