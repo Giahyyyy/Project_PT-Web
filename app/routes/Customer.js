@@ -9,6 +9,8 @@ function route (app) {
     app.use('/cart',cusController.cartRoutes);
     app.use('/authen',cusController.authenticationRoutes);
 
+    app.use('/detail',cusController.PrductdetalsRoutes);
+
    
 }
 

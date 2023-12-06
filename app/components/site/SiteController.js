@@ -3,6 +3,7 @@ const Category = require('../../model/CategorySchema');
 
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+mongoose.plugin(mongoosePaginate);
 
 
 mongoosePaginate.paginate.options = {
@@ -19,7 +20,6 @@ const renderAboutPage =  (req, res) => {
     res.render('about/index')
 };
 
-mongoose.plugin(mongoosePaginate);
 const renderShopPage = async (req, res) => {
   try {
     let products;
