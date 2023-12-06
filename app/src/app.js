@@ -20,6 +20,8 @@ app.use('/', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/admin', express.static(path.join(__dirname, '../public/admin')));
 app.use('/authen', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/site', express.static(path.join(__dirname, '../public/cus/main')));
+app.use('/detail/product', express.static(path.join(__dirname, '../public/cus/main')));
+
 
 console.log(path.join(__dirname, '../public/cus'))
 
