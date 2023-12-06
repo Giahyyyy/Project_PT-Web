@@ -320,8 +320,6 @@
     function handlePageClick(page) {
         // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
         // Sau đó, gọi lại createPagination với dữ liệu mới.
-
-        
         console.log(`Đã chuyển đến trang ${page}`);
         const paginationItems = document.querySelectorAll(".pagination-item");
         paginationItems.forEach(item => item.classList.remove("active"));
