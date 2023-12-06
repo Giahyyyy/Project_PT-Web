@@ -20,6 +20,8 @@ const renderAboutPage =  (req, res) => {
     res.render('about/index')
 };
 
+
+
 const renderShopPage = async (req, res) => {
   try {
     let products;
@@ -85,9 +87,7 @@ const renderShopPage = async (req, res) => {
     // products = await Product.find(filterOptions).sort(sortOptions).populate('category');
     products = result.docs;
     const categories = await Category.find();
-    console.log('MongoDB Query:', filterOptions);
-
-    console.log('MongoDB []:', products);
+  
 
     res.render('shop/index', { 
       products: result.docs,
@@ -102,6 +102,10 @@ const renderShopPage = async (req, res) => {
     res.status(500).send('Lỗi Server');
   }
 };
+
+
+
+
 
 
 module.exports = {
