@@ -14,11 +14,15 @@ const seedDatabase = async () => {
     console.log('Đã kết nối với cơ sở dữ liệu');
 
     // 1. Tạo danh sách người dùng
-    const usersData = [
-      { first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password: 'mat-khau-an-toan-cua-ban' },
-      { first_name: 'Jane', last_name: 'Doe', email: 'jane.doe@example.com', password: 'mat-khau-an-toan-cua-ban' },
-      // Thêm thông tin người dùng khác nếu cần
-    ];
+    const usersData = [];
+    for (let i = 0; i < 10; i++) {
+      usersData.push({
+        first_name: `User${i + 1}`,
+        last_name: 'Doe',
+        email: `user${i + 1}@example.com`,
+        password: 'mat-khau-an-toan-cua-ban',
+      });
+    }
 
     const createdUsers = await User.create(usersData);
     console.log(`Đã tạo ${createdUsers.length} người dùng thành công`);
@@ -37,59 +41,31 @@ const seedDatabase = async () => {
     const [electronicsCategoryId, clothingCategoryId, booksCategoryId] = createdCategories.map((category) => category._id);
 
     // 3. Tạo danh sách sản phẩm
-    const productsData = [
-      {
-        product_name: 'Smartphone',
-        description: 'High-end smartphone',
-        price: 1000,
-        discount: 10,
-        img: 'url_smartphone',
-        category: electronicsCategoryId,
-      },
-      {
-        product_name: 'Laptop',
-        description: 'Powerful laptop for gaming and work',
-        price: 1500,
-        discount: 15,
-        img: 'url_laptop',
-        category: electronicsCategoryId,
-      },
-      {
-        product_name: 'T-shirt',
-        description: 'Comfortable cotton T-shirt',
-        price: 20,
-        discount: 5,
-        img: 'url_tshirt',
-        category: clothingCategoryId,
-      },
-      // ... (other products)
-    ];
+    const productsData = [];
+    for (let i = 0; i < 30; i++) {
+      productsData.push({
+        product_name: `Product${i + 1}`,
+        description: `Description for Product${i + 1}`,
+        price: Math.floor(Math.random() * 100) + 1,
+        discount: Math.floor(Math.random() * 20) + 1,
+        img: `url_product${i + 1}`,
+        category: i % 3 === 0 ? electronicsCategoryId : i % 3 === 1 ? clothingCategoryId : booksCategoryId,
+      });
+    }
 
     const createdProducts = await Product.create(productsData);
     console.log('Danh sách sản phẩm đã được tạo thành công:', createdProducts);
 
     // 4. Tạo danh sách đánh giá
-    const reviewsData = [
-      {
-        user: createdUsers[0]._id,
-        rating: 4,
-        comment: 'Good product!',
-        product: createdProducts[0]._id,
-      },
-      {
-        user: createdUsers[1]._id,
-        rating: 5,
-        comment: 'Excellent quality!',
-        product: createdProducts[0]._id,
-      },
-      {
-        user: createdUsers[0]._id,
-        rating: 3,
-        comment: 'Not bad, but could be improved.',
-        product: createdProducts[1]._id,
-      },
-      // ... (other reviews)
-    ];
+    const reviewsData = [];
+    for (let i = 0; i < 30; i++) {
+      reviewsData.push({
+        user: createdUsers[i % 10]._id,
+        rating: Math.floor(Math.random() * 5) + 1,
+        comment: `Comment for Product${i + 1}`,
+        product: createdProducts[i]._id,
+      });
+    }
 
     const createdReviews = await Review.create(reviewsData);
     console.log('Danh sách đánh giá đã được tạo thành công:', createdReviews);
