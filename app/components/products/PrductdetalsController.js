@@ -1,7 +1,7 @@
 
 const renderProductPage =   (req, res) => {
 
-    res.render('details/product-details');
+    res.render('details/index');
 };
 
 module.exports = {
