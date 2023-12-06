@@ -1,3 +1,4 @@
+// ProductSchema.js
 const { Schema, model, Types } = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
@@ -30,9 +31,17 @@ const ProductSchema = new Schema({
   },
   category: {
     type: Types.ObjectId,
-    ref: 'Category', // Tham chiếu đến mô hình Category
+    ref: 'Category',
   },
+  reviews: [
+    {
+        type: Schema.Types.ObjectId,
+        ref: 'Review',
+    },
+],
 });
+
 ProductSchema.plugin(mongoosePaginate);
+
 const Product = model('Product', ProductSchema);
 module.exports = Product;
