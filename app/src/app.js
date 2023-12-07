@@ -1,3 +1,4 @@
+
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -5,7 +6,32 @@ const exphbs = require('express-handlebars');
 const collection = require("./config");
 const bodyParser = require('body-parser');
 
+//authen
+const passport = require('passport');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const LocalStrategy = require('passport-local').Strategy;
+
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/food-shop',{
+  useNewUrlParser: true,
+  useUnifiedTopology:true
+});
+
+app.use(session({
+  secret: '123',
+  resave: false,
+  saveUninitialized: false,
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
+
 
 // HTTP logger
 app.use(morgan('combined'));
@@ -13,6 +39,9 @@ app.use(morgan('combined'));
 // Sử dụng body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//authen login
+mongoose.connect
 
 
 // Thiết lập các thư mục tĩnh
@@ -23,7 +52,7 @@ app.use('/site', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/detail/product', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/home', express.static(path.join(__dirname, '../public/cus/main')));
 
-console.log(path.join(__dirname, '../public/cus'))
+// console.log(path.join(__dirname, '../public/cus'))
 
 
 
@@ -61,7 +90,7 @@ routeCus(app);
 
 
 
-// Kết nối tới db
+
 
 // Khởi động máy chủ
 app.listen(3000, () => {

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator'); // Thêm dòng này để import validator
+const passportLocalMongoose = require('passport-local-mongoose');
+
 
 const UserSchema = new mongoose.Schema({
     first_name: {
@@ -35,5 +37,7 @@ const UserSchema = new mongoose.Schema({
         default: "user",
     },
 });
+
+UserSchema.plugin(passportLocalMongoose)
 
 module.exports = mongoose.model("User", UserSchema);

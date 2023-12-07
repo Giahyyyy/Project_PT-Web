@@ -1,5 +1,11 @@
 const User = require('../../model/UserSchema')
-const mongoose = require('mongoose')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+
+//Cấu hình passport
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 const db = require('../../src/config');
 
@@ -8,12 +14,9 @@ db.on('error', console.error.bind(console, 'Lỗi kết nối MongoDB cho user:'
 
 const renderLoginPage = async (req, res) => {
     try {
-        const users = await User.find()
 
-        console.log('User data: ',users);
-        res.render('login/index')
-
-        //mongoose.connection.close();
+      res.render('login/index')
+        
     } catch (err) {
         console.error("lỗi không thấy người dùng:",error);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -21,27 +24,7 @@ const renderLoginPage = async (req, res) => {
     res.render('login/index')
 };
 
-const loginUser = async (req,res) => {
-    try {
-        const {email,password} = req.body;
 
-        const user = await User.findOne({email});
-
-        if (!user) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password,user.password);
-
-        if (!isPasswordValid) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-        }
-        res.status(200).json({ message: 'Login successful' });
-    } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-}
 
 const renderRegisterPage = (req, res) => {
     res.render('register/index')
@@ -74,28 +57,35 @@ const registerUser = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-
-
   
-const getUserData = async() => {
-  try {
-      const users = await User.find()
 
-      console.log('User data: ',users);
+// Xử lý đăng nhập - Middleware
+exports.login = passport.authenticate('local', {
+  successRedirect: '/site/shop',
+  failureRedirect: '/authen/login',
+});
 
-      mongoose.connection.close();
-  } catch (error) {
-      console.error("lỗi không thấy người dùng:",error);
-      mongoose.connection.close();
-  }
+exports.logout = (req,res,next) => {
+  req.logout();
+  res.redirect('/');
 }
+
+// //Middleware kiểm tra xác thực
+// exports.isLoggedIn= (req,res,next) => {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/authen/logic');
+// }
+
+
+
   
+
   
 
 module.exports = {
     renderLoginPage,
     renderRegisterPage,
     registerUser,
-    getUserData,
-    loginUser
   };

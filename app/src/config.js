@@ -11,6 +11,9 @@ db.on('open', () => {
   console.log('Đã kết nối thành công với cơ sở dữ liệu MongoDB');
 });
 
-mongoose.connect('mongodb://localhost:27017/food-shop');
+mongoose.connect('mongodb://localhost:27017/food-shop',{
+  useNewUrlParser: true,
+  useUnifiedTopology:true
+});
 
 module.exports = db;
