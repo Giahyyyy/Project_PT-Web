@@ -1,6 +1,7 @@
 const User = require('../../model/UserSchema')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 //Cấu hình passport
 passport.use(new LocalStrategy(User.authenticate()));
@@ -44,9 +45,9 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User with this email already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
     // Tạo người dùng mới
-    const newUser = new User({ email, password:hashedPassword, first_name, last_name });
+    const newUser = new User({ email, password, first_name, last_name });
 
     // Lưu người dùng vào cơ sở dữ liệu
     await newUser.save();
