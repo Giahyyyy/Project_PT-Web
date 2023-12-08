@@ -1,16 +1,18 @@
-
+const flash = require('connect-flash');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const collection = require("./config");
 const bodyParser = require('body-parser');
+const { KEY_SESSION} = process.env
 
 //authen
 const passport = require('passport');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local').Strategy;
+
 
 const app = express();
 
@@ -19,14 +21,33 @@ mongoose.connect('mongodb://localhost:27017/food-shop',{
   useUnifiedTopology:true
 });
 
+const store= session.MemoryStore();
+
 app.use(session({
   secret: '123',
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    maxAge:1000*60
+
+  },
+  store
 }))
 
+const user ={
+  username: '123',
+  password: '123'
+}
+//authen khởi tạo passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+passport.serializeUser((user,done)=> done(null,user.username))
+
+
+
+
 
 
 

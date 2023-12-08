@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
 //Cấu hình passport
+passport.authenticate();
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -24,8 +25,6 @@ const renderLoginPage = async (req, res) => {
     }
     res.render('login/index')
 };
-
-
 
 const renderRegisterPage = (req, res) => {
     res.render('register/index')
@@ -60,33 +59,11 @@ const registerUser = async (req, res) => {
 };
   
 
-// Xử lý đăng nhập - Middleware
-exports.login = passport.authenticate('local', {
-  successRedirect: '/site/shop',
-  failureRedirect: '/authen/login',
-});
-
-exports.logout = (req,res,next) => {
-  req.logout();
-  res.redirect('/');
-}
-
-// //Middleware kiểm tra xác thực
-// exports.isLoggedIn= (req,res,next) => {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.redirect('/authen/logic');
-// }
-
-
-
-  
-
   
 
 module.exports = {
     renderLoginPage,
     renderRegisterPage,
     registerUser,
+
   };
