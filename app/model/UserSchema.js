@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator'); // Thêm dòng này để import validator
-const passportLocalMongoose = require('passport-local-mongoose');
-
+const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
     first_name: {
@@ -19,17 +18,17 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please provide your email"],
         unique: true,
         validate: {
-            validator: validator.isEmail, // Đảm bảo bạn đã import validator ở đầu file
+            validator: validator.isEmail,
             message: (props) => `${props.value} is not a valid email!`,
         },
     },
     image: {
-        type: String, // Chỉnh sửa "string" thành "String"
+        type: String,
     },
     password: {
         type: String,
         required: [true, "Please provide your password"],
-        minLength: 6,
+        minlength: 6,
     },
     role: {
         type: String,
@@ -38,6 +37,11 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
-UserSchema.plugin(passportLocalMongoose)
+// Do not hash the password before saving to the database
+
+// Method to verify the provided password
+UserSchema.methods.verifyPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model("User", UserSchema);
