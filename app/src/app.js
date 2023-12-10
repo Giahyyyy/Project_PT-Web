@@ -34,6 +34,10 @@ app.use(
 
 // Flash middleware (đặt sau middleware session)
 app.use(flash());
+app.use((req, res, next) => {
+  res.locals.messages = req.flash();
+  next();
+});
 
 // Cấu hình Passport
 app.use(passport.initialize());

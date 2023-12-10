@@ -2,6 +2,11 @@
     <section class="sign-in section section--xl">
       <div class="container">
         <div class="form-wrapper">
+          {{#if messages.error}}
+            <div class="alert alert-danger">
+              <strong>{{ messages.error }}</strong>
+            </div>
+          {{/if}}
           <h6 class="font-title--sm">Sign in</h6>
           <form id="form-login" action="/authen/login" method="post">
             <div class="form-input">

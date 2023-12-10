@@ -2,6 +2,11 @@ const User = require('../../model/UserSchema');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../../src/config');
+
+
+
+
+
 const postLogin = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
@@ -38,6 +43,8 @@ const postLogin = (req, res, next) => {
 };
 
 
+
+
 const renderLoginPage = async (req, res) => {
   try {
     res.render('login/index');
@@ -64,7 +71,8 @@ const registerUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       console.log("User already exists:", existingUser);
-      return res.status(400).json({ message: 'User with this email already exists' });
+      req.flash('error', 'Email already exists');
+      return res.redirect('/authen/register');
     }
 
     // Hash the password before saving it to the database
@@ -77,10 +85,13 @@ const registerUser = async (req, res) => {
     await newUser.save();
 
     console.log("User registered successfully:", newUser);
-    res.status(201).json({ message: 'User registered successfully' });
+    return res.redirect('/authen/login');
   } catch (error) {
     console.error('Error during registration:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    req.flash('error', 'Error during registration');
+    
+    return res.redirect('/authen/register');
+    
   }
 };
 
@@ -89,5 +100,6 @@ module.exports = {
   renderLoginPage,
   renderRegisterPage,
   registerUser,
-  postLogin
+  postLogin,
+  
 };
