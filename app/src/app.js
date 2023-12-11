@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+const methodOverride = require("method-override")
+
 const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../model/UserSchema'); // Điều chỉnh đường dẫn đến mô hình User của bạn
@@ -26,7 +28,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60
+      maxAge: 1000 * 1000
     },
     store
   })
@@ -42,6 +44,7 @@ app.use((req, res, next) => {
 // Cấu hình Passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride("_method"));
 
 // Cấu hình Passport Local Strategy
 passport.use(new LocalStrategy(
@@ -117,6 +120,7 @@ const routeCus = require('../routes/Customer');
 const AdminRoutes = require('../routes/Admin');
 app.use('/admin', AdminRoutes);
 routeCus(app);
+
 
 // Khởi động máy chủ
 app.listen(3000, () => {

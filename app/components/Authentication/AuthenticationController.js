@@ -19,7 +19,7 @@ const postLogin = (req, res, next) => {
       req.flash('error', info.message || 'Authentication failed.');
       return res.redirect('/authen/login');
     }
-
+    
     // Hash the password received from the form
     const { password } = req.body;
     const isPasswordCorrect = user.verifyPassword(password);
@@ -37,11 +37,11 @@ const postLogin = (req, res, next) => {
       }
 
       console.log("Đăng nhập thành công");
+      
       return res.redirect('/shop');
     });
   })(req, res, next);
 };
-
 
 
 
@@ -96,10 +96,34 @@ const registerUser = async (req, res) => {
 };
 
 
+function checkAuthenticated(req, res, next){
+  if(req.isAuthenticated()){
+      return next()
+  }
+  res.redirect("/authen/login")
+}
+
+function checkNotAuthenticated(req, res, next){
+  if(req.isAuthenticated()){
+      return res.redirect("/shop")
+  }
+  next()
+}
+
+const logout = (req, res, next) => {
+  req.logout(err => {
+    if (err) return next(err);
+    res.redirect("/authen/login");
+  });
+};
+
 module.exports = {
   renderLoginPage,
   renderRegisterPage,
   registerUser,
   postLogin,
+  checkAuthenticated,
+  checkNotAuthenticated,
+  logout,
   
 };
