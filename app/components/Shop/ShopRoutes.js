@@ -6,6 +6,6 @@ const authenticationController=require('../Authentication/AuthenticationControll
 const router = express.Router();
 
 
-router.get('/', authenticationController.checkAuthenticated, shopController.renderShopPage);
+router.get('/', authenticationController.checkNotAuthenticated, shopController.renderShopPage);
 
 module.exports = router;
