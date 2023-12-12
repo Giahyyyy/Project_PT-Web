@@ -2,7 +2,7 @@ const express = require('express');
 const authenticationController = require('./AuthenticationController');
 const router = express.Router();
 
-
+ 
 
 router.get('/login',authenticationController.checkNotAuthenticated, authenticationController.renderLoginPage);
 router.get('/register',authenticationController.checkNotAuthenticated, authenticationController.renderRegisterPage);

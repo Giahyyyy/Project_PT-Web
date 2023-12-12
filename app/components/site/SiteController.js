@@ -2,12 +2,19 @@
 
 const renderHomePage =   (req, res) => {
 
-    res.render('home/index');
-
+    if (req.isAuthenticated()) {
+        res.render('home', { user: req.user });
+      } else {
+        res.render('home', { user: null });
+      }
 };
 
 const renderAboutPage =  (req, res) => {
-    res.render('about/index')
+    if (req.isAuthenticated()) {
+        res.render('about', { user: req.user });
+      } else {
+        res.render('about', { user: null });
+      }
 };
 
 

@@ -4,6 +4,6 @@ const authenticationController = require('../Authentication/AuthenticationContro
 
 const router = express.Router();
 
-router.get('/',authenticationController.checkNotAuthenticated, contactController.renderContactPage);
+router.get('/', contactController.renderContactPage);
 
 module.exports = router;
