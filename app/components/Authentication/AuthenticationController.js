@@ -107,7 +107,7 @@ function checkNotAuthenticated(req, res, next){
   if(req.isAuthenticated()){
       return res.redirect("/contact")
   }
-  next()
+  next() 
 }
 
 const logout = (req, res, next) => {
