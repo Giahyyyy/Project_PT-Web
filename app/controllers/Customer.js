@@ -6,6 +6,7 @@ const cartRoutes = require('../components/Cart/CartRoutes');
 const authenticationRoutes = require('../components/Authentication/AuthenticationRoutes');
 const PrductdetalsRoutes = require('../components/products/ProductDetailRoutes');
 const shopRoutes = require('../components/Shop/ShopRoutes');
+const userDashboardRoutes = require('../components/UserDashboard/UserDashboardRoutes');
 
 
 
@@ -18,5 +19,6 @@ module.exports = {
     cartRoutes,
     authenticationRoutes,
     PrductdetalsRoutes,
-    shopRoutes
+    shopRoutes,
+    userDashboardRoutes
   };

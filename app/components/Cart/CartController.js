@@ -1,5 +1,10 @@
 const renderCartPage = (req, res) => {
-    res.render('cart/index')
+    
+    if (req.isAuthenticated()) {
+        res.render('cart/index', { user: req.user });
+      } else {
+        res.render('cart/index', { user: null });
+      }
 };
 
 module.exports = {

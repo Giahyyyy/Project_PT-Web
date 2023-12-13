@@ -12,7 +12,8 @@ function route (app) {
 
     app.use('/detail',cusController.PrductdetalsRoutes);
     app.use('/shop',cusController.shopRoutes);
-
+    app.use('/userDashboard',cusController.userDashboardRoutes);
+    
    
 }
 
