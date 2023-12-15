@@ -74,15 +74,17 @@
     </div>
 </td>
 
+<!-- Subtotal  -->
+<td class="cart-table-item order-subtotal align-middle">
+    <div class="
+        d-flex
+        justify-content-between
+        align-items-center
+    ">
+        <p id="subtotal-{{this.product._id}}" class="font-body--md-500">${{this.subtotal}}</p>
+    </div>
+</td>
 
-                  <!-- Subtotal  -->
-                  <td class="cart-table-item order-subtotal align-middle">
-                    <div class="
-                            d-flex
-                            justify-content-between
-                            align-items-center
-                          ">
-                      <p class="font-body--md-500">${{this.subtotal}}</p>
                      <!-- Remove Button -->
 <button class="delete-item" data-product-id="{{this.product._id}}" onclick="removeItem('{{this.product._id}}')">
     <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +146,7 @@
                 <!-- Subtotal  -->
                 <div class="bill-card__memo-item subtotal">
                   <p class="font-body--md-400">Subtotal:</p>
-                  <span class="font-body--md-500">${{ cart.total }}</span>
+                  <span id="subTotalAmount" class="font-body--md-500">${{ cart.total }}</span>
                 </div>
                 <!-- Shipping  -->
                 <div class="bill-card__memo-item shipping">
@@ -154,7 +156,7 @@
                 <!-- total  -->
                 <div class="bill-card__memo-item total">
                   <p class="font-body--lg-400">Total:</p>
-                  <span class="font-body--xl-500">${{ cart.total }}</span>
+                  <span id="totalAmount" class="font-body--xl-500">${{ cart.total }}</span>
                 </div>
               </div>
               <form action="#">
@@ -240,22 +242,21 @@
             const target = event.target;
             const productId = target.getAttribute('data-product-id');
 
-            if (target.classList.contains('counter-btn-inc')) {
-                updateQuantity(productId, 1);
-            } else if (target.classList.contains('counter-btn-dec')) {
-                updateQuantity(productId, -1);
+            if (target.classList.contains('counter-btn-inc') || target.classList.contains('counter-btn-dec')) {
+                const counterInput = document.getElementById(`counter-btn-counter-${productId}`);
+                const currentQuantity = parseInt(counterInput.value);
+                const change = target.classList.contains('counter-btn-inc') ? 1 : -1;
+                const newQuantity = Math.max(1, currentQuantity + change);
+
+                counterInput.value = newQuantity;
+
+                // Gửi yêu cầu POST để cập nhật số lượng trên máy chủ
+                updateQuantity(productId, newQuantity);
             }
         });
 
-        async function updateQuantity(productId, change) {
+        async function updateQuantity(productId, newQuantity) {
             try {
-                const counterInput = document.getElementById(`counter-btn-counter-${productId}`);
-                const currentQuantity = parseInt(counterInput.value);
-                const newQuantity = Math.max(1, currentQuantity + change);
-
-                // Update the UI before sending the request
-                counterInput.value = newQuantity;
-
                 const response = await fetch('/cart/update-subtotal', {
                     method: 'POST',
                     headers: {
@@ -266,11 +267,17 @@
                         quantity: newQuantity,
                     }),
                 });
+                //console.log('Server response:', response);
 
+                // Đọc nội dung JSON và lưu trữ vào biến
+                const responseData = await response.json();
+                console.log('Response JSON data:', responseData);
+
+                // Sử dụng dữ liệu từ biến
                 if (response.ok) {
-                    const { updatedProduct } = await response.json();
-                    // Update the UI after receiving the response
-                    updateUI(productId, updatedProduct);
+                    const { updatedProduct,total } = responseData;
+                    console.log('Received updatedProduct:', updatedProduct);
+                    updateUI(productId, updatedProduct,total);
                 } else {
                     console.error('Failed to update quantity');
                 }
@@ -279,40 +286,23 @@
             }
         }
 
-        function updateUI(productId, updatedProduct) {
-            // Implement the logic to update the UI with the new product data
-            // For example, update the price, subtotal, or any other relevant elements in the HTML
-            const priceElement = document.getElementById(`price-${productId}`);
-            if (priceElement) {
-                priceElement.innerText = updatedProduct.price;
+        function updateUI(productId, updatedProduct,total) {
+            const totalAmountElement = document.getElementById('totalAmount'); // ID của phần tử hiển thị tổng tiền
+            
+            const subTotalElement = document.getElementById('subTotalAmount');
+            if (updatedProduct && updatedProduct.subtotal !== undefined) {
+                const subtotalElement = document.getElementById(`subtotal-${productId}`);
+                if (subtotalElement) {
+                    subtotalElement.textContent = `$${updatedProduct.subtotal.toFixed(2)}`;
+                } else {
+                    console.error(`Element with ID 'subtotal-${productId}' not found.`);
+                }
+            } else {
+                console.error('Invalid updatedProduct or missing subtotal property.');
             }
+            totalAmountElement.textContent = `$${total.toFixed(2)}`;
+            subTotalElement.textContent = `$${total.toFixed(2)}`;
         }
+        
     });
-    function removeItem(productId) {
-        if (confirm("Are you sure you want to remove this item from your cart?")) {
-            fetch('/cart/remove-item', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    productId,
-                }),
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Failed to remove item');
-                    }
-                })
-                .then(data => {
-                    // Handle success, for example, update the UI
-                    updateUI(data.cart);
-                })
-                .catch(error => {
-                    console.error('Error removing item:', error);
-                });
-        }
-    }
 </script>
