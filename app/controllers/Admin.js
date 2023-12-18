@@ -1,28 +1,19 @@
-// controllers/Admin.js
-  const renderDashboard = (req, res) => {
-      res.render('dashboard/index');
-    };
+const chartRoutes = require('../components/Admin/Chart/chartRotes');
 
-  const renderChart = (req, res) => {
-    res.render('chart/index');
-  };
+const dashboardRoutes = require('../components/Admin/Dashboard/dashboardRotes');
 
-  const renderEmail = (req, res) => {
-    res.render('email/index');
-  };
+const emailRoutes = require('../components/Admin/Email/emailRotes');
 
-  const renderForm = (req, res) => {
-    res.render('form/index');
-  };
+const formRoutes = require('../components/Admin/Form/formRotes');
 
-  const renderTable = (req, res) => {
-    res.render('table/index');
-  };
-  
-  module.exports = {
-    renderDashboard,
-    renderChart,
-    renderEmail,
-    renderForm,
-    renderTable,
+const tableRoutes = require('../components/Admin/Table/tableRotes');
+
+
+
+module.exports = {
+  chartRoutes,
+  dashboardRoutes,
+  emailRoutes,
+  formRoutes,
+  tableRoutes
   };

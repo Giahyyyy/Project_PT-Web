@@ -99,6 +99,9 @@ app.use('/site', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/detail/product', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/home', express.static(path.join(__dirname, '../public/cus/main')));
 
+
+app.use('/form', express.static(path.join(__dirname, '../public/admin')));
+
 // Template engine
 app.engine('hbs', exphbs({
   extname: '.hbs',
@@ -121,9 +124,10 @@ app.set('views', [path.join(__dirname, '../views/Customer'), path.join(__dirname
 
 // Sử dụng các routes bạn đã định nghĩa
 const routeCus = require('../routes/Customer');
-const AdminRoutes = require('../routes/Admin');
-app.use('/admin', AdminRoutes);
+const routeAdmin = require('../routes/Admin');
+
 routeCus(app);
+routeAdmin(app);
 
 
 // Khởi động máy chủ

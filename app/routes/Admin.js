@@ -1,18 +1,17 @@
-// routes/Admin.js
-const express = require('express');
-const router = express.Router();
-const adminController = require('../controllers/Admin');
 
-router.get('/dashboard', adminController.renderDashboard);
+// app\routes\Admin.js
+const adminController =require("../controllers/Admin")
 
-router.get('/chart', adminController.renderChart);
+function route (app) {
+    app.use('/admin/chart',adminController.chartRoutes);
+    
+    app.use('/admin/table',adminController.tableRoutes);
 
-router.get('/email', adminController.renderEmail);
+    app.use('/admin/form',adminController.formRoutes);
 
-router.get('/form', adminController.renderForm);
+    app.use('/admin/email',adminController.emailRoutes);
 
-router.get('/table-basic', adminController.renderTable);
+    app.use('/admin/dashboard',adminController.dashboardRoutes);
+}
 
-
-
-module.exports = router;
+module.exports = route;
