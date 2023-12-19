@@ -4,7 +4,7 @@ const dashboardRoutes = require('../components/Admin/Dashboard/dashboardRotes');
 
 const emailRoutes = require('../components/Admin/Email/emailRotes');
 
-const formRoutes = require('../components/Admin/Form/formRotes');
+const formRoutes = require('../components/Admin/ProductUpload/formRotes');
 
 const tableRoutes = require('../components/Admin/Table/tableRotes');
 
