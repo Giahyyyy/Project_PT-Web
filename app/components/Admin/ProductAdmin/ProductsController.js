@@ -56,13 +56,15 @@ const createProduct = async (req, res) => {
 
 const renderForm = async (req, res) => {
   try {
-    // Fetch categories from the server
+    // Truy xuất danh sách sản phẩm và danh mục từ cơ sở dữ liệu
+    const products = await Product.find().populate('category'); // Sử dụng populate để kết hợp thông tin từ bảng category
+
     const categories = await Category.find();
 
-    // Render the form with the retrieved categories
-    res.render('product/index', { categories });
+    // Render trang với danh sách sản phẩm và danh mục
+    res.render('product/index', { products, categories });
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
   }
 };

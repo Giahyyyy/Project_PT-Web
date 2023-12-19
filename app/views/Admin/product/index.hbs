@@ -7,7 +7,7 @@
         <div class="bgc-white p-20 bd">
           <h6 class="c-grey-900">Upload Product</h6>
           <div class="mT-30">
-            <form action="/admin/form/uploadProduct" method="post" enctype="multipart/form-data">
+            <form action="/admin/uploadProduct/uploadProduct" method="post" enctype="multipart/form-data">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputProductName">Product Name</label>
@@ -46,6 +46,38 @@
           </div>
         </div>
       </div>
+      
     </div>
   </div>
+   <div class="row">
+      <div class="col-md-12">
+        <div class="bgc-white bd bdrs-3 p-20 mB-20">
+          
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each products}}
+                <tr>
+                  <th scope="row">{{@index}}</th>
+                  <td>{{product_name}}</td>
+                  <td>{{description}}</td>
+                  <td>{{price}}</td>
+                  <td>{{discount}}</td>
+                  <td>{{category.category_name}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>  
 </main>
