@@ -1,5 +1,4 @@
 
-// app\routes\Admin.js
 const adminController =require("../controllers/Admin")
 
 function route (app) {
@@ -13,7 +12,7 @@ function route (app) {
     app.use('/admin/dashboard',adminController.dashboardRoutes);
 
 
-    app.use('/admin/uploadProduct',adminController.uploadProductRoute);
+    app.use('/admin/Product',adminController.uploadProductRoute);
 
 
     app.use('/admin/uploadCategories',adminController.CategoriesRoutes);

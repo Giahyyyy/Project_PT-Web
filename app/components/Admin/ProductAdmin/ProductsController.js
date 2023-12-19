@@ -54,6 +54,17 @@ const createProduct = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    await Product.findByIdAndDelete(productId);
+
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 const renderForm = async (req, res) => {
   try {
     // Truy xuất danh sách sản phẩm và danh mục từ cơ sở dữ liệu
@@ -69,8 +80,13 @@ const renderForm = async (req, res) => {
   }
 };
 
+
+
+
+
 module.exports = {
   createProduct,
   renderForm,
+  deleteProduct
   
 };
