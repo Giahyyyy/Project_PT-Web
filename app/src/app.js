@@ -99,12 +99,13 @@ app.use('/site', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/detail/product', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/home', express.static(path.join(__dirname, '../public/cus/main')));
 
-
+app.use('/admin/Product/edit', express.static(path.join(__dirname, '../public/admin')));
+app.use('/form', express.static(path.join(__dirname, '../public/admin')));
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
 // Template engine
 app.engine('hbs', exphbs({
-  extname: '.hbs',  
+  extname: '.hbs',
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
     allowProtoMethodsByDefault: true
