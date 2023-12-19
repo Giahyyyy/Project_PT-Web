@@ -72,4 +72,5 @@ const renderForm = async (req, res) => {
 module.exports = {
   createProduct,
   renderForm,
+  
 };

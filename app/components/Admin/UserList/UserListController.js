@@ -13,8 +13,27 @@ const renderUsers = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
+const deleteUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ success: false, message: 'Người dùng không tồn tại' });
+    }
+
+    res.json({ success: true, message: 'Xóa người dùng thành công' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ nội bộ' });
+  }
+};
+
+
 
 module.exports = {
   renderUsers,
+  deleteUser
 };
 
