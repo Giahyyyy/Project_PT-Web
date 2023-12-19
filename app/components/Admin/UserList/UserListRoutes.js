@@ -1,12 +1,9 @@
 // routes/Admin.js
 const express = require('express');
 const router = express.Router();
-const tableController = require('./tableController');
+const UserListController = require('./UserListController');
 
-router.get('/', tableController.renderTable);
-
-
-
+router.get('/', UserListController.renderUsers);
 
 
 module.exports = router;

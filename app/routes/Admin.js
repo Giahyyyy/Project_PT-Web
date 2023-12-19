@@ -5,7 +5,7 @@ const adminController =require("../controllers/Admin")
 function route (app) {
     app.use('/admin/chart',adminController.chartRoutes);
     
-    app.use('/admin/table',adminController.tableRoutes);
+    app.use('/admin/UserList',adminController.UserListRoutes);
 
 
     app.use('/admin/email',adminController.emailRoutes);
