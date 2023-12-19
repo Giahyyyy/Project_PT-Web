@@ -253,86 +253,90 @@
     window.location.href = currentUrl.toString();
   }
 
-        // Function để tạo một nút phân trang
-    function createPageItem(page, text, clickable, isActive) {
-        const paginationElement = document.getElementById("pagination");
+function createPageItem(page, text, clickable, isActive) {
+    const paginationElement = document.getElementById("pagination");
 
-        const li = document.createElement("li");
-        li.className = "page-item pagination-item";
-        //li.classList.add("active");
+    const li = document.createElement("li");
+    li.className = "page-item pagination-item";
 
-        const a = document.createElement("a");
-        a.className = "page-link pagination-link";
+    const a = document.createElement("a");
+    a.className = "page-link pagination-link";
 
-        const currentPath = window.location.pathname;
-        const newHref = `${currentPath}?page=${page}`;
-        a.href = newHref; // Thay thế bằng đường dẫn thực tế khi bạn đã xử lý sự kiện nhấp vào nút.
+    const currentPath = window.location.pathname;
+    const newHref = `${currentPath}?page=${page}`;
+    a.href = newHref;
 
-        if (clickable) {
-            a.addEventListener("click", () =>{
-                handlePageClick(page);
-                //li.classList.add("active");
-            });
+    if (clickable) {
+        a.addEventListener("click", (event) => {
+            //event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+            handlePageClick(page);
+
+            // Xóa class "active" từ tất cả các nút phân trang
+            const allPageItems = document.querySelectorAll(".pagination-item");
+            allPageItems.forEach(item => item.classList.remove("active"));
             
-        } else {
-            a.tabIndex = -1;
-        }
-
-        a.innerText = text;
-        li.dataset.page = page;
-
-        li.appendChild(a);
-        paginationElement.appendChild(li);
-
-        if (!isActive && clickable) {
-            li.addEventListener("mouseenter", () => li.classList.add("hovered"));
-            li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
-        }
-
-        if (isActive) {
+            // Thêm class "active" cho nút phân trang hiện tại
             li.classList.add("active");
-        }
-    
+        });
+    } else {
+        a.tabIndex = -1;
     }
-    // Function để tạo các nút phân trang
-    function createPagination(totalPages, currentPage) {
-        const paginationElement = document.getElementById("pagination");
 
-        // Xóa các nút phân trang cũ
-        paginationElement.innerHTML = "";
+    a.innerText = text;
+    li.dataset.page = page;
 
-        // Tạo nút "Trang trước"
-        createPageItem(currentPage - 1, "<", currentPage > 1);
+    li.appendChild(a);
+    paginationElement.appendChild(li);
 
-        // Tạo các nút phân trang từ 1 đến totalPages
-        for (let i = 1; i <= totalPages; i++) {
-            createPageItem(i, i.toString(), true, i === currentPage);
-        }
+    if (!isActive && clickable) {
+        li.addEventListener("mouseenter", () => li.classList.add("hovered"));
+        li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
+    }
+}
 
-        // Tạo nút "Trang sau"
-        createPageItem(currentPage + 1, ">", currentPage < totalPages);
 
-        const paginationItems = document.querySelectorAll(".pagination-item");
-        paginationItems.forEach((item) => {
+
+// Function để tạo các nút phân trang
+function createPagination(totalPages, currentPage) {
+    const paginationElement = document.getElementById("pagination");
+
+    // Xóa các nút phân trang cũ
+    paginationElement.innerHTML = "";
+
+    // Tạo nút "Trang trước"
+    createPageItem(currentPage - 1, "<", currentPage > 1);
+
+    // Tạo các nút phân trang từ 1 đến totalPages
+    for (let i = 1; i <= totalPages; i++) {
+        createPageItem(i, i.toString(), true, i === currentPage);
+    }
+
+    // Tạo nút "Trang sau"
+    createPageItem(currentPage + 1, ">", currentPage < totalPages);
+
+    const paginationItems = document.querySelectorAll(".pagination-item");
+    paginationItems.forEach((item) => {
         item.addEventListener("click", () => handlePageClick(item.dataset.page));
     });
-    }
+}
+
+// Xử lý sự kiện khi người dùng nhấp vào một trang
+function handlePageClick(page) {
+    // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
+    // Sau đó, gọi lại createPagination với dữ liệu mới.
+    console.log(`Đã chuyển đến trang ${page}`);
+    const paginationItems = document.querySelectorAll(".pagination-item");
+    paginationItems.forEach(item => item.classList.remove("active"));
     
+    const currentPageItem = document.querySelector(`[data-page="${page}"]`);
+    currentPageItem.classList.add("active");
+    
+    createPagination(10, page);
+}
 
-    // Xử lý sự kiện khi người dùng nhấp vào một trang
-    function handlePageClick(page) {
-        // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
-        // Sau đó, gọi lại createPagination với dữ liệu mới.
-        console.log(`Đã chuyển đến trang ${page}`);
-        const paginationItems = document.querySelectorAll(".pagination-item");
-        paginationItems.forEach(item => item.classList.remove("active"));
-        li.classList.add("active");
-        createPagination(10, page);
-    }
+// Gọi createPagination với số trang và trang hiện tại (bạn có thể lấy từ dữ liệu từ server)
+createPagination(10, 2);
 
-
-    // Gọi createPagination với số trang và trang hiện tại (bạn có thể lấy từ dữ liệu từ server)
-    createPagination(10, 1);
 
 </script>
 
