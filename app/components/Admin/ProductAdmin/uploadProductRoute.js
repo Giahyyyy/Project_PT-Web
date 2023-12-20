@@ -9,6 +9,7 @@ router.delete('/delete/:id', ProductsController.deleteProduct);
 
 //update
 
-router.get('/edit/:id',updateProductsController.renderEditForm );
+router.get('/edit/:id',updateProductsController.renderUpdateForm );
+router.post('/edit/:id',updateProductsController.updateProduct );
 
 module.exports = router;
