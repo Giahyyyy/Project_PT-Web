@@ -5,7 +5,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.resolve('D:/NodeJs/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
+    const uploadPath = path.resolve('C:/Users/kient/Downloads/Project_PT-Web-b8ef8380294627744409c37bc5765550bef7a70c/Project_PT-Web-b8ef8380294627744409c37bc5765550bef7a70c/app/public/uploads'); // Folder to store uploaded files
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
@@ -71,6 +71,11 @@ const renderForm = async (req, res) => {
     const products = await Product.find().populate('category'); // Sử dụng populate để kết hợp thông tin từ bảng category
 
     const categories = await Category.find();
+
+    // Chỉnh sửa đường dẫn của ảnh trước khi render trang
+    products.forEach(product => {
+      product.img = '/uploads/' + product.img; // Điều chỉnh đường dẫn theo cấu trúc thư mục của bạn
+    });
 
     // Render trang với danh sách sản phẩm và danh mục
     res.render('product/index', { products, categories });

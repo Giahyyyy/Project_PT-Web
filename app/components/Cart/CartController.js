@@ -3,7 +3,6 @@ const Product = require('../../model/ProductSchema');
 const addToCart = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
-        const sessionId = req.session.id;
 
         const product = await Product.findById(productId);
         if (!product) {
@@ -58,7 +57,6 @@ const renderCartPage = (req, res) => {
 const updateSubtotal = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
-        console.log('Received request data:', req.body);
 
         // Lấy giỏ hàng của người dùng từ session
         let userCart = req.session.cart || { items: [], total: 0 };
@@ -73,7 +71,7 @@ const updateSubtotal = async (req, res) => {
 
             // Cập nhật tổng giá trị trong giỏ hàng
             userCart.total = userCart.items.reduce((total, item) => total + item.subtotal, 0);
-            
+
             // Cập nhật session
             req.session.cart = userCart;
 
@@ -85,7 +83,6 @@ const updateSubtotal = async (req, res) => {
                 total: userCart.total,
                 updatedProduct: cartItem, // Thêm thông tin sản phẩm đã cập nhật vào phản hồi
             });
-
         } else {
             res.status(404).json({ message: 'Không tìm thấy sản phẩm trong giỏ hàng' });
         }
@@ -124,7 +121,7 @@ const removeItem = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
-};  
+};
 
 // Add this route to your Express app
 

@@ -123,7 +123,7 @@
                         <div class="cards-md cards-md--four w-100">
                             <div class="cards-md__img-wrapper">
                                 <a href="/detail/product/{{id}}">
-                                    <img src="{{this.img}}" alt="products" />
+                                    <img src="/uploads/{{this.img}}" alt="products" />
                                 </a>
                                 <div class="cards-md__favs-list">
                                     <span class="action-btn">
@@ -150,7 +150,7 @@
                                 </div>
                             </div>
                             <div class="cards-md__info d-flex justify-content-between align-items-center">
-                                <a href="/detail/product/{{id}}" class="cards-md__info-left" data-product-id="{{id}}">
+                    <a href="/detail/product/{{id}}" class="cards-md__info-left" data-product-id="{{id}}">
                                     <h6 class="font-body--md-400">{{this.product_name}}</h6>
                                     <div class="cards-md__info-price">
                                         <span class="font-body--lg-500">${{price}}</span>
@@ -200,18 +200,18 @@
                                     </ul>
                                 </a>
                                  <div class="cards-md__info-right">
-                                    <span class="action-btn add-to-cart-btn"
-                                        data-product-id="{{id}}"
-                                        data-quantity="1">
-                                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6.66667 8.83333H4.16667L2.5 18H17.5L15.8333 8.83333H13.3333M6.66667 8.83333V6.33333C6.66667 4.49239 8.15905 3 10 3V3C11.8409 3 13.3333 4.49238 13.3333 6.33333V8.83333M6.66667 8.83333H13.3333M6.66667 8.83333V11.3333M13.3333 8.83333V11.3333"
-                                                stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </svg>
-                                    </span>
-                                </div>
+    <span class="action-btn add-to-cart-btn"
+          data-product-id="{{id}}"
+          data-quantity="1">
+        <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M6.66667 8.83333H4.16667L2.5 18H17.5L15.8333 8.83333H13.3333M6.66667 8.83333V6.33333C6.66667 4.49239 8.15905 3 10 3V3C11.8409 3 13.3333 4.49238 13.3333 6.33333V8.83333M6.66667 8.83333H13.3333M6.66667 8.83333V11.3333M13.3333 8.83333V11.3333"
+                stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+        </svg>
+    </span>
+</div>
 
                             </div>
                         </div>
@@ -268,10 +268,15 @@ function createPageItem(page, text, clickable, isActive) {
 
     if (clickable) {
         a.addEventListener("click", (event) => {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
-            console.log("Clickable button clicked!");
-            console.log("Page value:", page);
+            //event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
             handlePageClick(page);
+
+            // Xóa class "active" từ tất cả các nút phân trang
+            const allPageItems = document.querySelectorAll(".pagination-item");
+            allPageItems.forEach(item => item.classList.remove("active"));
+            
+            // Thêm class "active" cho nút phân trang hiện tại
+            li.classList.add("active");
         });
     } else {
         a.tabIndex = -1;
@@ -286,10 +291,6 @@ function createPageItem(page, text, clickable, isActive) {
     if (!isActive && clickable) {
         li.addEventListener("mouseenter", () => li.classList.add("hovered"));
         li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
-    }
-
-    if (isActive) {
-        li.classList.add("active");
     }
 }
 
@@ -307,7 +308,6 @@ function createPagination(totalPages, currentPage) {
 
     // Tạo các nút phân trang từ 1 đến totalPages
     for (let i = 1; i <= totalPages; i++) {
-        
         createPageItem(i, i.toString(), true, i === currentPage);
     }
 
@@ -315,34 +315,27 @@ function createPagination(totalPages, currentPage) {
     createPageItem(currentPage + 1, ">", currentPage < totalPages);
 
     const paginationItems = document.querySelectorAll(".pagination-item");
-
     paginationItems.forEach((item) => {
-    item.addEventListener("click", () => handlePageClick(parseInt(item.dataset.page, 10)));
-    // hoặc
-    // item.addEventListener("click", () => handlePageClick(Number(item.dataset.page)));
+        item.addEventListener("click", () => handlePageClick(item.dataset.page));
     });
-
-
 }
 
 // Xử lý sự kiện khi người dùng nhấp vào một trang
 function handlePageClick(page) {
-    console.log("handlePageClick called for page:", page);
-    
     // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
     // Sau đó, gọi lại createPagination với dữ liệu mới.
-
-    // Thay đổi URL để phản ánh trang mới
-    const currentPath = window.location.pathname;
-    const newHref = `${currentPath}?page=${page}`;
-    window.history.pushState({}, '', newHref);
-
-    // Gọi lại createPagination với dữ liệu mới
+    console.log(`Đã chuyển đến trang ${page}`);
+    const paginationItems = document.querySelectorAll(".pagination-item");
+    paginationItems.forEach(item => item.classList.remove("active"));
+    
+    const currentPageItem = document.querySelector(`[data-page="${page}"]`);
+    currentPageItem.classList.add("active");
+    
     createPagination(10, page);
 }
 
 // Gọi createPagination với số trang và trang hiện tại (bạn có thể lấy từ dữ liệu từ server)
-createPagination(10, null);
+createPagination(10, 2);
 
 
 </script>

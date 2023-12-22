@@ -24,7 +24,7 @@ const getProductById = async (req, res) => {
 
         // Find related products
         const categoryId = product.category._id;
-        const relatedProducts = await Product.find({ category: categoryId, _id: { $ne: productId } }).limit(5);
+        const relatedProducts = await Product.find({ category: categoryId, _id: { $ne: productId } }).limit(10);
 
         console.log('Sản phẩm liên quan:', relatedProducts);
 

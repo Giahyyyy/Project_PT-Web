@@ -71,7 +71,8 @@ const registerUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       console.log("User already exists:", existingUser);
-      return res.status(400).json({ success: false, message: 'Email already exists' });
+      req.flash('error', 'Email already exists');
+      return res.redirect('/authen/register');
     }
 
     // Hash the password before saving it to the database
@@ -84,22 +85,12 @@ const registerUser = async (req, res) => {
     await newUser.save();
 
     console.log("User registered successfully:", newUser);
-    return res.status(200).json({ success: true, message: 'Registration successful' });
-
-    
+    return res.redirect('/authen/login');
   } catch (error) {
-    // console.error('Error during registration:', error);
-    // req.flash('error', 'Error during registration');
-    
-    
     console.error('Error during registration:', error);
-
-    if (error.message.includes('Invalid request body')) {
-      return res.status(400).json({ success: false, message: 'Invalid request body' });
-    }
-
-    return res.status(500).json({ success: false, message: 'Error during registration' });
-
+    req.flash('error', 'Error during registration');
+    
+    return res.redirect('/authen/register');
     
   }
 };
@@ -116,7 +107,7 @@ function checkNotAuthenticated(req, res, next){
   if(req.isAuthenticated()){
       return res.redirect("/contact")
   }
-  next() 
+  next()
 }
 
 const logout = (req, res, next) => {
