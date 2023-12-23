@@ -1,5 +1,5 @@
     <section class="create-account section section--xl">
-      <div class="container">
+      <form id="registrationForm" class="container">
         <div class="form-wrapper">
           {{#if messages.error}}
             <div class="alert alert-danger">
@@ -15,7 +15,8 @@
           <input type="text" placeholder="last name" name="last_name" />
             </div>
             <div class="form-input">
-              <input type="email" placeholder="Email" name ="email"/>
+              <input id="email" type="email" placeholder="Email" name="email">
+
               <span class="icon icon-warning">
                 <svg
                   width="20"
@@ -96,6 +97,7 @@
                 </svg>
               </span>
             </div>
+            
             <div class="form-input">
               <input type="password" placeholder="Password" id="password" name ="password"/>
               <button
@@ -220,53 +222,51 @@
             </div>
           </form>
         </div>
-      </div>
+      </form>
     </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const registrationForm = document.querySelector('form');
+document.addEventListener('DOMContentLoaded', function () {
+  const registrationForm = document.getElementById('registrationForm');
 
-    registrationForm.addEventListener('submit', async function (event) {
-      event.preventDefault(); // Prevent the default form submission behavior
+  registrationForm.addEventListener('submit', async function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-      const formData = new FormData(registrationForm);
+    const formData = new FormData(registrationForm);
 
-      try {
-        const response = await fetch('/authen/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json', // Set the content type to JSON
-          },
-          body: JSON.stringify(Object.fromEntries(formData)), // Convert form data to JSON
-        });
+    try {
+      const response = await fetch('/authen/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: JSON.stringify(Object.fromEntries(formData)), // Convert form data to JSON
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-          // Registration successful
-          showNotification('success', data.message);
-        } else {
-          // Registration failed
-          showNotification('error', data.message);
-        }
-      } catch (error) {
-        console.error('Error during registration:', error);
-        showNotification('error', 'Internal Server Error');
-      }
-    });
-
-    function showNotification(type, message) {
-      const notificationDiv = document.getElementById('notification');
-      notificationDiv.textContent = message;
-      notificationDiv.style.display = 'block';
-
-      // Add styling based on the notification type (success or error)
-      if (type === 'success') {
-        notificationDiv.style.color = '#00B307'; // Green color for success
+      if (data.success) {
+        // Registration successful, redirect to the specified URL
+        window.location.href = '/authen/login';
       } else {
-        notificationDiv.style.color = '#EA4B48'; // Red color for error
+        // Registration failed, display an error message
+        // showNotification('error', data.message);
+        handleRegistrationError(data.message);
       }
+    } catch (error) {
+      
+       handleRegistrationError('Internal Server Error');
     }
   });
+
+  function handleRegistrationError(errorMessage) {
+    const notificationDiv = document.getElementById('notification');
+    notificationDiv.textContent = errorMessage;
+    notificationDiv.style.display = 'block';
+    notificationDiv.style.color = '#EA4B48'; // Red color for error
+  }
+
+  
+});
+
 </script>
