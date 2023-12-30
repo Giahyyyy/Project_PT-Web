@@ -1,0 +1,49 @@
+<section class="create-account section section--xl">
+  <form id="verificationForm" action="/authen/verify" method="post" class="container" onsubmit="verifyEmail(event)">
+    <div class="form-wrapper">
+      <h6 class="font-title--sm">Verify Email</h6>
+      <div class="form-input">
+        <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter verification code" required>
+        <input type="hidden" name="email" value="{{ email }}">
+      </div>
+      <div class="form-button">
+        <button type="submit" class="button button--md w-100">Verify</button>
+      </div>
+    </div>
+    <div id="notification" style="display: none;"></div>
+  </form>
+</section>
+
+<script>
+  function verifyEmail(event) {
+    event.preventDefault();
+
+    const verificationCode = document.getElementById('verificationCode').value;
+
+    fetch('/authen/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: '{{ email }}', verificationCode }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/authen/login';
+        } else {
+          handleVerificationError(data.message);
+        }
+      })
+      .catch(error => {
+        handleVerificationError('Internal Server Error');
+      });
+  }
+
+  function handleVerificationError(errorMessage) {
+    const notificationDiv = document.getElementById('notification');
+    notificationDiv.textContent = errorMessage;
+    notificationDiv.style.display = 'block';
+    notificationDiv.style.color = '#EA4B48';
+  }
+</script>

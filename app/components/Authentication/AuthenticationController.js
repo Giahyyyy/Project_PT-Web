@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../../src/config');
 
-
+const nodemailer = require('nodemailer');
 
 
 
@@ -43,7 +43,37 @@ const postLogin = (req, res, next) => {
   })(req, res, next);
 };
 
+const generateVerificationCode = () => {
+  // Tạo mã xác nhận ngẫu nhiên, ví dụ: mã số ngẫu nhiên 6 chữ số
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
 
+const sendVerificationEmail = (email, verificationCode) => {
+  
+  // Gửi email chứa mã xác thực
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'tourhoanuicamranh@gmail.com',
+      pass: 'fbnk mqvm omll rjeb',
+    },
+  });
+
+  const mailOptions = {
+    from: 'tourhoanuicamranh@gmail.com',
+    to: email,
+    subject: 'Verification Code',
+    text: `Your verification code is: ${verificationCode}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+};
 
 const renderLoginPage = async (req, res) => {
   try {
@@ -58,6 +88,15 @@ const renderLoginPage = async (req, res) => {
 const renderRegisterPage = (req, res) => {
   res.render('register/index');
 };
+
+const renderVerificationPage = (req, res) => {
+  const { email } = req.params;
+  
+  // Hiển thị trang xác thực
+  res.render('verify/index', { email });
+};
+
+
 
 const registerUser = async (req, res) => {
   try {
@@ -77,11 +116,19 @@ const registerUser = async (req, res) => {
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
     
+    const verificationCode = generateVerificationCode();
+
     // Create a new user with the hashed password
-    const newUser = new User({ email, password: hashedPassword, first_name, last_name });
+    const newUser = new User({ email, password: hashedPassword, first_name, last_name,verificationCode });
 
     // Save the new user to the database
     await newUser.save();
+
+    // Generate verification code
+    
+
+    // Send verification email
+    sendVerificationEmail(email, verificationCode);
 
     console.log("User registered successfully:", newUser);
     return res.status(200).json({ success: true, message: 'Registration successful' });
@@ -101,6 +148,56 @@ const registerUser = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Error during registration' });
 
     
+  }
+};
+
+const getUserVerificationData = async (email) => {
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      console.log('User not found:', email);
+      return null;
+    }
+
+    return {
+      email: user.email,
+      verificationCode: user.verificationCode,
+    };
+  } catch (error) {
+    console.error('Error fetching user verification data:', error);
+    throw error;
+  }
+};
+
+
+
+const verifyRegistration = async (req, res) => {
+  try {
+    const { email, verificationCode } = req.body;
+
+    const userVerificationData = await getUserVerificationData(email);
+
+    if (!userVerificationData) {
+      return res.status(400).json({ success: false, message: 'User not found22' });
+    }
+
+    // Kiểm tra mã xác nhận từ người dùng
+    if (verificationCode !== userVerificationData.verificationCode) {
+      return res.status(400).json({ success: false, message: 'Invalid verification code' });
+    }
+
+    // Cập nhật trạng thái xác nhận và xóa mã xác nhận
+    const user = await User.findOne({ email });
+    user.isVerified = true;
+    user.verificationCode = undefined;
+    await user.save();
+
+    // Redirect hoặc trả về JSON thành công tùy thuộc vào yêu cầu của ứng dụng
+    res.json({ success: true, message: 'Registration verified successfully' });
+  } catch (error) {
+    console.error('Error verifying registration:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -134,5 +231,9 @@ module.exports = {
   checkAuthenticated,
   checkNotAuthenticated,
   logout,
+  renderVerificationPage,
+  sendVerificationEmail,
+  verifyRegistration,
+  getUserVerificationData,
   
 };
