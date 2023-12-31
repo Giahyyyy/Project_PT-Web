@@ -2,7 +2,7 @@
 const adminController =require("../controllers/Admin")
 
 function route (app) {
-    app.use('/admin/chart',adminController.chartRoutes);
+    app.use('/admin/order',adminController.checkoutRotes);
     
     app.use('/admin/UserList',adminController.UserListRoutes);
 
@@ -16,6 +16,8 @@ function route (app) {
 
 
     app.use('/admin/uploadCategories',adminController.CategoriesRoutes);
+
+
 
 }
 

@@ -1,4 +1,4 @@
-const chartRoutes = require('../components/Admin/Chart/chartRotes');
+const checkoutRotes = require('../components/Admin/Checkout/checkoutRotes');
 
 const dashboardRoutes = require('../components/Admin/Dashboard/dashboardRotes');
 
@@ -11,11 +11,12 @@ const UserListRoutes = require('../components/Admin/UserList/UserListRoutes');
 const CategoriesRoutes = require('../components/Admin/CategoryAdmin/CategoriesRotes');
 
 
+
 module.exports = {
-  chartRoutes,
+  checkoutRotes,
   dashboardRoutes,
   emailRoutes,
   uploadProductRoute,
   UserListRoutes,
-  CategoriesRoutes
+  CategoriesRoutes,
   };

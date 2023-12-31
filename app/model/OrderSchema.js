@@ -28,8 +28,11 @@ const orderSchema = new Schema(
     ],
     paymentMethod: { type: String, required: true },
     total: { type: Number, required: true },
+    status: { type: String, enum: ['Đang xác nhận', 'Đang vận chuyển', 'Hoàn thành'], default: 'Đang xác nhận' }, // Thêm trường status
+
   },
-  { timestamps: true }
+  { timestamps: true },
+  
 );
 
 const Order = model('Order', orderSchema);

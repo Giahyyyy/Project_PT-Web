@@ -2,6 +2,7 @@ const Order = require('../../model/OrderSchema'); // Điều chỉnh đường d
 
 const createOrder = async (req, res) => {
   try {
+    
     const {
       billing: {
         firstName,
