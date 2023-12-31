@@ -17,11 +17,21 @@ const createOrder = async (req, res) => {
       additionalInformation: { notes },
     } = req.body;
 
-    // Đoạn code xử lý dữ liệu từ form ở đây
-    // ...
+    const userCart = req.session.cart || { items: [], total: 0 };
+    const productsInCart = userCart.items;
 
-    // In ra kiểm tra dữ liệu nhận được
-    console.log('Received form data:', {
+    // Tạo mảng sản phẩm cho đơn hàng từ giỏ hàng của người dùng
+    const productsForOrder = productsInCart.map(item => ({
+      product: item.product._id, // Lấy productId từ đối tượng product
+      quantity: item.quantity,
+      subtotal: item.subtotal,
+    }));
+
+    // Tính tổng tiền của đơn hàng từ giỏ hàng của người dùng
+    const totalAmount = userCart.total;
+
+    // Tạo đối tượng đơn hàng
+    const orderData = {
       billing: {
         firstName,
         lastName,
@@ -34,9 +44,15 @@ const createOrder = async (req, res) => {
       },
       paymentMethod,
       additionalInformation: { notes },
-    });
+      products: productsForOrder,
+      total: totalAmount,
+    };
 
-    // Trả về kết quả cho client hoặc thực hiện các thao tác khác dựa trên logic của bạn
+    const order = new Order(orderData);
+    await order.save();
+
+    req.session.cart = { items: [], total: 0 };
+
     res.json({ message: 'Order created successfully' });
   } catch (error) {
     console.error('Error creating order:', error);
