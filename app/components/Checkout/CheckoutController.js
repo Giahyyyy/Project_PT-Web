@@ -64,9 +64,15 @@ const createOrder = async (req, res) => {
 
 
 const renderCheckoutPage = (req, res) => {
-    const userCart = req.session.cart || { items: [], total: 0 };
+  if (req.isAuthenticated()) {
 
-    res.render('checkout/index', { cart: userCart });
+    const userCart = req.session.cart || { items: [], total: 0 };
+  
+    res.render('checkout/index', {user:req.user, cart: userCart });
+  }  
+  else {
+    res.render('checkout', { user: null });
+  }
 };
 
 module.exports = {

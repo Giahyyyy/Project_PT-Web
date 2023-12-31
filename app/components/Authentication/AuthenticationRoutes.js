@@ -10,19 +10,18 @@ router.get('/register', authenticationController.renderRegisterPage);
 router.post('/register', authenticationController.registerUser);
 router.post('/login', authenticationController.postLogin);
 
-// router.get('/verify/:email', authenticationController.renderVerificationPage);
-// router.post('/verify/:email', authenticationController.verifyRegistration);
-
+// verify
 router.get('/verify/:email', authenticationController.renderVerificationPage);
 router.post('/verify', authenticationController.verifyRegistration);
 
-// router.get('/verify/email', authenticationController.getUserEmail);
+//forgot pass
+
+
 
 router.delete('/logout',authenticationController.logout)
 
 
-// Định nghĩa một endpoint để xử lý yêu cầu kích hoạt
-//router.get('/activate/:activationCode', authenticationController.activateAccount);
+
 
 
 

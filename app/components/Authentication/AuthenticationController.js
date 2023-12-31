@@ -93,7 +93,7 @@ const renderVerificationPage = (req, res) => {
   const { email } = req.params;
   
   // Hiển thị trang xác thực
-  res.render('verify/index', { email });
+  res.render('register/verify', { email });
 };
 
 

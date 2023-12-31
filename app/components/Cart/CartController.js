@@ -37,18 +37,24 @@ const addToCart = async (req, res) => {
 };
 
 const renderCartPage = (req, res) => {
-    const userCart = req.session.cart || { items: [], total: 0 };
+    // Kiểm tra xem người dùng đã xác thực hay chưa
+    if (req.isAuthenticated()) {
+        const userCart = req.session.cart || { items: [], total: 0 };
 
-    console.log('User Cart:', userCart);
+        console.log('User Cart:', userCart);
 
-    const productInfoArray = userCart.items.map(item => ({
-        productName: item.product.product_name,
-        price: item.product.price,
-    }));
+        const productInfoArray = userCart.items.map(item => ({
+            productName: item.product.product_name,
+            price: item.product.price,
+        }));
 
-    console.log('Product Information:', productInfoArray);
+        console.log('Product Information:', productInfoArray);
 
-    res.render('cart/index', { cart: userCart });
+        res.render('cart/index', {user: req.user, cart: userCart });
+    } else {
+        // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
+        res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
+    }
 };
 
 // Inside your controller file
