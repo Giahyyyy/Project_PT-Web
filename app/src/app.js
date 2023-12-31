@@ -50,6 +50,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // Cấu hình Passport Local Strategy
 passport.use(new LocalStrategy(
   {

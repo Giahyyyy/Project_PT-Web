@@ -1,8 +1,9 @@
 const express = require('express');
-const contactController = require('./CheckoutController');
+const CheckoutController = require('./CheckoutController');
 
 const router = express.Router();
 
-router.get('/', contactController.renderCheckoutPage);
+router.get('/', CheckoutController.renderCheckoutPage);
+router.post('/createOrder', CheckoutController.createOrder);
 
 module.exports = router;
