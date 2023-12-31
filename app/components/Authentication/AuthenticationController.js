@@ -85,6 +85,66 @@ const renderLoginPage = async (req, res) => {
   res.render('login/index');
 };
 
+const renderForgotPassPage = (req, res) => {
+  res.render('login/forgotPass');
+};
+
+const renderResetPassPage = (req, res) => {
+  const { token } = req.params;
+  res.render('login/resetPass', { token });
+};
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (user) {
+      const token = crypto.randomBytes(20).toString('hex');
+      user.verificationCode = token;
+      await user.save();
+
+      sendVerificationEmail(email, token);
+
+      res.redirect(`/authen/reset-password/${token}`);
+    } else {
+      res.render('login/forgotPass');
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('login/forgotPass');
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token, newPassword, confirmNewPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ verificationCode: token });
+
+    if (user) {
+      if (newPassword === confirmNewPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        user.verificationCode = null;
+        await user.save();
+
+        res.render('login/resetPass', { message: 'Password reset successfully' });
+      } else {
+        res.render('login/resetPass', { message: 'Passwords do not match', token });
+      }
+    } else {
+      res.render('login/resetPass', { message: 'Invalid token', token });
+      return res.status(400).json({ success: false, message: 'Invalid request body' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('login/resetPass', { message: 'Internal server error', token });
+  }
+};
+
 const renderRegisterPage = (req, res) => {
   res.render('register/index');
 };
@@ -226,6 +286,8 @@ const logout = (req, res, next) => {
 module.exports = {
   renderLoginPage,
   renderRegisterPage,
+  renderForgotPassPage,
+  renderResetPassPage,
   registerUser,
   postLogin,
   checkAuthenticated,
@@ -235,5 +297,6 @@ module.exports = {
   sendVerificationEmail,
   verifyRegistration,
   getUserVerificationData,
-  
+  forgotPassword,
+  resetPassword
 };
