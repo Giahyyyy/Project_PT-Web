@@ -1,10 +1,9 @@
-<!-- Reset Password Section Start  -->
+<!-- Reset Password Section Start -->
 <section class="reset-password section section--xl">
   <div class="container">
     <div class="form-wrapper">
-      
       <h6 class="font-title--sm">Reset Password</h6>
-      <form id="form-reset-password" action="/reset-password" method="post">
+      <form id="form-reset-password" action="/authen/reset-pass" method="post">
         <div class="form-input">
           <input type="text" placeholder="Token" name="token" />
         </div>
@@ -18,7 +17,51 @@
           <button class="button button--md w-100">Reset Password</button>
         </div>
       </form>
+
+      <!-- Thông báo -->
+      <div id="notification" style="display: none;"></div>
     </div>
   </div>
 </section>
-<!-- Reset Password Section end  -->
+<!-- Reset Password Section end -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const resetPasswordForm = document.getElementById('form-reset-password');
+  const notificationDiv = document.getElementById('notification');
+
+  resetPasswordForm.addEventListener('submit', async function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    const formData = new FormData(resetPasswordForm);
+
+    try {
+      const response = await fetch('/authen/reset-pass', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: JSON.stringify(Object.fromEntries(formData)), // Convert form data to JSON
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Password reset successful, redirect or display a success message
+        window.location.href = '/authen/login'; // Redirect to login page
+      } else {
+        // Password reset failed, display an error message
+        handleResetPasswordError(data.message);
+      }
+    } catch (error) {
+      handleResetPasswordError('Internal Server Error');
+    }
+  });
+
+  function handleResetPasswordError(errorMessage) {
+    notificationDiv.textContent = errorMessage;
+    notificationDiv.style.display = 'block';
+    notificationDiv.style.color = '#EA4B48'; // Red color for error
+  }
+});
+
+</script>

@@ -22,7 +22,7 @@ router.get('/forgot-pass', authenticationController.renderForgotPassPage);
 router.post('/forgot-pass', authenticationController.forgotPassword);
 
 //reset pass
-router.get('/reset-pass/:token', authenticationController.renderResetPassPage);
+router.get('/reset-pass', authenticationController.renderResetPassPage);
 router.post('/reset-pass', authenticationController.resetPassword);
 
 

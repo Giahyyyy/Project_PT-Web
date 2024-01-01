@@ -90,8 +90,8 @@ const renderForgotPassPage = (req, res) => {
 };
 
 const renderResetPassPage = (req, res) => {
-  const { token } = req.params;
-  res.render('login/resetPass', { token });
+  
+  res.render('login/resetPass' );
 };
 
 const forgotPassword = async (req, res) => {
@@ -101,20 +101,18 @@ const forgotPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      const token = crypto.randomBytes(20).toString('hex');
+      const token = generateVerificationCode();
       user.verificationCode = token;
       await user.save();
 
       sendVerificationEmail(email, token);
-
-      res.redirect(`/authen/reset-password/${token}`);
+      return res.status(200).json({ success: true, message: 'Đã gửi token' });
     } else {
-      res.render('login/forgotPass');
+      return res.status(404).json({ success: false, message: 'User not found' });
     }
   } catch (error) {
     console.error(error);
-    res.render('login/forgotPass');
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 
@@ -130,18 +128,17 @@ const resetPassword = async (req, res) => {
         user.password = hashedPassword;
         user.verificationCode = null;
         await user.save();
-
-        res.render('login/resetPass', { message: 'Password reset successfully' });
+        // res.redirect(`/authen/login`);
+        return res.status(200).json({ success: true, message: 'Password reset successfully' });
       } else {
-        res.render('login/resetPass', { message: 'Passwords do not match', token });
+        return res.status(400).json({ success: false, message: 'Passwords do not match' });
       }
     } else {
-      res.render('login/resetPass', { message: 'Invalid token', token });
-      return res.status(400).json({ success: false, message: 'Invalid request body' });
+      return res.status(404).json({ success: false, message: 'Token not right' });
     }
   } catch (error) {
     console.error(error);
-    res.render('login/resetPass', { message: 'Internal server error', token });
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
 

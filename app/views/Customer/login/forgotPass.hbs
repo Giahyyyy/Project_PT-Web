@@ -1,4 +1,4 @@
-<!-- Forgot Password Section Start  -->
+<!-- Forgot Password Section Start -->
 <section class="forgot-password section section--xl">
   <div class="container">
     <div class="form-wrapper">
@@ -8,60 +8,79 @@
           <input type="email" placeholder="Email" name="email" required>
         </div>
         <div id="forgotPassNotification" style="display: none;"></div>
+        
         <div class="form-button">
-          <button class="button button--md w-100" onclick="sendForgotPasswordRequest()">Reset Password</button>
+          <button id="forgotPassButton" class="button button--md w-100">Reset Password</button>
         </div>
       </form>
     </div>
   </div>
 </section>
-<!-- Forgot Password Section end  -->
+<!-- Forgot Password Section end -->
 
 <script>
-  async function sendForgotPasswordRequest() {
-    const emailInput = document.querySelector('input[name="email"]');
-    const email = emailInput.value;
+  document.addEventListener('DOMContentLoaded', function () {
+    const forgotPassButton = document.getElementById('forgotPassButton');
 
-    if (!email) {
-      showForgotPassError('Please enter your email.');
-      return;
-    }
+    forgotPassButton.addEventListener('click', sendForgotPasswordRequest);
 
-    try {
-      const response = await fetch('/authen/forgot-pass', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+    async function sendForgotPasswordRequest(event) {
+      event.preventDefault();
 
-      const data = await response.json();
+      // Disable the button to prevent multiple clicks
+      forgotPassButton.disabled = true;
 
-      if (data.success) {
-        // Request successful, provide feedback to the user
-        showForgotPassSuccess(data.message);
-      } else {
-        // Request failed, display an error message
-        showForgotPassError(data.message);
+      const emailInput = document.querySelector('input[name="email"]');
+      const email = emailInput.value;
+
+      if (!email) {
+        showForgotPassError('Please enter your email.');
+
+        // Re-enable the button
+        forgotPassButton.disabled = false;
+        return;
       }
-    } catch (error) {
-      // Handle unexpected errors
-      showForgotPassError('Internal Server Error');
+
+      try {
+        const response = await fetch('/authen/forgot-pass', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          window.location.href = '/authen/reset-pass';
+          // Request successful, provide feedback to the user
+          showForgotPassSuccess(data.message);
+        } else {
+          // Request failed, display an error message
+          showForgotPassError(data.message);
+        }
+      } catch (error) {
+        // Handle unexpected errors
+        showForgotPassError('Internal Server Error');
+      } finally {
+        // Re-enable the button regardless of the outcome
+        forgotPassButton.disabled = false;
+      }
     }
-  }
 
-  function showForgotPassError(errorMessage) {
-    const notificationDiv = document.getElementById('forgotPassNotification');
-    notificationDiv.textContent = errorMessage;
-    notificationDiv.style.display = 'block';
-    notificationDiv.style.color = '#EA4B48'; // Red color for error
-  }
+    function showForgotPassError(errorMessage) {
+      const notificationDiv = document.getElementById('forgotPassNotification');
+      notificationDiv.textContent = errorMessage;
+      notificationDiv.style.display = 'block';
+      notificationDiv.style.color = '#EA4B48'; // Red color for error
+    }
 
-  function showForgotPassSuccess(successMessage) {
-    const notificationDiv = document.getElementById('forgotPassNotification');
-    notificationDiv.textContent = successMessage;
-    notificationDiv.style.display = 'block';
-    notificationDiv.style.color = '#4CAF50'; // Green color for success
-  }
+    function showForgotPassSuccess(successMessage) {
+      const notificationDiv = document.getElementById('forgotPassNotification');
+      notificationDiv.textContent = successMessage;
+      notificationDiv.style.display = 'block';
+      notificationDiv.style.color = '#4CAF50'; // Green color for success
+    }
+  });
 </script>
