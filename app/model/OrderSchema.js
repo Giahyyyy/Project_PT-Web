@@ -2,6 +2,11 @@ const { Schema, model } = require('mongoose');
 
 const orderSchema = new Schema(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     billing: {
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },

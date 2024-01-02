@@ -2,7 +2,8 @@ const Order = require('../../model/OrderSchema'); // Điều chỉnh đường d
 
 const createOrder = async (req, res) => {
   try {
-    
+    const loggedInUser = req.user;
+
     const {
       billing: {
         firstName,
@@ -33,6 +34,8 @@ const createOrder = async (req, res) => {
 
     // Tạo đối tượng đơn hàng
     const orderData = {
+      user: loggedInUser._id, // Truyền vào ID người dùng đã đăng nhập
+
       billing: {
         firstName,
         lastName,
