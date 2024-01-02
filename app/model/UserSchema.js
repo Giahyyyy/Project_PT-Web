@@ -3,6 +3,9 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
+    facebookId: {
+        type: String,
+    },
     first_name: {
         type: String,
         required: [true, "Please enter a name"],

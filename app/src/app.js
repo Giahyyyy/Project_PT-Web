@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -8,8 +10,11 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require("method-override")
 
+
 const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 const User = require('../model/UserSchema'); // Điều chỉnh đường dẫn đến mô hình User của bạn
 
 const app = express();
@@ -73,6 +78,40 @@ passport.use(new LocalStrategy(
       });
   }
 ));
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "http://localhost:3000/authen/facebook/callback",
+  profileFields: ['id', 'displayName', 'name', 'email']
+},
+async function(accessToken, refreshToken, profile, done) {
+  try {
+    const user = await User.findOne({ 'facebookId': profile.id });
+
+    if (user) {
+      console.log("Đã đăng nhập bằng Facebook rồi");
+      return done(null, user, { redirectTo: '/shop' });
+    } else {
+      const newUser = new User({
+        facebookId: profile.id,
+        first_name: profile.name.givenName,
+        last_name: profile.name.familyName,
+        email: `${Math.floor(100000 + Math.random() * 900000).toString()}@gmail.com` ,
+        password: profile.id,
+        // Bạn có thể thêm các trường khác tùy ý
+      });
+
+      await newUser.save();
+      return done(null, newUser);
+    }
+  } catch (err) {
+    console.error(err);
+    return done(err);
+  }
+}));
+
+
 
 // Passport Serialization và Deserialization
 passport.serializeUser((user, done) => {
