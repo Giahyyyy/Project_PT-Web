@@ -15,7 +15,7 @@ const postLogin = (req, res, next) => {
     }
 
     if (!user) {
-      console.log("Không tìm thấy người dùng:", info.message);
+      
       req.flash('error', info.message || 'Authentication failed.');
       return res.redirect('/authen/login');
     }
@@ -25,7 +25,7 @@ const postLogin = (req, res, next) => {
     const isPasswordCorrect = user.verifyPassword(password);
 
     if (!isPasswordCorrect) {
-      console.log("Không tìm thấy người dùng:", "Incorrect password.");
+      
       req.flash('error', 'Incorrect password.');
       return res.redirect('/authen/login');
     }

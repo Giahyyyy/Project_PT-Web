@@ -153,56 +153,44 @@
               </button>
             </nav>
           </div>
+          {{#if messages.error}}
+                            <div class="alert alert-danger">
+                              <strong>{{ messages.error }}</strong>
+                            </div>
+                          {{/if}}
           <div class="col-lg-9 section--xl pt-0">
             <div class="container">
               <!-- Account Settings  -->
-              <div class="dashboard__content-card">
+              <div  class="dashboard__content-card">
                 <div class="dashboard__content-card-header">
                   <h5 class="font-body--xxl-500">Account Settings</h5>
                 </div>
                 <div class="dashboard__content-card-body">
                   <div class="row">
                     <div class="col-lg-7 order-lg-0 order-2">
-                      <form action="#">
+                      <form id="updateForm" action="/user/setting" method="post">
                         <div class="contact-form__content">
                           <div class="contact-form-input">
                             <label for="fname1">First Name </label>
-                            <input
-                              type="text"
-                              id="fname1"
-                              placeholder="Dianne"
-                            />
+                            <input type="text" placeholder="{{user.first_name}}" name="first_name"/>
                           </div>
                           <div class="contact-form-input">
                             <label for="lname2">Last Name </label>
-                            <input
-                              type="text"
-                              id="lname2"
-                              placeholder="Russell"
-                            />
+                            <input type="text" placeholder="{{user.last_name}}" name="last_name" />
                           </div>
-                          <div class="contact-form-input">
-                            <label for="email1">Email </label>
-                            <input
-                              type="text"
-                              id="email1"
-                              placeholder="dianne.russell@gmail.com"
-                            />
-                          </div>
-                          <div class="contact-form-input">
-                            <label for="number1">Phone Number</label>
-                            <input
-                              type="number"
-                              id="number1"
-                              placeholder="(603) 555-0123"
-                            />
-                          </div>
+                          
+                          
                           <div class="contact-form-btn">
-                            <button class="button button--md" type="submit">
+                            <button class="button button--md" type="submit" >
                               Save Changes
                             </button>
                           </div>
+                          <div id="notification" style="display: none;"></div>
+
+                          
+                          
                         </div>
+                        
                       </form>
                     </div>
                     <div class="col-lg-5 order-lg-0 order-1">
@@ -233,15 +221,11 @@
                   <h5 class="font-body--xxl-500">Change Password</h5>
                 </div>
                 <div class="dashboard__content-card-body">
-                  <form action="#">
+                  <form id="changePasswordForm" action="/user/change-password" method="POST">
                     <div class="contact-form__content">
                       <div class="contact-form-input">
                         <label for="cpassword">Current Password </label>
-                        <input
-                          type="password"
-                          id="cpassword"
-                          placeholder="Password"
-                        />
+                        <input type="password" placeholder="Password" id="old-password" name ="oldPassword"/>
                         <span
                           class="icon"
                           onclick="showPassword('cpassword',this)"
@@ -269,11 +253,7 @@
                         <!-- New Password  -->
                         <div class="contact-form-input">
                           <label for="npassword">new Password </label>
-                          <input
-                            type="password"
-                            id="npassword"
-                            placeholder="Password"
-                          />
+                          <input type="password" placeholder="Password" id="new-password" name ="newPassword"/>
                           <span
                             class="icon"
                             onclick="showPassword('npassword',this)"
@@ -300,11 +280,7 @@
                         <!-- confirm  Password  -->
                         <div class="contact-form-input">
                           <label for="confirmPassword">confirm Password</label>
-                          <input
-                            type="password"
-                            id="confirmPassword"
-                            placeholder="Password"
-                          />
+                          <input type="password" placeholder="confirm-Password" id="confirm-password" name ="confirmPassword"/>
                           <span
                             class="icon"
                             onclick="showPassword('confirmPassword',this)"
@@ -435,4 +411,60 @@
         </div>
       </div>
     </section>
+    
     <!-- cal-to-action Section end  -->
+    <!-- Đoạn script để xử lý Ajax và hiển thị thông báo -->
+<script>
+  
+    document.addEventListener('DOMContentLoaded', function () {
+  const updateProfileForm = document.getElementById('updateForm');
+  const changePasswordForm = document.getElementById('changePasswordForm');
+
+  updateProfileForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const formData = new FormData(updateProfileForm);
+    await handleSubmit('/user/setting', formData, handleUpdateProfileError);
+  });
+
+  changePasswordForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const formData = new FormData(changePasswordForm);
+    await handleSubmit('/user/change-password', formData, handleChangePasswordError);
+  });
+
+  async function handleSubmit(url, formData, handleError) {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert('Operation successful');
+      } else {
+        handleError(data.message);
+      }
+    } catch (error) {
+      handleError('Internal Server Error');
+    }
+  }
+
+  function handleUpdateProfileError(errorMessage) {
+    const notificationDiv = document.getElementById('notification');
+    notificationDiv.textContent = errorMessage;
+    notificationDiv.style.display = 'block';
+    notificationDiv.style.color = '#EA4B48';
+  }
+
+  function handleChangePasswordError(errorMessage) {
+    // Handle errors specific to the change password form
+    // You can implement this function similarly to handleUpdateProfileError
+  }
+});
+
+</script>

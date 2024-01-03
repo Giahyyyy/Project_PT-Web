@@ -162,10 +162,10 @@
                       <img src="src/images/user/img-07.png" alt="userImg" />
                     </div>
                     <div class="dashboard__user-profile-info">
-                      <h5 class="font-body--xxl-500 name">Dianne Russell</h5>
+                      <h5 class="font-body--xxl-500 name">{{user.first_name}} {{user.last_name}}</h5>
                       <p class="font-body--md-400 designation">Customer</p>
                       <a
-                        href="account-setting.html"
+                        href="/user/setting"
                         class="edit font-body--lg-500"
                       >
                         Edit Profile
@@ -177,31 +177,23 @@
                 <div class="col-lg-5">
                   <div class="dashboard__user-billing dashboard-card">
                     <h2 class="dashboard__user-billing-title font-body--md-500">
-                      Billing Address
+                      Gmail
                     </h2>
                     <div class="dashboard__user-billing-info">
                       <h5
                         class="dashboard__user-billing-name font-body--xl-500"
                       >
-                        Dainne Russell
+                        {{user.first_name}} {{user.last_name}}
                       </h5>
                       
                       <p
                         class="dashboard__user-billing-email font-body--lg-400"
                       >
-                        dainne.ressell@gmail.com
+                        {{user.email}}
                       </p>
                       
                     </div>
-                    <a
-                      href="account-setting.html"
-                      class="
-                        dashboard__user-billing-editaddress
-                        font-body--lg-500
-                      "
-                    >
-                      Edit address</a
-                    >
+                    
                   </div>
                 </div>
               </div>
