@@ -2,7 +2,7 @@ const Product = require('../../../model/ProductSchema');
 const Category = require('../../../model/CategorySchema');
 const multer = require('multer');
 const path = require('path');
-const shopService = require('./ShopService');
+const shopService = require('../../Shop/ShopService');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
