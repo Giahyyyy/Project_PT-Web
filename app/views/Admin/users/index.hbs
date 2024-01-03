@@ -1,7 +1,32 @@
-<!-- Nội dung trang -->
+<!-- Trong file users/index.hbs -->
 <div id='mainContent'>
   <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">User List</h4>
+
+    <!-- Form để chọn kiểu filter và giá trị filter -->
+    <form id="filterForm">
+      <label for="filterType">Filter Type:</label>
+      <select id="filterType" name="filterType">
+        <option value="name">Name</option>
+        <option value="email">Email</option>
+      </select>
+
+      <label for="filterValue">Filter Value:</label>
+      <input type="text" id="filterValue" name="filterValue" placeholder="Enter filter value">
+
+      <button type="submit">Apply Filter</button>
+    </form>
+
+    <!-- Dropdown để chọn kiểu sort -->
+    <label for="sortType">Sort Type:</label>
+    <select id="sortType" name="sortType">
+      <option value="name">Name</option>
+      <option value="email">Email</option>
+      <option value="registrationTime">Registration Time</option>
+    </select>
+
+    <button onclick="applySort()">Apply Sort</button>
+
     <div class="row">
       <div class="col-md-12">
         <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -12,7 +37,7 @@
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Username</th>
-                <th scope="col">Actions</th> <!-- Thêm cột Actions -->
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -36,6 +61,31 @@
 </div>
 
 <script>
+  document.getElementById('filterForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    applyFilter();
+  });
+
+  async function applyFilter() {
+    const filterType = document.getElementById('filterType').value;
+    const filterValue = document.getElementById('filterValue').value;
+
+    // Cập nhật URL với query parameters filter
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('filterType', filterType);
+    currentUrl.searchParams.set('filterValue', filterValue);
+    window.location.href = currentUrl.toString();
+  }
+
+  function applySort() {
+    const sortType = document.getElementById('sortType').value;
+
+    // Cập nhật URL với query parameter sort
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('sortType', sortType);
+    window.location.href = currentUrl.toString();
+  }
+
   async function deleteUser(userId) {
     const confirmed = confirm('Are you sure you want to delete this user?');
     if (confirmed) {

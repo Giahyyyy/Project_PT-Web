@@ -1,10 +1,24 @@
 const User = require('../../../model/UserSchema');
 
 // Hàm renderUsers để hiển thị danh sách người dùng
+// Trong file controllers/userController.js
+
 const renderUsers = async (req, res) => {
   try {
-    // Truy xuất danh sách người dùng từ cơ sở dữ liệu
-    const users = await User.find();
+    // Trích xuất các giá trị filter và sort từ query parameters
+    const filterType = req.query.filterType;
+    const filterValue = req.query.filterValue;
+    const sortType = req.query.sortType;
+
+    // Xử lý logic tìm kiếm và sắp xếp người dùng
+    let query = {};
+
+    if (filterType && filterValue) {
+      // Thêm điều kiện filter vào query
+      query[filterType] = new RegExp(filterValue, 'i'); // Sử dụng RegExp để thực hiện tìm kiếm không phân biệt chữ hoa/chữ thường
+    }
+
+    const users = await User.find(query).sort(sortType);
 
     // Render trang với danh sách người dùng
     res.render('users/index', { users });
@@ -13,6 +27,9 @@ const renderUsers = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
+
+
+
 const deleteUser = async (req, res) => {
   const userId = req.params.id;
 
