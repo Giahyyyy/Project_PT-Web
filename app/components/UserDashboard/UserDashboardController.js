@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const renderUserDashboardPage = (req, res) => {
     
     if (req.isAuthenticated()) {
@@ -59,18 +60,19 @@ const changePassword = async (req, res) => {
     }
 
     // Kiểm tra xác nhận mật khẩu mới
-    if (newPassword !== confirmNewPassword) {
+    if (newPassword !== confirmPassword) {
       return res.status(400).json({ success: false, message: 'New password and confirm password do not match.' });
     }
 
     // Thay đổi mật khẩu
-    const success = await user.changePassword(newPassword);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password=hashedPassword;
+    user.save();
+    
 
-    if (success) {
-      return res.json({ success: true, message: 'Password changed successfully.' });
-    } else {
-      return res.status(400).json({ success: false, message: 'Failed to change password.' });
-    }
+    
+    return res.json({ success: true, message: 'Password changed successfully.' });
+    
   } catch (error) {
     console.error('Error changing password:', error);
     return res.status(500).json({ success: false, message: 'An error occurred while changing the password.' });
