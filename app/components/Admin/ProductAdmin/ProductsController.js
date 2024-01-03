@@ -2,7 +2,15 @@ const Product = require('../../../model/ProductSchema');
 const Category = require('../../../model/CategorySchema');
 const multer = require('multer');
 const path = require('path');
-const shopService = require('../../Shop/ShopService');
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+mongoose.plugin(mongoosePaginate);
+
+mongoosePaginate.paginate.options = {
+  limit: 12, // Số sản phẩm trên mỗi trang
+};
+
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -48,7 +56,7 @@ const createProduct = async (req, res) => {
       // Save the new product to the database
       const savedProduct = await newProduct.save();
 
-      return res.status(200).json({ message: 'Tải lên sản phẩm thành công' });
+      res.redirect(req.get('referer'));
     });
   } catch (error) {
     console.error(error);
@@ -67,25 +75,85 @@ const deleteProduct = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+const getShopData = async (req) => {
+  let sortOptions = {};
+  let filterOptions = {};
+  const page = parseInt(req.query.page) || 1;
+
+  // SORT
+  const sortBy = req.query.sort;
+  if (sortBy) {
+    switch (sortBy) {
+      case 'product_name':
+        sortOptions = { product_name: 1 };
+        break;
+      case 'price':
+        sortOptions = { price: 1 };
+        break;
+      case 'discount':
+        sortOptions = { discount: 1 };
+        break;
+      default:
+        sortOptions = { _id: 1 };
+        break;
+    }
+  }
+
+  // FILTER GIÁ
+  const priceFilter = req.query.price;
+  if (priceFilter) {
+    switch (priceFilter) {
+      case '1':
+        filterOptions.price = { $gte: 5, $lte: 10 };
+        break;
+      case '2':
+        filterOptions.price = { $gte: 10, $lte: 20 };
+        break;
+      case '3':
+        filterOptions.price = { $gte: 20, $lte: 100 };
+        break;
+      default:
+        break;
+    }
+  }
+
+  // FILTER CATEGORY
+  const selectedCategory = req.query.category;
+  if (selectedCategory) {
+    if (!mongoose.Types.ObjectId.isValid(selectedCategory)) {
+      console.log('ObjectId không hợp lệ cho selectedCategory:', selectedCategory);
+    } else {
+      filterOptions.category = selectedCategory;
+    }
+  }
+
+  // Lấy danh sách sản phẩm và danh mục từ cơ sở dữ liệu
+  const products = await Product.find(filterOptions).sort(sortOptions).populate('category');
+  const categories = await Category.find();
+
+  return {
+    products: products,
+    totalPages: 1,  // Bạn có thể cần cập nhật dữ liệu phân trang tùy thuộc vào số lượng sản phẩm và số sản phẩm trên mỗi trang
+    currentPage: page,
+    sortBy: sortBy,
+    selectedCategory: selectedCategory,
+    categories: categories,
+  };
+};
+
 const renderForm = async (req, res) => {
   try {
     // Truy xuất danh sách sản phẩm và danh mục từ cơ sở dữ liệu
-    const products = await Product.find().populate('category'); // Sử dụng populate để kết hợp thông tin từ bảng category
+    const shopData = await getShopData(req);
 
-    const categories = await Category.find();
-
-    products.forEach(product => {
-      product.img = '/uploads/' + product.img; 
-    });
-
+    console.log(shopData);
     // Render trang với danh sách sản phẩm và danh mục
-    res.render('product/index', { products, categories });
+    res.render('product/index', shopData);
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
   }
 };
-
 
 
 

@@ -51,6 +51,35 @@
 
     </div>
   </div>
+  <div class="select-box--item">
+    <select id="category" class="filter__dropdown-menu" onchange="applyCategoryFilter()">
+      <option value="">-- Chọn danh mục --</option>
+      {{#each categories}}
+      <option value="{{this._id}}">{{this.category_name}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="select-box--item">
+    <select id="price" class="filter__dropdown-menu" onchange="applyFilter()">
+                                  <option value="default">Select price</option>
+
+      <option value="1">Min $5 - max $10</option>
+      <option value="2">Min $10 - max $20</option>
+      <option value="3">Min $20 - max $100</option>
+    </select>
+  </div>
+  <div class="filter-box__top-right ">
+    <!-- Thêm nút chọn để chọn cácxh sắp xếp -->
+    <select id="sortSelector" onchange="changeSort()">
+      <option value="default">Sort Option</option>
+      <option value="product_name">Name</option>
+      <option value="price">Price</option>
+      <option value="discount">discount</option>
+
+    </select>
+
+
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -78,7 +107,9 @@
               <td>{{description}}</td>
               <td>{{price}}</td>
               <td>{{discount}}</td>
-              <td>{{category.category_name}}</td>
+              <td>
+               {{category.category_name}}
+              </td>
               <td>
                 <a href="/admin/Product/edit/{{_id}}" class="btn btn-warning">Edit</a>
               </td>
@@ -103,17 +134,42 @@
       fetch(`/admin/Product/delete/${productId}`, {
         method: 'DELETE',
       })
-      .then(response => {
-        if (response.ok) {
-          // Reload the page or update the product list
-          location.reload();
-        } else {
-          throw new Error('Failed to delete product');
-        }
-      })
-      .catch(error => {
-        console.error('Error deleting product:', error);
-      });
+        .then(response => {
+          if (response.ok) {
+            // Reload the page or update the product list
+            location.reload();
+          } else {
+            throw new Error('Failed to delete product');
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting product:', error);
+        });
     }
   }
+</script>
+
+<script>
+    function changeSort() {
+        const selectedSort = document.getElementById('sortSelector').value;
+        updateQueryParam('sort', selectedSort);
+    }
+
+    function applyFilter() {
+        const selectedPrice = document.getElementById('price').value;
+        updateQueryParam('price', selectedPrice);
+    }
+
+    function applyCategoryFilter() {
+        const selectedCategory = document.getElementById('category').value;
+        updateQueryParam('category', selectedCategory);
+    }
+
+    function updateQueryParam(param, value) {
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set(param, value);
+        window.location.href = currentUrl.toString();
+    }
+
+    // Các hàm khác ở trên giữ nguyên
 </script>

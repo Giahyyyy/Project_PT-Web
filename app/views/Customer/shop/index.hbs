@@ -71,28 +71,28 @@
         <div class="container">
             <div class="filter-box__top">
                 <div class="filter-box__top-left">
-<div class="select-box--item">
-  <select id="category" class="filter__dropdown-menu" onchange="applyCategoryFilter()">
-    <option value="">-- Chọn danh mục --</option>
-    {{#each categories}}
-      <option value="{{this._id}}">{{this.category_name}}</option>
-    {{/each}}
-  </select>
-</div>
+                    <div class="select-box--item">
+                        <select id="category" class="filter__dropdown-menu" onchange="applyCategoryFilter()">
+                            <option value="">-- Chọn danh mục --</option>
+                            {{#each categories}}
+                            <option value="{{this._id}}">{{this.category_name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
 
-          <div class="select-box--item">
-  <select id="price" class="filter__dropdown-menu" onchange="applyFilter()">
-    <option value="1">Min $5 - max $10</option>
-    <option value="2">Min $10 - max $20</option>
-    <option value="3">Min $20 - max $100</option>
-  </select>
-</div>
+                    <div class="select-box--item">
+                        <select id="price" class="filter__dropdown-menu" onchange="applyFilter()">
+                            <option value="1">Min $5 - max $10</option>
+                            <option value="2">Min $10 - max $20</option>
+                            <option value="3">Min $20 - max $100</option>
+                        </select>
+                    </div>
 
 
                 </div>
                 <div class="filter-box__top-right ">
                     <!-- Thêm nút chọn để chọn cácxh sắp xếp -->
-                    <select id="sortSelector"  onchange="changeSort()">
+                    <select id="sortSelector" onchange="changeSort()">
                         <option value="default">Sort Option</option>
                         <option value="product_name">Name</option>
                         <option value="price">Price</option>
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
 </div>
 <!-- Filter section End  -->
@@ -150,7 +150,7 @@
                                 </div>
                             </div>
                             <div class="cards-md__info d-flex justify-content-between align-items-center">
-                    <a href="/detail/product/{{id}}" class="cards-md__info-left" data-product-id="{{id}}">
+                                <a href="/detail/product/{{id}}" class="cards-md__info-left" data-product-id="{{id}}">
                                     <h6 class="font-body--md-400">{{this.product_name}}</h6>
                                     <div class="cards-md__info-price">
                                         <span class="font-body--lg-500">${{price}}</span>
@@ -199,19 +199,17 @@
                                         </li>
                                     </ul>
                                 </a>
-                                 <div class="cards-md__info-right">
-    <span class="action-btn add-to-cart-btn"
-          data-product-id="{{id}}"
-          data-quantity="1">
-        <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
-             xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M6.66667 8.83333H4.16667L2.5 18H17.5L15.8333 8.83333H13.3333M6.66667 8.83333V6.33333C6.66667 4.49239 8.15905 3 10 3V3C11.8409 3 13.3333 4.49238 13.3333 6.33333V8.83333M6.66667 8.83333H13.3333M6.66667 8.83333V11.3333M13.3333 8.83333V11.3333"
-                stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
-                stroke-linejoin="round"></path>
-        </svg>
-    </span>
-</div>
+                                <div class="cards-md__info-right">
+                                    <span class="action-btn add-to-cart-btn" data-product-id="{{id}}" data-quantity="1">
+                                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6.66667 8.83333H4.16667L2.5 18H17.5L15.8333 8.83333H13.3333M6.66667 8.83333V6.33333C6.66667 4.49239 8.15905 3 10 3V3C11.8409 3 13.3333 4.49238 13.3333 6.33333V8.83333M6.66667 8.83333H13.3333M6.66667 8.83333V11.3333M13.3333 8.83333V11.3333"
+                                                stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </svg>
+                                    </span>
+                                </div>
 
                             </div>
                         </div>
@@ -233,109 +231,109 @@
 
 <script>
     function changeSort() {
-    const selectedSort = document.getElementById('sortSelector').value;
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set('sort', selectedSort);
-    window.location.href = currentUrl.toString();
-  }
+        const selectedSort = document.getElementById('sortSelector').value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('sort', selectedSort);
+        window.location.href = currentUrl.toString();
+    }
     function applyFilter() {
-  const selectedPrice = document.getElementById('price').value;
-  const currentUrl = new URL(window.location.href);
-  currentUrl.searchParams.set('price', selectedPrice);
-  window.location.href = currentUrl.toString();
-}
+        const selectedPrice = document.getElementById('price').value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('price', selectedPrice);
+        window.location.href = currentUrl.toString();
+    }
 
     function applyCategoryFilter() {
-    const selectedCategory = document.getElementById('category').value;
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set('category', selectedCategory);
-    console.log('Selected Category view:', selectedCategory);
-    window.location.href = currentUrl.toString();
-  }
+        const selectedCategory = document.getElementById('category').value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('category', selectedCategory);
+        console.log('Selected Category view:', selectedCategory);
+        window.location.href = currentUrl.toString();
+    }
 
-function createPageItem(page, text, clickable, isActive) {
-    const paginationElement = document.getElementById("pagination");
+    function createPageItem(page, text, clickable, isActive) {
+        const paginationElement = document.getElementById("pagination");
 
-    const li = document.createElement("li");
-    li.className = "page-item pagination-item";
+        const li = document.createElement("li");
+        li.className = "page-item pagination-item";
 
-    const a = document.createElement("a");
-    a.className = "page-link pagination-link";
+        const a = document.createElement("a");
+        a.className = "page-link pagination-link";
 
-    const currentPath = window.location.pathname;
-    const newHref = `${currentPath}?page=${page}`;
-    a.href = newHref;
+        const currentPath = window.location.pathname;
+        const newHref = `${currentPath}?page=${page}`;
+        a.href = newHref;
 
-    if (clickable) {
-        a.addEventListener("click", (event) => {
-            //event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
-            handlePageClick(page);
+        if (clickable) {
+            a.addEventListener("click", (event) => {
+                //event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+                handlePageClick(page);
 
-            // Xóa class "active" từ tất cả các nút phân trang
-            const allPageItems = document.querySelectorAll(".pagination-item");
-            allPageItems.forEach(item => item.classList.remove("active"));
-            
-            // Thêm class "active" cho nút phân trang hiện tại
-            li.classList.add("active");
+                // Xóa class "active" từ tất cả các nút phân trang
+                const allPageItems = document.querySelectorAll(".pagination-item");
+                allPageItems.forEach(item => item.classList.remove("active"));
+
+                // Thêm class "active" cho nút phân trang hiện tại
+                li.classList.add("active");
+            });
+        } else {
+            a.tabIndex = -1;
+        }
+
+        a.innerText = text;
+        li.dataset.page = page;
+
+        li.appendChild(a);
+        paginationElement.appendChild(li);
+
+        if (!isActive && clickable) {
+            li.addEventListener("mouseenter", () => li.classList.add("hovered"));
+            li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
+        }
+    }
+
+
+
+    // Function để tạo các nút phân trang
+    function createPagination(totalPages, currentPage) {
+        const paginationElement = document.getElementById("pagination");
+
+        // Xóa các nút phân trang cũ
+        paginationElement.innerHTML = "";
+
+        // Tạo nút "Trang trước"
+        createPageItem(currentPage - 1, "<", currentPage > 1);
+
+        // Tạo các nút phân trang từ 1 đến totalPages
+        for (let i = 1; i <= totalPages; i++) {
+            createPageItem(i, i.toString(), true, i === currentPage);
+        }
+
+        // Tạo nút "Trang sau"
+        createPageItem(currentPage + 1, ">", currentPage < totalPages);
+
+        const paginationItems = document.querySelectorAll(".pagination-item");
+        paginationItems.forEach((item) => {
+            item.addEventListener("click", () => handlePageClick(item.dataset.page));
         });
-    } else {
-        a.tabIndex = -1;
     }
 
-    a.innerText = text;
-    li.dataset.page = page;
+    // Xử lý sự kiện khi người dùng nhấp vào một trang
+    function handlePageClick(page) {
+        // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
+        // Sau đó, gọi lại createPagination với dữ liệu mới.
+        console.log(`Đã chuyển đến trang ${page}`);
+        const paginationItems = document.querySelectorAll(".pagination-item");
+        paginationItems.forEach(item => item.classList.remove("active"));
 
-    li.appendChild(a);
-    paginationElement.appendChild(li);
+        const currentPageItem = document.querySelector(`[data-page="${page}"]`);
+        currentPageItem.classList.add("active");
 
-    if (!isActive && clickable) {
-        li.addEventListener("mouseenter", () => li.classList.add("hovered"));
-        li.addEventListener("mouseleave", () => li.classList.remove("hovered"));
-    }
-}
-
-
-
-// Function để tạo các nút phân trang
-function createPagination(totalPages, currentPage) {
-    const paginationElement = document.getElementById("pagination");
-
-    // Xóa các nút phân trang cũ
-    paginationElement.innerHTML = "";
-
-    // Tạo nút "Trang trước"
-    createPageItem(currentPage - 1, "<", currentPage > 1);
-
-    // Tạo các nút phân trang từ 1 đến totalPages
-    for (let i = 1; i <= totalPages; i++) {
-        createPageItem(i, i.toString(), true, i === currentPage);
+        createPagination(10, page);
     }
 
-    // Tạo nút "Trang sau"
-    createPageItem(currentPage + 1, ">", currentPage < totalPages);
-
-    const paginationItems = document.querySelectorAll(".pagination-item");
-    paginationItems.forEach((item) => {
-        item.addEventListener("click", () => handlePageClick(item.dataset.page));
-    });
-}
-
-// Xử lý sự kiện khi người dùng nhấp vào một trang
-function handlePageClick(page) {
-    // Thực hiện các xử lý khi người dùng chuyển trang, ví dụ: gửi yêu cầu đến máy chủ để lấy dữ liệu trang mới.
-    // Sau đó, gọi lại createPagination với dữ liệu mới.
-    console.log(`Đã chuyển đến trang ${page}`);
-    const paginationItems = document.querySelectorAll(".pagination-item");
-    paginationItems.forEach(item => item.classList.remove("active"));
-    
-    const currentPageItem = document.querySelector(`[data-page="${page}"]`);
-    currentPageItem.classList.add("active");
-    
-    createPagination(10, page);
-}
-
-// Gọi createPagination với số trang và trang hiện tại (bạn có thể lấy từ dữ liệu từ server)
-createPagination(10, 2);
+    // Gọi createPagination với số trang và trang hiện tại (bạn có thể lấy từ dữ liệu từ server)
+    createPagination(10, 2);
 
 
 </script>
@@ -343,29 +341,29 @@ createPagination(10, 2);
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('.add-to-cart-btn').on('click', function() {
-        var productId = $(this).data('product-id');
-        var quantity = $(this).data('quantity');
+    $(document).ready(function () {
+        $('.add-to-cart-btn').on('click', function () {
+            var productId = $(this).data('product-id');
+            var quantity = $(this).data('quantity');
 
-        $.ajax({
-            type: 'POST',
-            url: 'cart/add-to-cart',  // Đổi đường dẫn này thành đường dẫn thích hợp của bạn
-            data: {
-                productId: productId,
-                quantity: quantity
-            },
-            success: function(response) {
-                console.log(response);
-                // Xử lý phản hồi từ máy chủ (nếu cần)
-              
-            },
-            error: function(error) {
-                console.error('Error adding to cart:', error);
-                // Xử lý lỗi (nếu có)
-                alert('An error occurred. Please try again later.');
-            }
+            $.ajax({
+                type: 'POST',
+                url: 'cart/add-to-cart',  // Đổi đường dẫn này thành đường dẫn thích hợp của bạn
+                data: {
+                    productId: productId,
+                    quantity: quantity
+                },
+                success: function (response) {
+                    console.log(response);
+                    // Xử lý phản hồi từ máy chủ (nếu cần)
+
+                },
+                error: function (error) {
+                    console.error('Error adding to cart:', error);
+                    // Xử lý lỗi (nếu có)
+                    alert('An error occurred. Please try again later.');
+                }
+            });
         });
     });
-});
 </script>
