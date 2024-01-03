@@ -2,10 +2,12 @@ const Product = require('../../../model/ProductSchema');
 const Category = require('../../../model/CategorySchema');
 const multer = require('multer');
 const path = require('path');
+const shopService = require('./ShopService');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.resolve('D:/NodeJs/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
+    //D:/Project_PT-Web/app/public/uploads
+    const uploadPath = path.resolve('D:/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
@@ -72,9 +74,8 @@ const renderForm = async (req, res) => {
 
     const categories = await Category.find();
 
-    // Chỉnh sửa đường dẫn của ảnh trước khi render trang
     products.forEach(product => {
-      product.img = '/uploads/' + product.img; // Điều chỉnh đường dẫn theo cấu trúc thư mục của bạn
+      product.img = '/uploads/' + product.img; 
     });
 
     // Render trang với danh sách sản phẩm và danh mục
