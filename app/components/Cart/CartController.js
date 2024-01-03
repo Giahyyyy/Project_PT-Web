@@ -43,13 +43,6 @@ const renderCartPage = (req, res) => {
 
         console.log('User Cart:', userCart);
 
-        const productInfoArray = userCart.items.map(item => ({
-            productName: item.product.product_name,
-            price: item.product.price,
-        }));
-
-        console.log('Product Information:', productInfoArray);
-
         res.render('cart/index', {user: req.user, cart: userCart });
     } else {
         // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
