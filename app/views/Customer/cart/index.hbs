@@ -48,9 +48,9 @@
                 <tr>
                   <!-- Product item  -->
                   <td class="cart-table-item align-middle">
-                    <a href="product-details.html" class="cart-table__product-item">
+                    <a href="/detail/product/{{this.product.id}}" class="cart-table__product-item">
                       <div class="cart-table__product-item-img">
-                        <img src="src/images/products/img-01.png" alt="product" />
+                          <img src="/uploads/{{this.product.img}}" alt="products" />
                       </div>
                       <h5 class="font-body--lg-400">{{this.product_name}}</h5>
                     </a>
@@ -158,7 +158,7 @@
                   <span id="totalAmount" class="font-body--xl-500">${{ cart.total }}</span>
                 </div>
               </div>
-              <form action="#">
+              <form action="/checkout">
                 <button class="button button--lg w-100" style="margin-top: 20px" type="submit">
                   Place Order
                 </button>
