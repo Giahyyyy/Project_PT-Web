@@ -3,6 +3,7 @@ const UserDashboardController = require('./UserDashboardController');
 
 const router = express.Router();
 
-router.get('/', UserDashboardController.renderUserDashboardPage);
+router.get('/info', UserDashboardController.renderUserDashboardPage);
+router.get('/setting', UserDashboardController.renderUserSettingPage);
 
 module.exports = router;

@@ -5,15 +5,14 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const passport = require('passport');
+const passport = require('../components/Authentication/Passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require("method-override")
 
 
 const mongoose = require('mongoose');
-const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
+
 
 const User = require('../model/UserSchema'); // Điều chỉnh đường dẫn đến mô hình User của bạn
 
@@ -56,60 +55,7 @@ app.use((req, res, next) => {
 });
 
 
-// Cấu hình Passport Local Strategy
-passport.use(new LocalStrategy(
-  {
-    usernameField: 'email',
-    passwordField: 'password',
-  },
-  (email, password, done) => {
-    User.findOne({ email: email }).exec()
-      .then(user => {
-        if (!user) {
-          return done(null, false, { message: 'Incorrect email.' });
-        }
-        if (!user.verifyPassword(password)) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
-      })
-      .catch(err => {
-        return done(err);
-      });
-  }
-));
 
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:3000/authen/facebook/callback",
-  profileFields: ['id', 'displayName', 'name', 'email']
-},
-async function(accessToken, refreshToken, profile, done) {
-  try {
-    const user = await User.findOne({ 'facebookId': profile.id });
-
-    if (user) {
-      console.log("Đã đăng nhập bằng Facebook rồi");
-      return done(null, user, { redirectTo: '/shop' });
-    } else {
-      const newUser = new User({
-        facebookId: profile.id,
-        first_name: profile.name.givenName,
-        last_name: profile.name.familyName,
-        email: `${Math.floor(100000 + Math.random() * 900000).toString()}@gmail.com` ,
-        password: profile.id,
-        // Bạn có thể thêm các trường khác tùy ý
-      });
-
-      await newUser.save();
-      return done(null, newUser);
-    }
-  } catch (err) {
-    console.error(err);
-    return done(err);
-  }
-}));
 
 
 
@@ -139,6 +85,7 @@ app.use('/authen/verify', express.static(path.join(__dirname, '../public/cus/mai
 app.use('/site', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/detail/product', express.static(path.join(__dirname, '../public/cus/main')));
 app.use('/home', express.static(path.join(__dirname, '../public/cus/main')));
+app.use('/user', express.static(path.join(__dirname, '../public/cus/main')));
 
 app.use('/admin/Product/edit', express.static(path.join(__dirname, '../public/admin')));
 app.use('/form', express.static(path.join(__dirname, '../public/admin')));
