@@ -7,8 +7,18 @@ const renderUserDashboardPage = (req, res) => {
       }
 };
 
+const renderUserSettingPage = (req, res) => {
+    
+  if (req.isAuthenticated()) {
+      res.render('UserDashboard/accountSetting', { user: req.user });
+    } else {
+      res.render('UserDashboard/accountSetting', { user: null });
+    }
+};
+
 module.exports = {
 
     renderUserDashboardPage,
+    renderUserSettingPage
 
   };

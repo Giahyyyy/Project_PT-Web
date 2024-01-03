@@ -1,4 +1,6 @@
- <!-- breedcrumb section start  -->
+
+
+    <!-- breedcrumb section start  -->
     <div class="section breedcrumb">
       <div class="breedcrumb__img-wrapper">
         <img src="src/images/banner/breedcrumb.jpg" alt="breedcrumb" />
@@ -30,7 +32,7 @@
                 <span> > </span>
               </a>
             </li>
-            <li class="active"><a href="user-dashboard.html">Dashboard</a></li>
+            <li class="active"><a href="order-history.html">Settings</a></li>
           </ul>
         </div>
       </div>
@@ -153,60 +155,189 @@
           </div>
           <div class="col-lg-9 section--xl pt-0">
             <div class="container">
-              <!-- User Info -->
-              <div class="row">
-                <!-- User Profile  -->
-                <div class="col-lg-7">
-                  <div class="dashboard__user-profile dashboard-card">
-                    <div class="dashboard__user-profile-img">
-                      <img src="src/images/user/img-07.png" alt="userImg" />
-                    </div>
-                    <div class="dashboard__user-profile-info">
-                      <h5 class="font-body--xxl-500 name">Dianne Russell</h5>
-                      <p class="font-body--md-400 designation">Customer</p>
-                      <a
-                        href="account-setting.html"
-                        class="edit font-body--lg-500"
-                      >
-                        Edit Profile
-                      </a>
-                    </div>
-                  </div>
+              <!-- Account Settings  -->
+              <div class="dashboard__content-card">
+                <div class="dashboard__content-card-header">
+                  <h5 class="font-body--xxl-500">Account Settings</h5>
                 </div>
-                <!-- User Billing Address -->
-                <div class="col-lg-5">
-                  <div class="dashboard__user-billing dashboard-card">
-                    <h2 class="dashboard__user-billing-title font-body--md-500">
-                      Billing Address
-                    </h2>
-                    <div class="dashboard__user-billing-info">
-                      <h5
-                        class="dashboard__user-billing-name font-body--xl-500"
-                      >
-                        Dainne Russell
-                      </h5>
-                      
-                      <p
-                        class="dashboard__user-billing-email font-body--lg-400"
-                      >
-                        dainne.ressell@gmail.com
-                      </p>
-                      
+                <div class="dashboard__content-card-body">
+                  <div class="row">
+                    <div class="col-lg-7 order-lg-0 order-2">
+                      <form action="#">
+                        <div class="contact-form__content">
+                          <div class="contact-form-input">
+                            <label for="fname1">First Name </label>
+                            <input
+                              type="text"
+                              id="fname1"
+                              placeholder="Dianne"
+                            />
+                          </div>
+                          <div class="contact-form-input">
+                            <label for="lname2">Last Name </label>
+                            <input
+                              type="text"
+                              id="lname2"
+                              placeholder="Russell"
+                            />
+                          </div>
+                          <div class="contact-form-input">
+                            <label for="email1">Email </label>
+                            <input
+                              type="text"
+                              id="email1"
+                              placeholder="dianne.russell@gmail.com"
+                            />
+                          </div>
+                          <div class="contact-form-input">
+                            <label for="number1">Phone Number</label>
+                            <input
+                              type="number"
+                              id="number1"
+                              placeholder="(603) 555-0123"
+                            />
+                          </div>
+                          <div class="contact-form-btn">
+                            <button class="button button--md" type="submit">
+                              Save Changes
+                            </button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
-                    <a
-                      href="account-setting.html"
-                      class="
-                        dashboard__user-billing-editaddress
-                        font-body--lg-500
-                      "
-                    >
-                      Edit address</a
-                    >
+                    <div class="col-lg-5 order-lg-0 order-1">
+                      <div class="dashboard__content-card-img">
+                        <form action="#" style="text-align: center">
+                          <div class="dashboard__content-img-wrapper">
+                            <div id="imagePreview" style="background-image: url('./src/images/user/img-07.png');"></div>
+                          </div>
+                          <!-- <button class="button button--outline">
+                            Choose Image
+                          </button> -->
+                          <div class="upload-image button button--outline">
+                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" id="imageUpload"/>
+                            <label for="imageUpload">Choose Image</label>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- Order History  -->
+
               
+
+              <!-- Change Password  -->
+              <div class="dashboard__content-card">
+                <div class="dashboard__content-card-header">
+                  <h5 class="font-body--xxl-500">Change Password</h5>
+                </div>
+                <div class="dashboard__content-card-body">
+                  <form action="#">
+                    <div class="contact-form__content">
+                      <div class="contact-form-input">
+                        <label for="cpassword">Current Password </label>
+                        <input
+                          type="password"
+                          id="cpassword"
+                          placeholder="Password"
+                        />
+                        <span
+                          class="icon"
+                          onclick="showPassword('cpassword',this)"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-eye"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            ></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="contact-form__content-group">
+                        <!-- New Password  -->
+                        <div class="contact-form-input">
+                          <label for="npassword">new Password </label>
+                          <input
+                            type="password"
+                            id="npassword"
+                            placeholder="Password"
+                          />
+                          <span
+                            class="icon"
+                            onclick="showPassword('npassword',this)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="21"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="feather feather-eye"
+                            >
+                              <path
+                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                              ></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                          </span>
+                        </div>
+                        <!-- confirm  Password  -->
+                        <div class="contact-form-input">
+                          <label for="confirmPassword">confirm Password</label>
+                          <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Password"
+                          />
+                          <span
+                            class="icon"
+                            onclick="showPassword('confirmPassword',this)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="21"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="feather feather-eye"
+                            >
+                              <path
+                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                              ></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="contact-form-btn">
+                        <button class="button button--md" type="submit">
+                          Change Password
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
