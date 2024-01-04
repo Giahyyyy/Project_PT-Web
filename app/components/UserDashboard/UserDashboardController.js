@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const Order = require('../../model/OrderSchema');
 
 
 const renderUserDashboardPage = (req, res) => {
@@ -19,10 +20,12 @@ const renderUserSettingPage = (req, res) => {
     }
 };
 
-const renderUserOrderPage = (req, res) => {
+const renderUserOrderPage =async  (req, res) => {
     
   if (req.isAuthenticated()) {
-      res.render('UserDashboard/oderHistory', { user: req.user });
+    const userOrders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+
+      res.render('UserDashboard/oderHistory', { user: req.user , orders: userOrders});
     } else {
       res.redirect('/authen/login');
     }
