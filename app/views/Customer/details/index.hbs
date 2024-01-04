@@ -6,38 +6,7 @@
                     <div class="col-lg-6">
                         <!-- Product View Slider -->
                         <div class="gallery-view">
-                            <div class="gallery-items">
-                                <div class="swiper-container gallery-items-slider">
-                                    <div class="swiper-wrapper">
-                                        <div class="gallery-item swiper-slide">
-                                            <img src="src/images/product-details/img-01.png" alt="Slide 01" />
-                                        </div>
-                                        <div class="gallery-item swiper-slide">
-                                            <img src="src/images/product-details/img-02.png" alt="Slide 02" />
-                                        </div>
-                                        <div class="gallery-item swiper-slide">
-                                            <img src="src/images/product-details/img-03.png" alt="Slide 03" />
-                                        </div>
-                                        <div class="gallery-item swiper-slide">
-                                            <img src="src/images/product-details/img-04.png" alt="Slide 04" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="gallery-prev-item">
-                                    <div class="gallery-icon">
-                                        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15 8.5L8 1.5L1 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="gallery-next-item">
-                                    <div class="gallery-icon">
-                                        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15 1.5L8 8.5L1 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
+                         
 
                             <div class="gallery-main-image products__gallery-img--lg">
                                 <img class="product-main-image" src="/uploads/{{product.img}}" alt="Slide 01" />
@@ -695,8 +664,8 @@
                         <div class="swiper-slide">
                             <div class="cards-md cards-md--four w-100">
                                 <div class="cards-md__img-wrapper">
-                                    <a href="product-details.html">
-                                        <img src="src/images/products/img-02.png" alt="products" />
+                                    <a href="/detail/product/{{id}}">
+                                        <img src="/uploads/{{product.img}}" alt="products" />
                                     </a>
                                     <div class="cards-md__favs-list">
                                         <span class="action-btn">
