@@ -18,7 +18,7 @@ const createCategory = async (req, res) => {
     // Save the new category to the database
     const savedCategory = await newCategory.save();
 
-    res.status(201).json({ message: 'Danh mục đã được tạo thành công', category: savedCategory });
+    res.redirect('/admin/uploadCategories')
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Lỗi máy chủ nội bộ' });
