@@ -169,11 +169,9 @@ if (document.getElementById('number')) {
 /* 
     4. Loader 
 ======================== */
-const preloader = document.querySelector('.loader');
 
-window.addEventListener('load', (event) => {
-  preloader.style.display = 'none';
-});
+
+
 
 /* 
     5. Newsletter Modal
@@ -258,12 +256,7 @@ cartBtn.addEventListener('click', function () {
   shoppingCart.classList.add('active');
 });
 
-// Event Click Popup Close
-closeBtn.addEventListener('click', function () {
-  const body = document.querySelector('body');
-  body.classList.remove('overlay');
-  shoppingCart.classList.remove('active');
-});
+
 
 // 8. Product Image Change
 $galleryItem = $('.gallery-item');

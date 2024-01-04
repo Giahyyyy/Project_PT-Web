@@ -25,6 +25,9 @@ mongoose.connect('mongodb://localhost:27017/food-shop', {
 
 const store = new session.MemoryStore();
 
+
+
+
 // Cấu hình session
 app.use(
   session({
@@ -89,7 +92,10 @@ app.use('/user', express.static(path.join(__dirname, '../public/cus/main')));
 
 app.use('/admin/Product/edit', express.static(path.join(__dirname, '../public/admin')));
 app.use('/form', express.static(path.join(__dirname, '../public/admin')));
+
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+
+
 
 // Template engine
 app.engine('hbs', exphbs({

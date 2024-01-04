@@ -177,11 +177,7 @@
               </button>
             </nav>
           </div>
-          {{#if messages.error}}
-                            <div class="alert alert-danger">
-                              <strong>{{ messages.error }}</strong>
-                            </div>
-                          {{/if}}
+          
           <div class="col-lg-9 section--xl pt-0">
             <div class="container">
               <!-- Account Settings  -->
@@ -219,15 +215,15 @@
                     </div>
                     <div class="col-lg-5 order-lg-0 order-1">
                       <div class="dashboard__content-card-img">
-                        <form action="#" style="text-align: center">
+                        <form action="/user/upload-avatar" style="text-align: center">
                           <div class="dashboard__content-img-wrapper">
-                            <div id="imagePreview" style="background-image: url('./src/images/user/img-07.png');"></div>
+                              <img id="imagePreview" src="{{user.profileImage}}" alt="User Image">
                           </div>
                           <!-- <button class="button button--outline">
                             Choose Image
                           </button> -->
                           <div class="upload-image button button--outline">
-                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" id="imageUpload"/>
+                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"/>
                             <label for="imageUpload">Choose Image</label>
                           </div>
                         </form>
@@ -439,56 +435,84 @@
     <!-- cal-to-action Section end  -->
     <!-- Đoạn script để xử lý Ajax và hiển thị thông báo -->
 <script>
-  
-    document.addEventListener('DOMContentLoaded', function () {
-  const updateProfileForm = document.getElementById('updateForm');
-  const changePasswordForm = document.getElementById('changePasswordForm');
+  document.addEventListener('DOMContentLoaded', function () {
+    const updateProfileForm = document.getElementById('updateForm');
+    const changePasswordForm = document.getElementById('changePasswordForm');
 
-  updateProfileForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
-    const formData = new FormData(updateProfileForm);
-    await handleSubmit('/user/setting', formData, handleUpdateProfileError);
-  });
+    const imageUploadInput = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
 
-  changePasswordForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
-    const formData = new FormData(changePasswordForm);
-    await handleSubmit('/user/change-password', formData, handleChangePasswordError);
-  });
+    updateProfileForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(updateProfileForm);
+      await handleSubmit('/user/setting', formData, handleUpdateProfileError);
+    });
 
-  async function handleSubmit(url, formData, handleError) {
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(Object.fromEntries(formData)),
-      });
+    changePasswordForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(changePasswordForm);
+      await handleSubmit('/user/change-password', formData, handleChangePasswordError);
+    });
 
-      const data = await response.json();
+    imageUploadInput.addEventListener('change', async function (event) {
+      const formData = new FormData();
+      formData.append('avatar', event.target.files[0]);
 
-      if (data.success) {
-        alert('Operation successful');
-      } else {
-        handleError(data.message);
+      try {
+        const response = await fetch('/user/upload-avatar', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          // Cập nhật đường dẫn hình ảnh trong thẻ img
+          imagePreview.src = data.avatarPath;
+          
+          alert('Avatar updated successfully');
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('Error updating avatar:', error);
+        alert('An error occurred while updating the avatar.');
       }
-    } catch (error) {
-      handleError('Internal Server Error');
+    });
+
+    async function handleSubmit(url, formData, handleError) {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(Object.fromEntries(formData)),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('Operation successful');
+        } else {
+          handleError(data.message);
+        }
+      } catch (error) {
+        handleError('Internal Server Error');
+      }
     }
-  }
 
-  function handleUpdateProfileError(errorMessage) {
-    const notificationDiv = document.getElementById('notification');
-    notificationDiv.textContent = errorMessage;
-    notificationDiv.style.display = 'block';
-    notificationDiv.style.color = '#EA4B48';
-  }
+    function handleUpdateProfileError(errorMessage) {
+      const notificationDiv = document.getElementById('notification');
+      notificationDiv.textContent = errorMessage;
+      notificationDiv.style.display = 'block';
+      notificationDiv.style.color = '#EA4B48';
+    }
 
-  function handleChangePasswordError(errorMessage) {
-    // Handle errors specific to the change password form
-    // You can implement this function similarly to handleUpdateProfileError
-  }
-});
-
+    function handleChangePasswordError(errorMessage) {
+      // Handle errors specific to the change password form
+      // You can implement this function similarly to handleUpdateProfileError
+    }
+  });
 </script>
+

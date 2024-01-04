@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+
+
 const renderUserDashboardPage = (req, res) => {
     
     if (req.isAuthenticated()) {
@@ -88,10 +90,20 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = changePassword;
 
 
-module.exports = changePassword;
+const uploadAvatar = async (req, res) => {
+  try {
+    const user = req.user; // Người dùng đang đăng nhập
+    user.profileImage = '/uploads/user-img/' + req.file.filename;
+    await user.save();
+
+    res.json({ success: true, avatarPath: user.profileImage });
+  } catch (error) {
+    console.error('Error updating avatar:', error);
+    res.status(500).json({ success: false, message: 'An error occurred while updating the avatar.' });
+  }
+}
 
 
 
@@ -101,6 +113,7 @@ module.exports = {
     renderUserSettingPage,
     renderUserOrderPage,
     updateUserProfile,
-    changePassword
+    changePassword,
+    uploadAvatar
 
   };

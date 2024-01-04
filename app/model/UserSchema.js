@@ -25,9 +25,10 @@ const UserSchema = new mongoose.Schema({
             message: (props) => `${props.value} is not a valid email!`,
         },
     },
-    image: {
+    profileImage: {
         type: String,
-    },
+        default: '/uploads/user-img/default.png', 
+      },
     password: {
         type: String,
         required: [true, "Please provide your password"],

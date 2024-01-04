@@ -176,7 +176,7 @@ const registerUser = async (req, res) => {
     const verificationCode = generateVerificationCode();
 
     // Create a new user with the hashed password
-    const newUser = new User({ email, password: hashedPassword, first_name, last_name,verificationCode });
+    const newUser = new User({profileImage: "/uploads/user-img/default.png", email, password: hashedPassword, first_name, last_name,verificationCode });
 
     // Save the new user to the database
     await newUser.save();
