@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const renderUserDashboardPage = (req, res) => {
     
     if (req.isAuthenticated()) {
-        res.render('UserDashboard/index', { user: req.user,  messages: req.flash('error') });
+        res.render('UserDashboard/index', { user: req.user });
       } else {
         res.redirect('/authen/login');
       }
@@ -11,7 +11,16 @@ const renderUserDashboardPage = (req, res) => {
 const renderUserSettingPage = (req, res) => {
     
   if (req.isAuthenticated()) {
-      res.render('UserDashboard/accountSetting', { user: req.user,messages: req.flash('error') });
+      res.render('UserDashboard/accountSetting', { user: req.user });
+    } else {
+      res.redirect('/authen/login');
+    }
+};
+
+const renderUserOrderPage = (req, res) => {
+    
+  if (req.isAuthenticated()) {
+      res.render('UserDashboard/oderHistory', { user: req.user });
     } else {
       res.redirect('/authen/login');
     }
@@ -90,6 +99,7 @@ module.exports = {
 
     renderUserDashboardPage,
     renderUserSettingPage,
+    renderUserOrderPage,
     updateUserProfile,
     changePassword
 
