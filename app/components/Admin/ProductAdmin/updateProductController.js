@@ -91,4 +91,5 @@ const updateProduct = async (req, res) => {
 module.exports = {
   renderUpdateForm,
   updateProduct,
+  
 };
