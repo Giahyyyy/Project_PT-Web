@@ -26,7 +26,7 @@ const renderUserOrderPage =async  (req, res) => {
   if (req.isAuthenticated()) {
     const userOrders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
 
-      res.render('UserDashboard/oderHistory', { user: req.user ,});
+      res.render('UserDashboard/oderHistory', { user: req.user ,orders : userOrders});
     } else {
       res.redirect('/authen/login');
     }
@@ -44,7 +44,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const uploadimg = upload.single('img');
+const uploadimg = upload.single('image');
 
 const updateUserProfile = async (req, res) => {
   try {
