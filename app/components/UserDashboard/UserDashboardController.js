@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+
+
 const renderUserDashboardPage = (req, res) => {
     
     if (req.isAuthenticated()) {
@@ -79,10 +81,6 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = changePassword;
-
-
-module.exports = changePassword;
 
 
 
@@ -91,6 +89,6 @@ module.exports = {
     renderUserDashboardPage,
     renderUserSettingPage,
     updateUserProfile,
-    changePassword
+    changePassword,
 
   };
