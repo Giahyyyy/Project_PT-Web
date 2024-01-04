@@ -188,30 +188,30 @@
                 <div class="dashboard__content-card-body">
                   <div class="row">
                     <div class="col-lg-7 order-lg-0 order-2">
-                 <form id="updateForm" action="/user/setting" method="post" enctype="multipart/form-data">
-  <div class="contact-form__content">
-    <div class="contact-form-input">
-      <label for="fname1">First Name </label>
-      <input type="text" placeholder="{{user.first_name}}" name="first_name"/>
-    </div>
-    <div class="contact-form-input">
-      <label for="lname2">Last Name </label>
-      <input type="text" placeholder="{{user.last_name}}" name="last_name" />
-    </div>
-    <div class="form-group">
-      <label for="inputImage">Image</label>
-      <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
-    </div>
-    
-    <div class="contact-form-btn">
-      <button class="button button--md" type="submit">
-        Save Changes
-      </button>
-    </div>
-    <div id="notification" style="display: none;"></div>
-  </div>
-</form>
+                      <form id="updateForm" action="/user/setting" method="post">
+                        <div class="contact-form__content">
+                          <div class="contact-form-input">
+                            <label for="fname1">First Name </label>
+                            <input type="text" placeholder="{{user.first_name}}" name="first_name"/>
+                          </div>
+                          <div class="contact-form-input">
+                            <label for="lname2">Last Name </label>
+                            <input type="text" placeholder="{{user.last_name}}" name="last_name" />
+                          </div>
+                          
+                          
+                          <div class="contact-form-btn">
+                            <button class="button button--md" type="submit" >
+                              Save Changes
+                            </button>
+                          </div>
+                          <div id="notification" style="display: none;"></div>
 
+                          
+                          
+                        </div>
+                        
+                      </form>
                     </div>
                     <div class="col-lg-5 order-lg-0 order-1">
                       <div class="dashboard__content-card-img">
@@ -465,7 +465,7 @@
         });
 
         const data = await response.json();
-        
+        console.log(data.avatarPath)
         if (data.success) {
           // Cập nhật đường dẫn hình ảnh trong thẻ img
           imagePreview.src = data.avatarPath;
