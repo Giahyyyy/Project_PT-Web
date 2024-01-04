@@ -340,30 +340,30 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.add-to-cart-btn').on('click', function () {
-            var productId = $(this).data('product-id');
-            var quantity = $(this).data('quantity');
+    <script>
+        $(document).ready(function () {
+            $('.add-to-cart-btn').on('click', function () {
+                var productId = $(this).data('product-id');
+                var quantity = $(this).data('quantity');
 
-            $.ajax({
-                type: 'POST',
-                url: 'cart/add-to-cart',  // Đổi đường dẫn này thành đường dẫn thích hợp của bạn
-                data: {
-                    productId: productId,
-                    quantity: quantity
-                },
-                success: function (response) {
-                    console.log(response);
-                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                $.ajax({
+                    type: 'POST',
+                    url: 'cart/add-to-cart',  // Đổi đường dẫn này thành đường dẫn thích hợp của bạn
+                    data: {
+                        productId: productId,
+                        quantity: quantity
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        // Xử lý phản hồi từ máy chủ (nếu cần)
 
-                },
-                error: function (error) {
-                    console.error('Error adding to cart:', error);
-                    // Xử lý lỗi (nếu có)
-                    alert('An error occurred. Please try again later.');
-                }
+                    },
+                    error: function (error) {
+                        console.error('Error adding to cart:', error);
+                        // Xử lý lỗi (nếu có)
+                        alert('An error occurred. Please try again later.');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>

@@ -57,7 +57,7 @@ const createOrder = async (req, res) => {
 
     req.session.cart = { items: [], total: 0 };
 
-    res.json({ message: 'Order created successfully' });
+    res.redirect('/user/order');
   } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).send('Internal Server Error');

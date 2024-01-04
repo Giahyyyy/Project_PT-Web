@@ -28,7 +28,6 @@ const upload = multer({ storage: storage });
 
 router.get('/info', UserDashboardController.renderUserDashboardPage);
 router.get('/setting', UserDashboardController.renderUserSettingPage);
-router.get('/order', UserDashboardController.renderUserOrderPage);
 
 
 router.post('/setting',UserDashboardController.updateUserProfile)
