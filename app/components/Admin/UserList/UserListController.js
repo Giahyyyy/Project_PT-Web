@@ -21,7 +21,14 @@ const renderUsers = async (req, res) => {
     const users = await User.find(query).sort(sortType);
 
     // Render trang với danh sách người dùng
-    res.render('users/index', { users });
+    
+    if (req.isAuthenticated()) {
+      res.render('users/index', {user: req.user,users});
+    }
+    else {
+      // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
+      res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
+  }
   } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).send('Internal Server Error');

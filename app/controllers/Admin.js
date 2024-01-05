@@ -2,7 +2,7 @@ const checkoutRotes = require('../components/Admin/Checkout/checkoutRotes');
 
 const dashboardRoutes = require('../components/Admin/Dashboard/dashboardRotes');
 
-const emailRoutes = require('../components/Admin/UserAdmin/UserAdminRoutes');
+const userAdminRoutes = require('../components/Admin/UserAdmin/UserAdminRoutes');
 
 const uploadProductRoute = require('../components/Admin/ProductAdmin/uploadProductRoute');
 
@@ -15,7 +15,7 @@ const CategoriesRoutes = require('../components/Admin/CategoryAdmin/CategoriesRo
 module.exports = {
   checkoutRotes,
   dashboardRoutes,
-  emailRoutes,
+  userAdminRoutes,
   uploadProductRoute,
   UserListRoutes,
   CategoriesRoutes,

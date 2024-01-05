@@ -41,15 +41,22 @@ const renderCategory = async (req, res) => {
   try {
     // Fetch categories from the server
     const categories = await Category.find();
+    
 
     // Render the page with the retrieved categories
-    res.render('categories/index', { categories });
+    if (req.isAuthenticated()) {
+      res.render('categories/index', {user: req.user,categories});
+    }
+    else {
+      // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
+      res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
+  }
+    
   } catch (error) {
     console.error('Error fetching categories:', error);
     res.status(500).send('Internal Server Error');
   }
 };
-
 
 module.exports = {
   renderCategory,

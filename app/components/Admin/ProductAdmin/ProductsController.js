@@ -150,8 +150,14 @@ const renderForm = async (req, res) => {
     const shopData = await getShopData(req);
 
     console.log(shopData);
+    if (req.isAuthenticated()) {
+      res.render('product/index', {user: req.user,shopData});
+  } else {
+      // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
+      res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
+  }
     // Render trang với danh sách sản phẩm và danh mục
-    res.render('product/index', shopData);
+    //res.render('product/index', shopData);
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');

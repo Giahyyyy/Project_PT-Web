@@ -1,8 +1,13 @@
 const Order = require('../../../model/OrderSchema');
 const renderCheckout = async (req, res) => {
     const orders = await Order.find();
-
-res.render('chart/index' , { orders });
+    if (req.isAuthenticated()) {
+      res.render('chart/index', {user: req.user,orders});
+    }
+    else {
+      // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
+      res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
+  }
 };
 
 
