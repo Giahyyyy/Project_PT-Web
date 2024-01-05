@@ -38,7 +38,13 @@ const postLogin = (req, res, next) => {
 
       console.log("Đăng nhập thành công");
       
-      return res.redirect('/shop');
+      console.log("User là: ",user.role)
+      if (user.role === 'admin') {
+        return res.redirect('/admin/dashboard');
+      } else {
+        return res.redirect('/shop');
+      }
+      
     });
   })(req, res, next);
 };
