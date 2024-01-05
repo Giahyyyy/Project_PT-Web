@@ -62,6 +62,7 @@ const createProduct = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Lỗi máy chủ nội bộ' });
   }
+
 };
 
 const deleteProduct = async (req, res) => {
@@ -154,8 +155,6 @@ const renderForm = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
-
-
 
 
 module.exports = {
