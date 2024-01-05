@@ -27,10 +27,27 @@
 
             console.log('Sản phẩm liên quan:', relatedProducts);
 
-            res.render('details/index', { product, reviews, relatedProducts });
+            if (req.isAuthenticated()) {
+                // Nếu đã xác thực, render template UserDashboard
+                res.render('details/index', { user: req.user, product, reviews, relatedProducts });
+            } else {
+                // Nếu chưa xác thực, render template thông thường
+                res.render('details/index', { product, reviews, relatedProducts });
+            }
+
+            
         } catch (error) {
             console.error('Đã xảy ra lỗi:', error);
             res.status(500).send('Đã xảy ra lỗi.');
+        }
+    };
+
+    const requireAuth = (req, res, next) => {
+        if (req.isAuthenticated()) {
+            res.render('details/index', {product, reviews, relatedProducts , user: req.user });
+        } else {
+            res.redirect('/authen/login');
+            req.session.returnTo = req.originalUrl;
         }
     };
 
@@ -61,4 +78,5 @@
     module.exports = {
         getProductById,
         postReview,
+        requireAuth
     };

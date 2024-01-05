@@ -10,12 +10,14 @@ mongoosePaginate.paginate.options = {
   limit: 12, // Số sản phẩm trên mỗi trang
 };
 
-
+const uploadDir = path.join(__dirname, '../../../public/uploads');
+console.log ("Đường dẫn là: ",uploadDir)
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //D:/Project_PT-Web/app/public/uploads
-    const uploadPath = path.resolve('D:/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
+    //const uploadPath = path.resolve('D:/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
+    const uploadPath = uploadDir;
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
