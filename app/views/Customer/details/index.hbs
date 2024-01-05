@@ -498,16 +498,19 @@
                                 </div>
                                 {{/each}}
 
-
-                        <form id="reviewForm" action="/detail/product/{{this.product.id}}/review" method="post">
-    <div class="form-group">
-        <label for="reviewInput">Your Review</label>
-        <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
-    </div>
-    <button type="submit" class="button button--md feedback__loadbtn">
-        Post Review
-    </button>
-</form>
+                                    <!-- Thêm container để hiển thị đánh giá -->
+                                <div id="reviews-container">
+                                    
+                                </div>
+                                <form id="reviewForm" action="/detail/product/{{this.product.id}}/review" method="post">
+                                    <div class="form-group">
+                                        <label for="reviewInput">Your Review</label>
+                                        <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="button button--md feedback__loadbtn">
+                                        Post Review
+                                    </button>
+                                </form>
 
                             </div>
                         </div>
@@ -710,3 +713,41 @@
         </div>
     </div>
 </section>
+<script>
+    // Hàm để gửi yêu cầu Ajax khi đăng đánh giá
+    // Hàm để gửi yêu cầu Ajax khi đăng đánh giá
+function postReview() {
+    // Lấy nội dung đánh giá từ textarea
+    var comment = document.getElementById('comment').value;
+
+    // Tạo một đối tượng XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // Cấu hình yêu cầu POST đến endpoint '/detail/product/:id/review'
+    xhr.open('POST', '/detail/product/{{this.product.id}}/review', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // Xử lý sự kiện khi yêu cầu được hoàn thành
+    xhr.onload = function () {
+        if (xhr.status === 201) {
+            // Yêu cầu thành công, cập nhật giao diện người dùng
+            var responseData = JSON.parse(xhr.responseText);
+            updateUI(responseData);
+        } else {
+            // Xử lý lỗi nếu có
+            console.error('Error posting review:', xhr.statusText);
+        }
+    };
+
+    // Gửi yêu cầu với dữ liệu đánh giá
+    xhr.send(JSON.stringify({ comment: comment }));
+}
+
+// Hàm để cập nhật giao diện người dùng với dữ liệu mới
+function updateUI(responseData) {
+    // Cập nhật giao diện người dùng với danh sách đánh giá mới
+    var reviewsContainer = document.getElementById('reviews-container');
+    reviewsContainer.innerHTML = responseData.reviews;
+}
+
+</script>
