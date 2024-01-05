@@ -429,7 +429,7 @@
                                     <div class="products-tab__feedback-content-top">
                                         <div class="user-details">
                                             <div class="user-details__img">
-                                                <img src="src/images/user/img-02.png" alt="user-img" />
+                                                <img src="{{this.user.profileImage}}" alt="user-img" />
                                             </div>
                                             <div class="user-details__info">
                                                 <h2 class="user-name">{{this.user.first_name}} {{this.user.last_name}}
@@ -489,7 +489,7 @@
                                             </div>
                                         </div>
                                         <div class="user-published__info">
-                                            <p>2 min ago</p>
+                                            <p>{{created_at}}</p>
                                         </div>
                                     </div>
                                     <p class="products-tab__feedback-comments">
@@ -499,11 +499,6 @@
                                 {{/each}}
 
 
-                                <form action="#">
-                                    <button class="button button--md button--disable feedback__loadbtn">
-                                        Load more
-                                    </button>
-                                </form>
                         <form id="reviewForm" action="/detail/product/{{this.product.id}}/review" method="post">
     <div class="form-group">
         <label for="reviewInput">Your Review</label>
@@ -715,4 +710,3 @@
         </div>
     </div>
 </section>
-
