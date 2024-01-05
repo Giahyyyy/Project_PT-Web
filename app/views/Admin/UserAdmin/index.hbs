@@ -1,0 +1,42 @@
+<main class="main-content bgc-grey-100">
+  <div id="mainContent">
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-6"></div>
+
+      <div class="masonry-item col-md-6">
+        <div class="bgc-white p-20 bd">
+          <h6 class="c-grey-900">Update Admin Profile</h6>
+          <div class="mT-30">
+            <form action="/admin/profile/update" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="inputFirstName">First Name</label>
+                <input type="text" class="form-control" id="inputFirstName" name="first_name"
+                  placeholder="First Name" value="{{user.first_name}}" required>
+              </div>
+              <div class="form-group">
+                <label for="inputLastName">Last Name</label>
+                <input type="text" class="form-control" id="inputLastName" name="last_name"
+                  placeholder="Last Name" value="{{user.last_name}}" required>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" id="inputEmail" name="email"
+                  placeholder="Email" value="{{user.email}}" required>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">New Password</label>
+                <input type="password" class="form-control" id="inputPassword" name="password"
+                  placeholder="New Password" minlength="6">
+              </div>
+              <div class="form-group">
+                <label for="inputProfileImage">Profile Image</label>
+                <input type="file" class="form-control-file" id="inputProfileImage" name="profileImage" accept="image/*">
+              </div>
+              <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

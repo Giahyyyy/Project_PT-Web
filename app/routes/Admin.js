@@ -7,7 +7,7 @@ function route (app) {
     app.use('/admin/UserList',adminController.UserListRoutes);
 
 
-    app.use('/admin/email',adminController.emailRoutes);
+    app.use('/admin/UserAdmin',adminController.emailRoutes);
 
     app.use('/admin/dashboard',adminController.dashboardRoutes);
 

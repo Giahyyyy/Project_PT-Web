@@ -1,9 +1,9 @@
 // routes/Admin.js
 const express = require('express');
 const router = express.Router();
-const emailController = require('./emailController');
+const Controller = require('./UserAdminController');
 
-router.get('/', emailController.renderEmail);
+router.get('/', Controller.render);
 
 
 
