@@ -21,11 +21,12 @@ const renderUpdateForm = async (req, res) => {
   }
 };
 
-
+const uploadDir = path.join(__dirname, '../../../public/uploads');
+console.log ("Đường dẫn là: ",uploadDir)
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.resolve('C:/Users/kient/Downloads/Project_PT-Web-b8ef8380294627744409c37bc5765550bef7a70c/Project_PT-Web-b8ef8380294627744409c37bc5765550bef7a70c/app/public/uploads'); // Folder to store uploaded files
+    const uploadPath = uploadDir;
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {

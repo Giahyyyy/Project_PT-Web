@@ -151,7 +151,7 @@ const renderForm = async (req, res) => {
 
     console.log(shopData);
     if (req.isAuthenticated()) {
-      res.render('product/index', {user: req.user,shopData});
+      res.render('product/index', {user: req.user,shopData:getShopData(req)});
   } else {
       // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
       res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
