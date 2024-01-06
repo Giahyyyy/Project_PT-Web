@@ -77,7 +77,7 @@ const updateProduct = async (req, res) => {
       // Save the updated product to the database
       await existingProduct.save();
 
-      return res.status(200).json({ message: 'Product updated successfully' });
+      return res.redirect('/admin/Product');
     });
   } catch (error) {
     console.error(error);
