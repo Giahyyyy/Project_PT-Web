@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const Order = require('../../model/OrderSchema');
+
 const renderUserDashboardPage = (req, res) => {
     
     if (req.isAuthenticated()) {
