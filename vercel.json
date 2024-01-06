@@ -7,8 +7,6 @@
    ],
    "routes": [
        { "src": "/(.*)", "dest": "app/src/app.js" }
-   ],
-   "dependencies": {
-      "bcrypt": "5.1.1"  
-  }
+   ]
+   
 }
