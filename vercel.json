@@ -1,10 +1,13 @@
 {
-    "version": 2,
-    "name": "test",
-    "builds": [
+   "version": 2,
+   "name": "test",
+   "engines": {
+       "node": "18.x"
+   },
+   "builds": [
        { "src": "app/src/app.js", "use": "@vercel/node" }
-    ],
-    "routes": [
+   ],
+   "routes": [
        { "src": "/(.*)", "dest": "app/src/app.js" }
-    ]
- }
+   ]
+}
