@@ -1,13 +1,14 @@
 {
    "version": 2,
    "name": "test",
-   "engines": {
-       "node": "18.x"
-   },
+   
    "builds": [
        { "src": "app/src/app.js", "use": "@vercel/node" }
    ],
    "routes": [
        { "src": "/(.*)", "dest": "app/src/app.js" }
-   ]
+   ],
+   "dependencies": {
+      "bcrypt": "5.1.1"  
+  }
 }
