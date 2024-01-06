@@ -22,7 +22,7 @@ const renderUpdateForm = async (req, res) => {
 };
 
 const uploadDir = path.join(__dirname, '../../../public/uploads');
-console.log ("Đường dẫn là: ",uploadDir)
+//console.log ("Đường dẫn là: ",uploadDir)
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
