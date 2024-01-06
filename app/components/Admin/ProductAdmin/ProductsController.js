@@ -148,10 +148,11 @@ const renderForm = async (req, res) => {
   try {
     // Truy xuất danh sách sản phẩm và danh mục từ cơ sở dữ liệu
     const shopData = await getShopData(req);
+    const categories = await Category.find();
 
     console.log(shopData);
     if (req.isAuthenticated()) {
-      res.render('product/index', {user: req.user,shopData});
+      res.render('product/index', {user: req.user,shopData,categories});
   } else {
       // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
       res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
