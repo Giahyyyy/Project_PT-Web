@@ -10,14 +10,12 @@ mongoosePaginate.paginate.options = {
   limit: 12, // Số sản phẩm trên mỗi trang
 };
 
-const uploadDir = path.join(__dirname, '../../../public/uploads');
-console.log ("Đường dẫn là: ",uploadDir)
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //D:/Project_PT-Web/app/public/uploads
-    //const uploadPath = path.resolve('D:/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
-    const uploadPath = uploadDir;
+    const uploadPath = path.resolve('D:/Project_PT-Web/app/public/uploads'); // Folder to store uploaded files
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
@@ -64,7 +62,6 @@ const createProduct = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Lỗi máy chủ nội bộ' });
   }
-
 };
 
 const deleteProduct = async (req, res) => {
@@ -147,23 +144,18 @@ const getShopData = async (req) => {
 const renderForm = async (req, res) => {
   try {
     // Truy xuất danh sách sản phẩm và danh mục từ cơ sở dữ liệu
-    const shopData = await getShopData(req);
-    const categories = await Category.find();
+    const shopData =  await getShopData(req);
 
     console.log(shopData);
-    if (req.isAuthenticated()) {
-      res.render('product/index', {user: req.user,shopData,categories});
-  } else {
-      // Người dùng chưa xác thực, có thể chuyển hướng hoặc xử lý theo logic khác
-      res.redirect('/authen/login'); // Chẳng hạn, chuyển hướng đến trang đăng nhập
-  }
-    // Render trang với danh sách sản phẩm và danh mục
-    //res.render('product/index', shopData);
+    res.render('product/index', shopData);
+
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
   }
 };
+
+
 
 
 module.exports = {
