@@ -1,42 +1,109 @@
 <main class="main-content bgc-grey-100">
   <div id="mainContent">
     <div class="row gap-20 masonry pos-r">
-      <div class="masonry-sizer col-md-6"></div>
+      <div class="masonry-sizer col-md-6">
+        
+      </div>
 
       <div class="masonry-item col-md-6">
         <div class="bgc-white p-20 bd">
-          <h6 class="c-grey-900">Update Admin Profile</h6>
+          <h6 class="ac-grey-900">Update Admin Profile</h6>
           <div class="mT-30">
-            <form action="/admin/profile/update" method="post" enctype="multipart/form-data">
+            <!-- Form đổi thông tin -->
+            <form id="updateForm" action="/admin/UserAdmin/update" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="inputEmail">Email: {{user.email}}</label>
+              </div>
               <div class="form-group">
                 <label for="inputFirstName">First Name</label>
-                <input type="text" class="form-control" id="inputFirstName" name="first_name"
-                  placeholder="First Name" value="{{user.first_name}}" required>
+                <input type="text" class="form-control" id="inputFirstName" name="first_name" placeholder="{{user.first_name}}" required>
               </div>
               <div class="form-group">
                 <label for="inputLastName">Last Name</label>
-                <input type="text" class="form-control" id="inputLastName" name="last_name"
-                  placeholder="Last Name" value="{{user.last_name}}" required>
-              </div>
-              <div class="form-group">
-                <label for="inputEmail">Email</label>
-                <input type="email" class="form-control" id="inputEmail" name="email"
-                  placeholder="Email" value="{{user.email}}" required>
-              </div>
-              <div class="form-group">
-                <label for="inputPassword">New Password</label>
-                <input type="password" class="form-control" id="inputPassword" name="password"
-                  placeholder="New Password" minlength="6">
-              </div>
-              <div class="form-group">
-                <label for="inputProfileImage">Profile Image</label>
-                <input type="file" class="form-control-file" id="inputProfileImage" name="profileImage" accept="image/*">
+                <input type="text" class="form-control" id="inputLastName" name="last_name" placeholder="{{user.last_name}}" required>
               </div>
               <button type="submit" class="btn btn-primary">Update Profile</button>
             </form>
+
+            
+
+          </div>
+        </div>
+
+        <div class="bgc-white p-20 bd">
+          <h6 class="ac-grey-900">Change Password</h6>
+          <div class="mT-30">
+            <!-- Form đổi thông tin -->
+            
+
+            <!-- Form đổi mật khẩu -->
+            <form id="changePasswordForm" action="/admin/UserAdmin/change-password" method="post">
+              <div class="form-group">
+                <label for="inputOldPassword">Old Password</label>
+                <input type="password" class="form-control" id="inputOldPassword" name="oldPassword" placeholder="Old Password" required>
+              </div>
+              <div class="form-group">
+                <label for="inputNewPassword">New Password</label>
+                <input type="password" class="form-control" id="inputNewPassword" name="newPassword" placeholder="New Password" required>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const updateProfileForm = document.getElementById('updateForm');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+
+    updateProfileForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(updateProfileForm);
+      await handleSubmit('/admin/UserAdmin/update', formData, handleUpdateProfileError);
+    });
+
+    changePasswordForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const formData = new FormData(changePasswordForm);
+      await handleSubmit('/admin/UserAdmin/change-password', formData, handleChangePasswordError);
+    });
+
+    async function handleSubmit(url, formData, handleError) {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(Object.fromEntries(formData)),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('Operation successful');
+        } else {
+          alert('Error: ' + data.message);
+        }
+      } catch (error) {
+        alert('Internal Server Error');
+      }
+    }
+
+    function handleUpdateProfileError(errorMessage) {
+      alert('Error: ' + errorMessage);
+    }
+
+    function handleChangePasswordError(errorMessage) {
+      alert('Error: ' + errorMessage);
+    }
+  });
+</script>
+
+
