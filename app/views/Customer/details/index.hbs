@@ -231,18 +231,17 @@
                             </button>
                         </div>
                         <!-- add to cart  -->
-                        <button class="button button--md products__content-action-item" >
-                            Add to Cart
-                            <span>
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M5.66667 7.33333H3.16667L1.5 16.5H16.5L14.8333 7.33333H12.3333M5.66667 7.33333V4.83333C5.66667 2.99239 7.15905 1.5 9 1.5V1.5C10.8409 1.5 12.3333 2.99238 12.3333 4.83333V7.33333M5.66667 7.33333H12.3333M5.66667 7.33333V9.83333M12.3333 7.33333V9.83333"
-                                        stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </button>
+                        <div class="cards-md__info-right">
+                                    <span class="action-btn add-to-cart-btn" data-product-id="{{product.id}}" data-quantity="1">
+                                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6.66667 8.83333H4.16667L2.5 18H17.5L15.8333 8.83333H13.3333M6.66667 8.83333V6.33333C6.66667 4.49239 8.15905 3 10 3V3C11.8409 3 13.3333 4.49238 13.3333 6.33333V8.83333M6.66667 8.83333H13.3333M6.66667 8.83333V11.3333M13.3333 8.83333V11.3333"
+                                                stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </svg>
+                                    </span>
+                                </div>
 
                         <!-- fav  -->
                         <button class="button-fav products__content-action-item">
@@ -714,40 +713,34 @@
     </div>
 </section>
 <script>
-    // Hàm để gửi yêu cầu Ajax khi đăng đánh giá
-    // Hàm để gửi yêu cầu Ajax khi đăng đánh giá
-function postReview() {
-    // Lấy nội dung đánh giá từ textarea
-    var comment = document.getElementById('comment').value;
+    $(document).ready(function () {
+        // Ngăn chặn sự kiện mặc định của form và thực hiện AJAX
+        $("#reviewForm").submit(function (e) {
+            e.preventDefault();
 
-    // Tạo một đối tượng XMLHttpRequest
-    var xhr = new XMLHttpRequest();
+            // Lấy dữ liệu từ form
+            var formData = {
+                comment: $("#comment").val()
+                // Các trường dữ liệu khác nếu cần
+            };
 
-    // Cấu hình yêu cầu POST đến endpoint '/detail/product/:id/review'
-    xhr.open('POST', '/detail/product/{{this.product.id}}/review', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+            // Gửi yêu cầu AJAX
+            $.ajax({
+                type: "POST",
+                url: $("#reviewForm").attr("action"),
+                data: formData,
+                success: function (data) {
+                    // Xử lý kết quả thành công (nếu cần)
+                    console.log("Review posted successfully!");
 
-    // Xử lý sự kiện khi yêu cầu được hoàn thành
-    xhr.onload = function () {
-        if (xhr.status === 201) {
-            // Yêu cầu thành công, cập nhật giao diện người dùng
-            var responseData = JSON.parse(xhr.responseText);
-            updateUI(responseData);
-        } else {
-            // Xử lý lỗi nếu có
-            console.error('Error posting review:', xhr.statusText);
-        }
-    };
-
-    // Gửi yêu cầu với dữ liệu đánh giá
-    xhr.send(JSON.stringify({ comment: comment }));
-}
-
-// Hàm để cập nhật giao diện người dùng với dữ liệu mới
-function updateUI(responseData) {
-    // Cập nhật giao diện người dùng với danh sách đánh giá mới
-    var reviewsContainer = document.getElementById('reviews-container');
-    reviewsContainer.innerHTML = responseData.reviews;
-}
-
+                    // Làm mới trang
+                    location.reload();
+                },
+                error: function (error) {
+                    // Xử lý lỗi (nếu cần)
+                    console.error("Error posting review:", error);
+                }
+            });
+        });
+    });
 </script>

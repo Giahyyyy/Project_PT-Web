@@ -65,8 +65,7 @@ const postReview = async (req, res) => {
 
         const updatedReviews = await Review.find();
 
-        res.status(201).json({ message: 'Đã đăng đánh giá thành công.', reviews: updatedReviews });
-
+        res.status(201).send(' đánh giá.');
     } catch (error) {
         console.error('Đã xảy ra lỗi khi đăng đánh giá:', error);
         res.status(500).send('Đã xảy ra lỗi khi đăng đánh giá.');
