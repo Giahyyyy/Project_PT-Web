@@ -6,7 +6,10 @@ const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const passport = require('../components/Authentication/Passport');
+
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session)
+
 const flash = require('connect-flash');
 const methodOverride = require("method-override")
 
@@ -23,7 +26,7 @@ mongoose.connect('mongodb://localhost:27017/food-shop', {
   useUnifiedTopology: true
 });
 
-const store = new session.MemoryStore();
+//const store = new session.MemoryStore();
 
 
 
@@ -37,7 +40,9 @@ app.use(
     cookie: {
       maxAge: 10000 * 1000000
     },
-    store
+    store: new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    }),
   })
 );
 
