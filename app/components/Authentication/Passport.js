@@ -28,7 +28,7 @@ passport.use(new LocalStrategy(
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "https://project-pt-pz5zy1smp-giahyyyys-projects.vercel.app/authen/facebook/callback",
+  callbackURL: "http://localhost:3000/authen/facebook/callback",
   profileFields: ['id', 'displayName', 'name', 'email']
 },
 async function(accessToken, refreshToken, profile, done) {
