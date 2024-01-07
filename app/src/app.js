@@ -21,7 +21,7 @@ const User = require('../model/UserSchema'); // Điều chỉnh đường dẫn 
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/food-shop', {
+mongoose.connect('mongodb+srv://hy3132002:123@data.xchby3p.mongodb.net/food-shop', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
